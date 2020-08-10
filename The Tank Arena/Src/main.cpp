@@ -1,8 +1,18 @@
 #include <iostream>
 
+#include <CSVReader.hpp>
+#include <lic.hpp>
+#include <LioGraphics.hpp>
+
 int main(int argc, char** argv)
 {
-	std::cout << "Hello World" << std::endl;
+	// main menu
+
+	// gameplay
+
+		// pause
+
+		// end-game screen
 
 	return 0;
 }
