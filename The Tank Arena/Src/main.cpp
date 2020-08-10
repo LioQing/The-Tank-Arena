@@ -1,18 +1,14 @@
-#include <iostream>
+#include "Program.hpp"
 
-#include <CSVReader.hpp>
-#include <lic.hpp>
-#include <LioGraphics.hpp>
+Program program;
 
 int main(int argc, char** argv)
 {
-	// main menu
+	program.Init();
 
-	// gameplay
+	program.MainMenu();
 
-		// pause
-
-		// end-game screen
+	program.Gameplay();
 
 	return 0;
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <lic.hpp>
+#include <SFML/Graphics.hpp>
 
 #include "Managers/AIManager.hpp"
 #include "Managers/ArenaManager.hpp"
@@ -8,6 +9,8 @@
 class Game
 {
 private:
+
+	sf::RenderWindow* m_window;
 
 	lic::Manager m_ic_man;
 	AIManager m_ai_man;
@@ -19,7 +22,11 @@ private:
 
 public:
 
-	void Init();
-	void Update();
+	Game() = default;
+	Game(sf::RenderWindow& window);
+
+	void Init(sf::RenderWindow* window);
+	void Update(float dt);
+	void Draw();
 	void CleanUp();
 };
