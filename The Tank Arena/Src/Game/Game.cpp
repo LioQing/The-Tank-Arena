@@ -2,37 +2,41 @@
 
 #include <iostream>
 
-void Game::Init(sf::RenderWindow* window, Scale* scale)
+#include "SpawnEntity.hpp"
+#include "Systems.hpp"
+
+void Game::Init(ProgramInfo program_info)
 {
 	// store program var
-	m_window = window;
-	m_scale = scale;
+	m_program_info = program_info;
 
-	m_tex_man.LoadTexture("hull", R"(Assets\Player\base_hull.png)");
-	m_tex_man.LoadTexture("turret", R"(Assets\Player\base_turret.png)");
+	// load textures
+	m_program_info.texture_manager->LoadTexture("hull", R"(Assets\Player\base_hull.png)");
+	m_program_info.texture_manager->LoadTexture("turret", R"(Assets\Player\base_turret.png)");
+
+	// add system
+	m_sys_man.Init(m_program_info, m_ic_man);
+	m_sys_man.Add<SpriteSystem>();
+
+	// spawn
+	spawn::Init(m_program_info, m_ic_man);
+	spawn::Player();
 }
 
 void Game::Update(float dt)
 {
 	// sf event
 	sf::Event event;
-	while (m_window->pollEvent(event))
+	while (m_program_info.window->pollEvent(event))
 	{
 		if (event.type == sf::Event::Closed)
-			m_window->close();
+			m_program_info.window->close();
 	}
 }
 
 void Game::Draw()
 {
-	sf::Sprite spr;
-
-	spr.setScale(m_scale->sfVec2f());
-
-	spr.setTexture(*m_tex_man.GetTexture("hull"));
-	m_window->draw(spr);
-	spr.setTexture(*m_tex_man.GetTexture("turret"));
-	m_window->draw(spr);
+	m_sys_man.Get<SpriteSystem>().Update();
 }
 
 void Game::CleanUp()

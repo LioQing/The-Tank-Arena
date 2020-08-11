@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <LioGraphics.hpp>
 
 class Scale
 {
@@ -13,5 +14,6 @@ public:
 	Scale() = default;
 	Scale(float scale);
 
+	lio::Vec2f Vec2f() const;
 	sf::Vector2f sfVec2f() const;
 };

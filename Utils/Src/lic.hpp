@@ -20,7 +20,7 @@ namespace lic
 	// forward declaration
 	class Entity;
 	class Component;
-	
+
 	// concepts
 	template <typename T>
 	concept IsComponent = std::is_base_of<Component, T>::value;
@@ -361,7 +361,7 @@ namespace lic
 		friend class View<T, Ts...>;
 		friend class View<Ts...>;
 		friend class Manager;
-		
+
 		//backing vector
 		std::vector<T*> m_vec;
 
@@ -411,10 +411,10 @@ namespace lic
 			return *this;
 		}
 
-		auto operator*() const
+		T operator*() const
 		{
 			if constexpr (std::is_same<T, std::tuple<Ts...>>::value == true)
-				return std::tie(manager.GetComponent<Ts>(m_vec.at(m_index))...);
+				return { manager.GetComponent<Ts>(m_vec.at(m_index))... };
 			if constexpr (std::is_same<T, Entity>::value == true)
 				return Entity(&manager, m_vec.at(m_index));
 		}

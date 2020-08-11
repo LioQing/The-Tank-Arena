@@ -155,13 +155,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Game\Components\TankSpriteComponent.cpp" />
     <ClCompile Include="Src\Game\Game.cpp" />
+    <ClCompile Include="Src\Game\Managers\SystemManager.cpp" />
+    <ClCompile Include="Src\Game\SpawnEntity.cpp" />
+    <ClCompile Include="Src\Game\Systems\SpriteSystem.cpp" />
     <ClCompile Include="Src\GeneralManagers\TextureManager.cpp" />
     <ClCompile Include="Src\main.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="Src\Program.cpp" />
+    <ClCompile Include="Src\ProgramUtils\ProgramInfo.cpp" />
     <ClCompile Include="Src\ProgramUtils\Scale.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -170,12 +175,21 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Game\Components.hpp" />
+    <ClInclude Include="Src\Game\Components\TankSpriteComponent.hpp" />
     <ClInclude Include="Src\Game\Game.hpp" />
     <ClInclude Include="Src\Game\Managers\AIManager.hpp" />
     <ClInclude Include="Src\Game\Managers\ArenaManager.hpp" />
+    <ClInclude Include="Src\Game\Managers.hpp" />
+    <ClInclude Include="Src\Game\Managers\SystemManager.hpp" />
+    <ClInclude Include="Src\Game\SpawnEntity.hpp" />
+    <ClInclude Include="Src\Game\Systems.hpp" />
+    <ClInclude Include="Src\Game\Systems\SpriteSystem.hpp" />
+    <ClInclude Include="Src\Game\Systems\System.hpp" />
     <ClInclude Include="Src\GeneralManagers\TextureManager.hpp" />
     <ClInclude Include="Src\Program.hpp" />
-    <ClInclude Include="Src\ProgramUtils\ProgramUtils.hpp" />
+    <ClInclude Include="Src\ProgramUtils.hpp" />
+    <ClInclude Include="Src\ProgramUtils\ProgramInfo.hpp" />
     <ClInclude Include="Src\ProgramUtils\Scale.hpp" />
     <ClInclude Include="Src\UI\UIManager.hpp" />
   </ItemGroup>

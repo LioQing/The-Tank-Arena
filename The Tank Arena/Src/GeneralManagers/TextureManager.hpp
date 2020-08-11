@@ -7,10 +7,10 @@ class TextureManager
 {
 private:
 
-	std::map<std::string, sf::Texture*> m_textures;
+	std::map<std::string, sf::Texture> m_textures;
 
 public:
 
-	sf::Texture* LoadTexture(std::string id, const std::string& path);
+	sf::Texture* LoadTexture(const std::string& id, const std::string& path);
 	sf::Texture* GetTexture(const std::string& id);
 };

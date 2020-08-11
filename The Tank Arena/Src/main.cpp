@@ -1,9 +1,9 @@
 #include "Program.hpp"
 
-Program program;
-
 int main(int argc, char** argv)
 {
+	Program program;
+
 	program.Init();
 
 	program.MainMenu();

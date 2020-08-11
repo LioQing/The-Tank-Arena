@@ -2,18 +2,18 @@
 
 #include <iostream>
 
-sf::Texture* TextureManager::LoadTexture(std::string id, const std::string& path)
+sf::Texture* TextureManager::LoadTexture(const std::string& id, const std::string& path)
 {
-	sf::Texture* texture = new sf::Texture();
+	sf::Texture texture;
 
-	if (!texture->loadFromFile(path))
+	if (!texture.loadFromFile(path))
 	{
 		std::cerr << "Error: could not load texture - id: " << id << ", path: " << path << std::endl;
 		return nullptr;
 	}
 
 	m_textures[id] = texture;
-	return m_textures[id];
+	return &m_textures[id];
 }
 
 sf::Texture* TextureManager::GetTexture(const std::string& id)
@@ -23,5 +23,5 @@ sf::Texture* TextureManager::GetTexture(const std::string& id)
 		std::cerr << "Error: could not get texture - id: " << id << std::endl;
 		return nullptr;
 	}
-	return m_textures.at(id);
+	return &m_textures.at(id);
 }
