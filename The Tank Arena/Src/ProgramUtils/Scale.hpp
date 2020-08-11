@@ -16,4 +16,6 @@ public:
 
 	lio::Vec2f Vec2f() const;
 	sf::Vector2f sfVec2f() const;
+
+	Scale operator*(float factor);
 };

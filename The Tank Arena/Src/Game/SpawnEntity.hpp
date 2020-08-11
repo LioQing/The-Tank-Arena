@@ -15,9 +15,14 @@ namespace spawn
 		lic::Manager* man;
 
 		template <IsComponent T, typename ...Ts>
-		T& AddComponent(lic::EntityID entity, Ts&&... TArgs)
+		T& AddComponent_Info(lic::EntityID entity, Ts&&... TArgs)
 		{
 			return man->AddComponent<T>(entity, *program_info, TArgs...);
+		}
+		template <IsComponent T, typename ...Ts>
+		T& AddComponent(lic::EntityID entity, Ts&&... TArgs)
+		{
+			return man->AddComponent<T>(entity, TArgs...);
 		}
 	}
 

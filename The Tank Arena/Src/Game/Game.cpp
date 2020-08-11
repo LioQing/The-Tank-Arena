@@ -32,11 +32,14 @@ void Game::Update(float dt)
 		if (event.type == sf::Event::Closed)
 			m_program_info.window->close();
 	}
+
+	// systems update
+	m_sys_man.Get<SpriteSystem>().Update();
 }
 
 void Game::Draw()
 {
-	m_sys_man.Get<SpriteSystem>().Update();
+	m_sys_man.Get<SpriteSystem>().Draw();
 }
 
 void Game::CleanUp()

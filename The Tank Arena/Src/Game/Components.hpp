@@ -1,3 +1,4 @@
 #pragma once
 
-#include "Components/TankSpriteComponent.hpp"
+#include "Components/Sprite/TankSpriteComponent.hpp"
+#include "Components/Transform/TankTransformComponent.hpp"
