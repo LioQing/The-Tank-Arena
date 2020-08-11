@@ -4,6 +4,7 @@
 
 #include "Game/Game.hpp"
 #include "UI/UIManager.hpp"
+#include "ProgramUtils/ProgramUtils.hpp"
 
 class Program
 {
@@ -13,6 +14,7 @@ private:
 	sf::Clock delta_clock;
 
 	sf::RenderWindow window;
+	Scale scale;
 
 	Game game;
 

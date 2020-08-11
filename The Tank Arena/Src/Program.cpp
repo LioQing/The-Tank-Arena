@@ -6,8 +6,8 @@ void Program::Init()
 	window.create(sf::VideoMode(800, 600), "The Tank Arena");
 	window.setFramerateLimit(60);
 
-	// game init
-	game = Game(window);
+	// set scale
+	scale = 2.f;
 }
 
 void Program::MainMenu()
@@ -16,6 +16,9 @@ void Program::MainMenu()
 
 void Program::Gameplay()
 {
+	// game init
+	game.Init(&window, &scale);
+
 	// init delta time
 	delta_time = 0.f;
 	delta_clock.restart();

@@ -156,11 +156,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Src\Game\Game.cpp" />
+    <ClCompile Include="Src\GeneralManagers\TextureManager.cpp" />
     <ClCompile Include="Src\main.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="Src\Program.cpp" />
+    <ClCompile Include="Src\ProgramUtils\Scale.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Utils\Utils.vcxproj">
@@ -171,7 +173,10 @@
     <ClInclude Include="Src\Game\Game.hpp" />
     <ClInclude Include="Src\Game\Managers\AIManager.hpp" />
     <ClInclude Include="Src\Game\Managers\ArenaManager.hpp" />
+    <ClInclude Include="Src\GeneralManagers\TextureManager.hpp" />
     <ClInclude Include="Src\Program.hpp" />
+    <ClInclude Include="Src\ProgramUtils\ProgramUtils.hpp" />
+    <ClInclude Include="Src\ProgramUtils\Scale.hpp" />
     <ClInclude Include="Src\UI\UIManager.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
