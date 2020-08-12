@@ -155,11 +155,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Game\Components\Control\PlayerControlComponent.cpp" />
     <ClCompile Include="Src\Game\Components\Sprite\TankSpriteComponent.cpp" />
     <ClCompile Include="Src\Game\Components\Transform\TankTransformComponent.cpp" />
     <ClCompile Include="Src\Game\Game.cpp" />
     <ClCompile Include="Src\Game\Managers\SystemManager.cpp" />
     <ClCompile Include="Src\Game\SpawnEntity.cpp" />
+    <ClCompile Include="Src\Game\Systems\InputSystem.cpp" />
+    <ClCompile Include="Src\Game\Systems\MovementSystem.cpp" />
     <ClCompile Include="Src\Game\Systems\SpriteSystem.cpp" />
     <ClCompile Include="Src\GeneralManagers\TextureManager.cpp" />
     <ClCompile Include="Src\main.cpp">
@@ -177,6 +180,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\Components.hpp" />
+    <ClInclude Include="Src\Game\Components\Control\PlayerControlComponent.hpp" />
     <ClInclude Include="Src\Game\Components\Sprite\TankSpriteComponent.hpp" />
     <ClInclude Include="Src\Game\Components\Transform\TankTransformComponent.hpp" />
     <ClInclude Include="Src\Game\Game.hpp" />
@@ -186,6 +190,8 @@
     <ClInclude Include="Src\Game\Managers\SystemManager.hpp" />
     <ClInclude Include="Src\Game\SpawnEntity.hpp" />
     <ClInclude Include="Src\Game\Systems.hpp" />
+    <ClInclude Include="Src\Game\Systems\InputSystem.hpp" />
+    <ClInclude Include="Src\Game\Systems\MovementSystem.hpp" />
     <ClInclude Include="Src\Game\Systems\SpriteSystem.hpp" />
     <ClInclude Include="Src\Game\Systems\System.hpp" />
     <ClInclude Include="Src\GeneralManagers\TextureManager.hpp" />

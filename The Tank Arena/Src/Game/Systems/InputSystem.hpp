@@ -2,8 +2,7 @@
 
 #include "System.hpp"
 
-struct SpriteSystem : System
+struct InputSystem : System
 {
 	void Update() override;
-	void Draw();
 };

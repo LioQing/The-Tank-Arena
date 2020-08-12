@@ -39,6 +39,8 @@ public:
 	template <IsSystem S>
 	S& Get()
 	{
-		return static_cast<S&>(*systems.find(&typeid(S))->second);
+		auto it = systems.find(&typeid(S));
+		assert_msg(it != systems.end(), "System manager: No system found");
+		return static_cast<S&>(*it->second);
 	}
 };

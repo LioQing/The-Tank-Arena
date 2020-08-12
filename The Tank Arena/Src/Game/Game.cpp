@@ -17,6 +17,8 @@ void Game::Init(ProgramInfo program_info)
 	// add system
 	m_sys_man.Init(m_program_info, m_ic_man);
 	m_sys_man.Add<SpriteSystem>();
+	m_sys_man.Add<InputSystem>();
+	m_sys_man.Add<MovementSystem>();
 
 	// spawn
 	spawn::Init(m_program_info, m_ic_man);
@@ -33,7 +35,11 @@ void Game::Update(float dt)
 			m_program_info.window->close();
 	}
 
+	// get input
+	m_sys_man.Get<InputSystem>().Update();
+
 	// systems update
+	m_sys_man.Get<MovementSystem>().Update();
 	m_sys_man.Get<SpriteSystem>().Update();
 }
 

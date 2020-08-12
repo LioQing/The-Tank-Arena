@@ -1,6 +1,6 @@
 #include "TankTransformComponent.hpp"
 
-TankTransformComponent::TankTransformComponent(float max_speed, float max_hull_a_speed, float max_turret_a_speed)
-	: max_speed(max_speed), max_hull_a_speed(max_hull_a_speed), max_turret_a_speed(max_turret_a_speed)
+TankTransformComponent::TankTransformComponent(float speed, float hull_a_speed, float turret_a_speed)
+	: speed(speed), hull_a_speed(hull_a_speed), turret_a_speed(turret_a_speed)
 {
 }
