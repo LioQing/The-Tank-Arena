@@ -14,6 +14,7 @@ public:
 	Scale() = default;
 	Scale(float scale);
 
+	float Get() const;
 	lio::Vec2f Vec2f() const;
 	sf::Vector2f sfVec2f() const;
 

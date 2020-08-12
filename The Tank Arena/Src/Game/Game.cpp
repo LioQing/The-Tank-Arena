@@ -35,6 +35,8 @@ void Game::Update(float dt)
 			m_program_info.window->close();
 	}
 
+	m_sys_man.SetDeltaTime(dt);
+
 	// get input
 	m_sys_man.Get<InputSystem>().Update();
 

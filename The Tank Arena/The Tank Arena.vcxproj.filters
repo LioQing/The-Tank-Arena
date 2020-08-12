@@ -57,6 +57,9 @@
     <ClCompile Include="Src\Game\Systems\MovementSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Src\ProgramUtils\MinorUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\Game.hpp">
@@ -113,9 +116,6 @@
     <ClInclude Include="Src\Game\Components\Transform\TankTransformComponent.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Src\ProgramUtils\ltos.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Game\Components\Control\PlayerControlComponent.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -123,6 +123,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\Systems\MovementSystem.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\ProgramUtils\MinorUtils.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -14,7 +14,7 @@ lic::Entity spawn::Player()
 
 	auto& sprite = AddComponent_Info<TankSpriteComponent>(player, "hull", "turret");
 
-	auto& transform = AddComponent<TankTransformComponent>(player, 4.f, .05f);
+	auto& transform = AddComponent<TankTransformComponent>(player, 21, .15f, .05f);
 	transform.position = lio::Vec2f(400, 300);
 
 	auto& control = AddComponent<PlayerControlComponent>(player);

@@ -172,6 +172,7 @@
     <ClCompile Include="Src\Program.cpp" />
     <ClCompile Include="Src\ProgramUtils\ProgramInfo.cpp" />
     <ClCompile Include="Src\ProgramUtils\Scale.cpp" />
+    <ClCompile Include="Src\ProgramUtils\MinorUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Utils\Utils.vcxproj">
@@ -197,7 +198,7 @@
     <ClInclude Include="Src\GeneralManagers\TextureManager.hpp" />
     <ClInclude Include="Src\Program.hpp" />
     <ClInclude Include="Src\ProgramUtils.hpp" />
-    <ClInclude Include="Src\ProgramUtils\ltos.hpp" />
+    <ClInclude Include="Src\ProgramUtils\MinorUtils.hpp" />
     <ClInclude Include="Src\ProgramUtils\ProgramInfo.hpp" />
     <ClInclude Include="Src\ProgramUtils\Scale.hpp" />
     <ClInclude Include="Src\UI\UIManager.hpp" />

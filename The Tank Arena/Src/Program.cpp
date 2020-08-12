@@ -7,7 +7,7 @@ void Program::Init()
 	window.setFramerateLimit(60);
 
 	// set scale
-	scale = 4.f;
+	scale = 3.f;
 }
 
 void Program::MainMenu()

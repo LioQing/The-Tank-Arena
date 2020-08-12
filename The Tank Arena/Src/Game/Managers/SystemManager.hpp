@@ -20,10 +20,12 @@ private:
 
 	ProgramInfo* program_info;
 	lic::Manager* manager;
+	float dt = 0.f;
 
 public:
 
 	void Init(ProgramInfo& program_info, lic::Manager& manager);
+	void SetDeltaTime(float dt);
 
 	template <IsSystem S, typename ...Ts>
 	void Add(Ts... TArgs)
@@ -41,6 +43,9 @@ public:
 	{
 		auto it = systems.find(&typeid(S));
 		assert_msg(it != systems.end(), "System manager: No system found");
+
+		it->second->dt = dt;
+		it->second->space_time_scale = dt * program_info->scale->Get();
 		return static_cast<S&>(*it->second);
 	}
 };

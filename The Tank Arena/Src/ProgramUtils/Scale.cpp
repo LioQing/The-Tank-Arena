@@ -5,6 +5,11 @@ Scale::Scale(float scale)
 	m_scale = scale;
 }
 
+float Scale::Get() const
+{
+	return m_scale;
+}
+
 lio::Vec2f Scale::Vec2f() const
 {
 	return lio::Vec2f(m_scale, m_scale);

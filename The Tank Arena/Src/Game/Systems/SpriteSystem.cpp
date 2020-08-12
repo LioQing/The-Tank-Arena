@@ -10,8 +10,8 @@ void SpriteSystem::Update()
 	for (auto [transform, sprite] : manager->Filter<TankTransformComponent, TankSpriteComponent>().Each())
 	{
 		// position
-		sprite.hull_sprite.setPosition(ltos::ToSFVec<float>(transform.position));
-		sprite.turret_sprite.setPosition(ltos::ToSFVec<float>(transform.position));
+		sprite.hull_sprite.setPosition(lio::ltosvec<float>(transform.position));
+		sprite.turret_sprite.setPosition(lio::ltosvec<float>(transform.position));
 
 		// rotation
 		sprite.hull_sprite.setRotation(transform.hull_rotation * 180.0 / M_PI);

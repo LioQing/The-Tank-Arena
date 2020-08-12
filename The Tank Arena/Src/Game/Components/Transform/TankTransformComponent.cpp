@@ -1,6 +1,6 @@
 #include "TankTransformComponent.hpp"
 
-TankTransformComponent::TankTransformComponent(float speed, float hull_a_speed, float turret_a_speed)
-	: speed(speed), hull_a_speed(hull_a_speed), turret_a_speed(turret_a_speed)
+TankTransformComponent::TankTransformComponent(int width, float speed, float turret_a_speed)
+	: speed(speed), turret_a_speed(turret_a_speed), width(width)
 {
 }

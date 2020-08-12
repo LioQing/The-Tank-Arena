@@ -1,32 +1,74 @@
 #include "MovementSystem.hpp"
 
 #include "../Components.hpp"
+#include "../../ProgramUtils.hpp"
 
 void MovementSystem::Update()
 {
 	for (auto [control, transform] : manager->Filter<PlayerControlComponent, TankTransformComponent>().Each())
 	{
-		// rotation
+		// target vel
+		lio::Vec2f target_vel = lio::Vec2f::Zero();
+
+		std::string str = "";
+
 		if (control.key_pressed.at(control.LEFT) && !control.key_pressed.at(control.RIGHT))
-			transform.hull_a_velocity = -1.f;
+		{
+			target_vel.x = -1.f; 
+			str += "Left  ";
+		}
 		else if (!control.key_pressed.at(control.LEFT) && control.key_pressed.at(control.RIGHT))
-			transform.hull_a_velocity = 1.f;
-		else
-			transform.hull_a_velocity = 0.f;
+		{
+			target_vel.x = 1.f; 
+			str += "Right ";
+		}
 
-		// movement
 		if (control.key_pressed.at(control.UP) && !control.key_pressed.at(control.DOWN))
-			transform.velocity = lio::Vec2f::Down().Rotated(transform.hull_rotation).Normalized();
+		{
+			target_vel.y = 1.f; 
+			str += "Up";
+		}
 		else if (!control.key_pressed.at(control.UP) && control.key_pressed.at(control.DOWN))
-			transform.velocity = lio::Vec2f::Up().Rotated(transform.hull_rotation).Normalized();
-		else
-			transform.velocity = lio::Vec2f::Zero();
+		{
+			target_vel.y = -1.f; 
+			str += "Down";
+		}
 
-		transform.hull_rotation += transform.hull_a_velocity * transform.hull_a_speed * 
-			(1.f - .5f * static_cast<float>(transform.velocity.Magnitude()));
-		transform.turret_rotation += transform.hull_a_velocity * transform.hull_a_speed * 
-			(1.f - .5f * static_cast<float>(transform.velocity.Magnitude()));
+		std::cout << str << std::endl;
 
-		transform.position += transform.velocity * transform.speed * (1.f - .25f * abs(transform.hull_a_velocity));
+		target_vel.Normalize();
+
+		// rotation
+		if (target_vel != lio::Vec2f::Zero())
+		{
+			auto target_rot = M_PI / 2 - atan2(target_vel.y, target_vel.x);
+			float diffs[2] = {
+				lio::rotbound(target_rot - transform.hull_rotation),
+				lio::rotbound(target_rot - lio::rotbound(transform.hull_rotation + M_PI)) };
+			auto reverse = std::abs(diffs[1]) < std::abs(diffs[0]) ? true : false;
+			auto diff = !reverse ? diffs[0] : diffs[1];
+			auto rot_vel = (transform.speed / (transform.width * program_info->scale->Get())) * diff / std::abs(diff);
+
+			if (std::abs(diff) > std::abs(rot_vel * space_time_scale))
+			{
+				transform.hull_rotation += rot_vel * space_time_scale;
+				transform.turret_rotation += rot_vel * space_time_scale;
+
+				// movement
+				auto math_rot = M_PI / 2 - transform.hull_rotation;
+				transform.velocity = lio::Vec2f(std::cos(math_rot), -std::sin(math_rot));
+				transform.position += .5f * transform.speed * transform.velocity * (reverse ? -1 : 1) * space_time_scale;
+			}
+			else
+			{
+				transform.hull_rotation = lio::rotbound(target_rot + reverse * M_PI);
+				transform.turret_rotation = lio::rotbound(target_rot + reverse * M_PI);
+
+				// movement
+				transform.velocity.x = target_vel.x;
+				transform.velocity.y = -target_vel.y;
+				transform.position += transform.velocity * transform.speed * space_time_scale;
+			}
+		}
 	}
 }

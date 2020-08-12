@@ -15,6 +15,8 @@ protected:
 
 	ProgramInfo* program_info;
 	lic::Manager* manager;
+	float dt;
+	float space_time_scale;
 
 public:
 
