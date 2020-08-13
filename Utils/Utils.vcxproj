@@ -149,6 +149,7 @@
     <ClInclude Include="Src\Graphics\Rect.hpp" />
     <ClInclude Include="Src\Graphics\Transformable.hpp" />
     <ClInclude Include="Src\Graphics\Vec2.hpp" />
+    <ClInclude Include="Src\lev.hpp" />
     <ClInclude Include="Src\lic.hpp" />
     <ClInclude Include="Src\LioGraphics.hpp" />
     <ClInclude Include="Src\Matrix.hpp" />

@@ -3,11 +3,8 @@
 void Program::Init()
 {
 	// create window
-	window.create(sf::VideoMode(800, 600), "The Tank Arena");
+	window.create(sf::VideoMode(1280, 720), "The Tank Arena");
 	window.setFramerateLimit(60);
-
-	// set scale
-	scale = 3.f;
 }
 
 void Program::MainMenu()
@@ -17,7 +14,7 @@ void Program::MainMenu()
 void Program::Gameplay()
 {
 	// game init
-	game.Init(ProgramInfo(scale, window, texture_manager));
+	game.Init(ProgramInfo(window, texture_manager));
 
 	// init delta time
 	delta_time = 0.f;

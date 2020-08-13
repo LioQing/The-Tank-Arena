@@ -9,10 +9,14 @@ class ArenaManager
 private:
 
 	lic::Entity m_arena_entity;
+	ProgramInfo* program_info;
 
 public:
 
+	void Init(ProgramInfo& program_info);
 	void SetArena(lic::Entity entity);
 
-	void LoadMap(ProgramInfo& program_info, const std::string& path);
+	void LoadMap(const std::string& path);
+
+	const lic::Entity& GetEntity() const;
 };

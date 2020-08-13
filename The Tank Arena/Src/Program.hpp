@@ -15,7 +15,6 @@ private:
 	sf::Clock delta_clock;
 
 	sf::RenderWindow window;
-	Scale scale;
 
 	TextureManager texture_manager;
 

@@ -12,5 +12,5 @@ struct ProgramInfo
 	TextureManager* texture_manager;
 
 	ProgramInfo() = default;
-	ProgramInfo(Scale& scale, sf::RenderWindow& window, TextureManager& tex_man);
+	ProgramInfo(sf::RenderWindow& window, TextureManager& tex_man);
 };

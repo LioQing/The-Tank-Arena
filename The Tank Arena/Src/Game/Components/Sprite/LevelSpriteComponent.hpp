@@ -11,5 +11,5 @@ struct LevelSpriteComponent : lic::Component
 {
 	std::vector<sf::Sprite> tile_sprites;
 
-	LevelSpriteComponent(ProgramInfo& program_info, const lio::Matrixi& level, const std::string& tileset_id, int tile_size);
+	LevelSpriteComponent(const ProgramInfo& program_info, const lio::Matrixi& level, const std::string& tileset_id, int tile_size);
 };

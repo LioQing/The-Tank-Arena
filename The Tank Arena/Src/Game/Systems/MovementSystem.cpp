@@ -44,7 +44,7 @@ void MovementSystem::Update()
 
 				// movement
 				auto math_rot = M_PI / 2 - transform.hull_rotation;
-				transform.velocity = lio::Vec2f(std::cos(math_rot), -std::sin(math_rot));
+				transform.velocity = lio::Vec2f(std::cos(math_rot), -std::sin(math_rot)).Normalized();
 				transform.position += .5f * transform.speed * transform.velocity * (reverse ? -1 : 1) * space_time_scale;
 			}
 			else
