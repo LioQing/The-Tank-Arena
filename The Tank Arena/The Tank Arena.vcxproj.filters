@@ -66,6 +66,9 @@
     <ClCompile Include="Src\Game\Components\Arena\LevelComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Game\Components\Sprite\LevelSpriteComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\Game.hpp">
@@ -135,6 +138,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\Components\Arena\LevelComponent.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Components\Sprite\LevelSpriteComponent.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

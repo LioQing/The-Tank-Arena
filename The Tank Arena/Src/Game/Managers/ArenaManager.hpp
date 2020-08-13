@@ -2,6 +2,8 @@
 
 #include <lic.hpp>
 
+#include "../../ProgramUtils.hpp"
+
 class ArenaManager
 {
 private:
@@ -12,5 +14,5 @@ public:
 
 	void SetArena(lic::Entity entity);
 
-	void LoadMap(const std::string& path);
+	void LoadMap(ProgramInfo& program_info, const std::string& path);
 };

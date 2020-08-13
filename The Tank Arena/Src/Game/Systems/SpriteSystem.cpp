@@ -21,6 +21,16 @@ void SpriteSystem::Update()
 
 void SpriteSystem::Draw()
 {
+	// level sprite
+	for (auto& sprite : manager->Filter<LevelSpriteComponent>().Component())
+	{
+		for (auto& actual_sprite : sprite.tile_sprites)
+		{
+			program_info->window->draw(actual_sprite);
+		}
+	}
+
+	// tank sprite
 	for (auto& sprite : manager->Filter<TankSpriteComponent>().Component())
 	{
 		program_info->window->draw(sprite.hull_sprite);

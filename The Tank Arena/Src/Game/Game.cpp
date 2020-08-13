@@ -13,6 +13,7 @@ void Game::Init(ProgramInfo program_info)
 	// load textures
 	m_program_info.texture_manager->LoadTexture("hull", R"(Assets\Player\base_hull.png)");
 	m_program_info.texture_manager->LoadTexture("turret", R"(Assets\Player\base_turret.png)");
+	m_program_info.texture_manager->LoadTexture("tileset", R"(Assets\TileMap\Chess.png)");
 
 	// add system
 	m_sys_man.Init(m_program_info, m_ic_man);
@@ -22,7 +23,7 @@ void Game::Init(ProgramInfo program_info)
 
 	// level
 	m_arena_man.SetArena(m_ic_man.AddEntity());
-	m_arena_man.LoadMap(R"(Assets\TileMap\TestLevel.csv)");
+	m_arena_man.LoadMap(program_info, R"(Assets\TileMap\TestLevel.csv)");
 
 	// spawn
 	spawn::Init(m_program_info, m_ic_man);

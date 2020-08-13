@@ -4,3 +4,4 @@
 #include "Components/Transform/TankTransformComponent.hpp"
 #include "Components/Control/PlayerControlComponent.hpp"
 #include "Components/Arena/LevelComponent.hpp"
+#include "Components/Sprite/LevelSpriteComponent.hpp"
