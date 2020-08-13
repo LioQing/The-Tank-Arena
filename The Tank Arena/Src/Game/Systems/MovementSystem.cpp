@@ -8,33 +8,21 @@ void MovementSystem::Update()
 	for (auto [control, transform] : manager->Filter<PlayerControlComponent, TankTransformComponent>().Each())
 	{
 		// target vel
-		lio::Vec2f target_vel = lio::Vec2f::Zero();
-
-		std::string str = "";
+		lio::Vec2f target_vel;
 
 		if (control.key_pressed.at(control.LEFT) && !control.key_pressed.at(control.RIGHT))
-		{
-			target_vel.x = -1.f; 
-			str += "Left  ";
-		}
+			target_vel.x = -1.f;
 		else if (!control.key_pressed.at(control.LEFT) && control.key_pressed.at(control.RIGHT))
-		{
-			target_vel.x = 1.f; 
-			str += "Right ";
-		}
+			target_vel.x = 1.f;
+		else
+			target_vel.x = 0.f;
 
 		if (control.key_pressed.at(control.UP) && !control.key_pressed.at(control.DOWN))
-		{
-			target_vel.y = 1.f; 
-			str += "Up";
-		}
+			target_vel.y = 1.f;
 		else if (!control.key_pressed.at(control.UP) && control.key_pressed.at(control.DOWN))
-		{
-			target_vel.y = -1.f; 
-			str += "Down";
-		}
-
-		std::cout << str << std::endl;
+			target_vel.y = -1.f;
+		else
+			target_vel.y = 0.f;
 
 		target_vel.Normalize();
 

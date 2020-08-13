@@ -261,6 +261,7 @@ namespace lic
 
 	public:
 
+		Entity() = default;
 		Entity(Manager* manager, EntityID id)
 			: manager(manager), id(id) {}
 

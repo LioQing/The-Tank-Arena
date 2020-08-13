@@ -151,6 +151,7 @@
     <ClInclude Include="Src\Graphics\Vec2.hpp" />
     <ClInclude Include="Src\lic.hpp" />
     <ClInclude Include="Src\LioGraphics.hpp" />
+    <ClInclude Include="Src\Matrix.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\CSVReader.cpp" />

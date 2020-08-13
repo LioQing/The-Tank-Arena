@@ -20,6 +20,10 @@ void Game::Init(ProgramInfo program_info)
 	m_sys_man.Add<InputSystem>();
 	m_sys_man.Add<MovementSystem>();
 
+	// level
+	m_arena_man.SetArena(m_ic_man.AddEntity());
+	m_arena_man.LoadMap(R"(Assets\TileMap\TestLevel.csv)");
+
 	// spawn
 	spawn::Init(m_program_info, m_ic_man);
 	spawn::Player();
