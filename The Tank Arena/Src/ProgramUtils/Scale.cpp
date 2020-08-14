@@ -2,12 +2,17 @@
 
 Scale::Scale(float scale)
 {
-	m_scale = scale;
+	Set(scale);
 }
 
 float Scale::Get() const
 {
 	return m_scale;
+}
+
+void Scale::Set(float scale)
+{
+	m_scale = scale;
 }
 
 lio::Vec2f Scale::Vec2f() const
@@ -20,7 +25,7 @@ sf::Vector2f Scale::sfVec2f() const
 	return sf::Vector2f(m_scale, m_scale);
 }
 
-Scale Scale::operator*(float factor)
+Scale Scale::operator*(float factor) const
 {
 	return Scale(m_scale * factor);
 }

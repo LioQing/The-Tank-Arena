@@ -47,11 +47,8 @@ void Game::Update(float dt)
 	{
 		if (event.type == sf::Event::Closed)
 			m_program_info.window->close();
-		else if (event.type == sf::Event::Resized)
-		{
+		else if (event.type == sf::Event::Resized) {}
 			m_cam_man.UpdateView();
-			m_sys_man.Get<SpriteSystem>().UpdateSpriteScale();
-		}
 	}
 
 	m_sys_man.SetDeltaTime(dt);

@@ -3,7 +3,13 @@
 #include <lic.hpp>
 
 #include "../Components.hpp"
+#include "../Events.hpp"
 #include "../../ProgramUtils.hpp"
+
+SpriteSystem::SpriteSystem()
+{
+	Listen<WindowResizedEvent>();
+}
 
 void SpriteSystem::Update()
 {
@@ -38,19 +44,33 @@ void SpriteSystem::Draw()
 	}
 }
 
-void SpriteSystem::UpdateSpriteScale()
+void SpriteSystem::On(const lev::Event& event)
 {
-	// level sprite
-	for (auto [level, sprite] : manager->Filter<LevelComponent, LevelSpriteComponent>().Each())
+	if (event.Is<WindowResizedEvent>())
 	{
-		for (auto y = 0u; y < level.level.height; ++y)
+		const auto& wr_ev = static_cast<const WindowResizedEvent&>(event);
+		auto rescale = wr_ev.current_scale.Get() / wr_ev.previous_scale.Get();
+
+		// level sprite
+		for (auto [level, sprite] : manager->Filter<LevelComponent, LevelSpriteComponent>().Each())
 		{
-			for (auto x = 0u; x < level.level.width; ++x)
+			for (auto y = 0u; y < level.level.height; ++y)
 			{
-				auto& tile_sprite = sprite.tile_sprites.at(y * level.level.width + x);
-				tile_sprite.setPosition(x * level.tile_size * program_info->scale->Get(), y * level.tile_size * program_info->scale->Get());
-				tile_sprite.setScale(program_info->scale->sfVec2f());
+				for (auto x = 0u; x < level.level.width; ++x)
+				{
+					auto& tile_sprite = sprite.tile_sprites.at(y * level.level.width + x);
+					tile_sprite.setPosition(tile_sprite.getPosition().x * rescale, tile_sprite.getPosition().y * rescale);
+					tile_sprite.setScale(wr_ev.current_scale.sfVec2f());
+				}
 			}
+		}
+
+		// tank sprite
+		for (auto [transform, sprite] : manager->Filter<TankTransformComponent, TankSpriteComponent>().Each())
+		{
+			sprite.hull_sprite.setScale((wr_ev.current_scale * .5f).sfVec2f());
+			sprite.turret_sprite.setScale((wr_ev.current_scale * .5f).sfVec2f());
+			transform.position *= rescale;
 		}
 	}
 }
