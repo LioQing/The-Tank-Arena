@@ -26,6 +26,9 @@ void ArenaManager::LoadMap(const std::string& path)
 		for (auto x = 0u; x < csvr.At(0).size(); ++x)
 		{
 			level.level.At(x, y) = std::stoi(csvr.At(y, x));
+
+			if (csvr.At(y, x) == "1")
+				level.walls.emplace_back(x, y);
 		}
 	}
 

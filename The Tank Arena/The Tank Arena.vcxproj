@@ -166,6 +166,7 @@
     <ClCompile Include="Src\Game\Managers\CameraManager.cpp" />
     <ClCompile Include="Src\Game\Managers\SystemManager.cpp" />
     <ClCompile Include="Src\Game\SpawnEntity.cpp" />
+    <ClCompile Include="Src\Game\Systems\CollisionSystem.cpp" />
     <ClCompile Include="Src\Game\Systems\InputSystem.cpp" />
     <ClCompile Include="Src\Game\Systems\MovementSystem.cpp" />
     <ClCompile Include="Src\Game\Systems\SpriteSystem.cpp" />
@@ -187,6 +188,7 @@
   <ItemGroup>
     <ClInclude Include="Src\Game\Components.hpp" />
     <ClInclude Include="Src\Game\Components\Arena\LevelComponent.hpp" />
+    <ClInclude Include="Src\Game\Components\Collider\TankColliderComponent.hpp" />
     <ClInclude Include="Src\Game\Components\Control\PlayerControlComponent.hpp" />
     <ClInclude Include="Src\Game\Components\Sprite\LevelSpriteComponent.hpp" />
     <ClInclude Include="Src\Game\Components\Sprite\TankSpriteComponent.hpp" />
@@ -201,6 +203,7 @@
     <ClInclude Include="Src\Game\Managers\SystemManager.hpp" />
     <ClInclude Include="Src\Game\SpawnEntity.hpp" />
     <ClInclude Include="Src\Game\Systems.hpp" />
+    <ClInclude Include="Src\Game\Systems\CollisionSystem.hpp" />
     <ClInclude Include="Src\Game\Systems\InputSystem.hpp" />
     <ClInclude Include="Src\Game\Systems\MovementSystem.hpp" />
     <ClInclude Include="Src\Game\Systems\SpriteSystem.hpp" />

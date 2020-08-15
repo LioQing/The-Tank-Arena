@@ -22,6 +22,7 @@ void Game::Init(ProgramInfo program_info)
 	m_sys_man.Add<SpriteSystem>();
 	m_sys_man.Add<InputSystem>();
 	m_sys_man.Add<MovementSystem>();
+	m_sys_man.Add<CollisionSystem>();
 
 	// level
 	m_arena_man.Init(m_program_info);
@@ -59,6 +60,7 @@ void Game::Update(float dt)
 	// systems update
 	m_sys_man.Get<MovementSystem>().Update();
 	m_sys_man.Get<SpriteSystem>().Update();
+	m_sys_man.Get<CollisionSystem>().Update();
 
 	// camera
 	m_cam_man.Update();
@@ -66,8 +68,11 @@ void Game::Update(float dt)
 
 void Game::Draw()
 {
-	m_sys_man.Get<SpriteSystem>().Draw();
 	m_cam_man.Draw();
+	m_sys_man.Get<SpriteSystem>().Draw();
+
+	// debug use
+	m_sys_man.Get<CollisionSystem>().Draw();
 }
 
 void Game::CleanUp()

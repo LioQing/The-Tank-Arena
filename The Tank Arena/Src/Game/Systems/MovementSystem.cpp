@@ -35,7 +35,7 @@ void MovementSystem::Update()
 				lio::rotbound(target_rot - lio::rotbound(transform.hull_rotation + M_PI)) };
 			auto reverse = std::abs(diffs[1]) < std::abs(diffs[0]) ? true : false;
 			auto diff = !reverse ? diffs[0] : diffs[1];
-			auto rot_vel = (transform.speed / (transform.width * program_info->scale->Get())) * diff / std::abs(diff);
+			auto rot_vel = (transform.speed / (transform.size.x * program_info->scale->Get())) * diff / std::abs(diff);
 
 			if (std::abs(diff) > std::abs(rot_vel * space_time_scale))
 			{

@@ -4,3 +4,4 @@
 #include "Systems/SpriteSystem.hpp"
 #include "Systems/InputSystem.hpp"
 #include "Systems/MovementSystem.hpp"
+#include "Systems/CollisionSystem.hpp"

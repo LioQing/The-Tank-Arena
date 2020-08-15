@@ -29,3 +29,18 @@ Scale Scale::operator*(float factor) const
 {
 	return Scale(m_scale * factor);
 }
+
+Scale Scale::operator/(float factor) const
+{
+	return Scale(m_scale / factor);
+}
+
+Scale Scale::operator+(float size) const
+{
+	return Scale(m_scale + size);
+}
+
+Scale Scale::operator-(float size) const
+{
+	return Scale(m_scale - size);
+}

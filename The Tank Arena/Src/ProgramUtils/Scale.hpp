@@ -21,4 +21,7 @@ public:
 	sf::Vector2f sfVec2f() const;
 
 	Scale operator*(float factor) const;
+	Scale operator/(float factor) const;
+	Scale operator+(float size) const;
+	Scale operator-(float size) const;
 };
