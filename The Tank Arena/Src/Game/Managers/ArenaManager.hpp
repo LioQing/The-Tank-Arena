@@ -14,7 +14,7 @@ private:
 public:
 
 	void Init(ProgramInfo& program_info);
-	void SetArena(lic::Entity entity);
+	lic::Entity& SetArena(lic::Entity entity);
 
 	void LoadMap(const std::string& path);
 

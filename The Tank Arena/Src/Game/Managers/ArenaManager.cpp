@@ -10,9 +10,9 @@ void ArenaManager::Init(ProgramInfo& program_info)
 	this->program_info = &program_info;
 }
 
-void ArenaManager::SetArena(lic::Entity entity)
+lic::Entity& ArenaManager::SetArena(lic::Entity entity)
 {
-	m_arena_entity = entity;
+	return m_arena_entity = entity;
 }
 
 void ArenaManager::LoadMap(const std::string& path)

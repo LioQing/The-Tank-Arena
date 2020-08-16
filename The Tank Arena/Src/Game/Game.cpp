@@ -17,17 +17,17 @@ void Game::Init(ProgramInfo program_info)
 	m_program_info.texture_manager->LoadTexture("turret", R"(Assets\Player\base_turret.png)");
 	m_program_info.texture_manager->LoadTexture("tileset", R"(Assets\TileMap\Chess.png)");
 
+	// level
+	m_arena_man.Init(m_program_info);
+	auto& arena_entity = m_arena_man.SetArena(m_ic_man.AddEntity());
+	m_arena_man.LoadMap(R"(Assets\TileMap\DebugLevel.csv)");
+
 	// add system
 	m_sys_man.Init(m_program_info, m_ic_man);
 	m_sys_man.Add<SpriteSystem>();
 	m_sys_man.Add<InputSystem>();
 	m_sys_man.Add<MovementSystem>();
-	m_sys_man.Add<CollisionSystem>();
-
-	// level
-	m_arena_man.Init(m_program_info);
-	m_arena_man.SetArena(m_ic_man.AddEntity());
-	m_arena_man.LoadMap(R"(Assets\TileMap\TestLevel.csv)");
+	m_sys_man.Add<CollisionSystem>(arena_entity);
 
 	// spawn
 	spawn::Init(m_program_info, m_ic_man);
@@ -59,8 +59,8 @@ void Game::Update(float dt)
 
 	// systems update
 	m_sys_man.Get<MovementSystem>().Update();
-	m_sys_man.Get<SpriteSystem>().Update();
 	m_sys_man.Get<CollisionSystem>().Update();
+	m_sys_man.Get<SpriteSystem>().Update();
 
 	// camera
 	m_cam_man.Update();

@@ -27,10 +27,10 @@ public:
 	void Init(ProgramInfo& program_info, lic::Manager& manager);
 	void SetDeltaTime(float dt);
 
-	template <IsSystem S, typename ...Ts>
-	void Add(Ts... TArgs)
+	template <IsSystem S, typename ...TArgs>
+	void Add(TArgs&& ...args)
 	{
-		System* sys(new S(std::forward(TArgs)...));
+		System* sys(new S(std::forward<TArgs>(args)...));
 		sys->program_info = program_info;
 		sys->manager = manager;
 
