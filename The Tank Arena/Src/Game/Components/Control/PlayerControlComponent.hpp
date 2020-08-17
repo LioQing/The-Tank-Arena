@@ -1,21 +1,12 @@
 #pragma once
 
 #include <lic.hpp>
-#include <array>
+#include <LioGraphics.hpp>
 
 struct PlayerControlComponent : lic::Component
 {
-	enum Keys : size_t
-	{
-		UP = 0u,
-		DOWN,
-		LEFT,
-		RIGHT,
-
-		SIZE
-	};
-
-	std::array<bool, Keys::SIZE> key_pressed;
+	lio::Vec2f movement;
+	lio::Vec2f turret_dir;
 
 	PlayerControlComponent();
 };

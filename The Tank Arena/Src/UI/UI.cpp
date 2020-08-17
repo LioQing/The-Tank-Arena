@@ -27,6 +27,8 @@ void UI::Init(ProgramInfo program_info)
 
 void UI::Update()
 {
+	m_program_info.window->setView(m_view);
+
 	{ //Cursor
 		auto& cursor = element_man.Get<CursorElement>("cursor");
 		cursor.SetPosition(m_program_info.window->mapPixelToCoords(sf::Mouse::getPosition(*m_program_info.window)));

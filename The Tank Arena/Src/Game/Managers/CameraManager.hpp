@@ -23,7 +23,7 @@ public:
 
 	void Init(ProgramInfo& program_info, const lio::Vec2f& player_pos, const LevelComponent& level);
 	void Update();
-	void Draw();
+	void Draw() const;
 
 	void UpdateView();
 };

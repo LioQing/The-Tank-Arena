@@ -4,14 +4,40 @@
 #include <lic.hpp>
 
 #include "../Components.hpp"
+#include "../../ProgramUtils.hpp"
 
 void InputSystem::Update()
 {
 	for (auto& control : manager->Filter<PlayerControlComponent>().Component())
 	{
-		control.key_pressed.at(PlayerControlComponent::Keys::UP) = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
-		control.key_pressed.at(PlayerControlComponent::Keys::DOWN) = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
-		control.key_pressed.at(PlayerControlComponent::Keys::LEFT) = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
-		control.key_pressed.at(PlayerControlComponent::Keys::RIGHT) = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
+		// movement
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+			control.movement.x = -1.f;
+		else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::A) && sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+			control.movement.x = 1.f;
+		else
+			control.movement.x = 0.f;
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && !sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+			control.movement.y = 1.f;
+		else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+			control.movement.y = -1.f;
+		else
+			control.movement.y = 0.f;
+
+		control.movement.Normalize();
+
+		// turret direction
+		if (manager->HasComponent<TankTransformComponent>(control.GetEntityID()))
+		{
+			auto& transform = manager->GetComponent<TankTransformComponent>(control.GetEntityID());
+
+			auto dir_vec =
+				lio::stolvec<float>(program_info->window->mapPixelToCoords(sf::Mouse::getPosition(*program_info->window))) -
+				transform.position;
+			dir_vec.Normalize();
+
+			control.turret_dir = dir_vec;
+		}
 	}
 }

@@ -14,6 +14,11 @@ namespace lio
 	{
 		return sf::Vector2<T>(vec.x, vec.y);
 	}
+	template <IsArithmetic T, IsArithmetic U>
+	lio::Vec2<T> stolvec(const sf::Vector2<U>& vec)
+	{
+		return lio::Vec2<T>(vec.x, vec.y);
+	}
 
 	float rotbound(float rad);
 }

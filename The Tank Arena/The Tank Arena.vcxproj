@@ -170,6 +170,7 @@
     <ClCompile Include="Src\Game\Systems\InputSystem.cpp" />
     <ClCompile Include="Src\Game\Systems\MovementSystem.cpp" />
     <ClCompile Include="Src\Game\Systems\SpriteSystem.cpp" />
+    <ClCompile Include="Src\Game\Systems\TurretSystem.cpp" />
     <ClCompile Include="Src\GeneralManagers\TextureManager.cpp" />
     <ClCompile Include="Src\main.cpp">
       <SubType>
@@ -213,6 +214,7 @@
     <ClInclude Include="Src\Game\Systems\MovementSystem.hpp" />
     <ClInclude Include="Src\Game\Systems\SpriteSystem.hpp" />
     <ClInclude Include="Src\Game\Systems\System.hpp" />
+    <ClInclude Include="Src\Game\Systems\TurretSystem.hpp" />
     <ClInclude Include="Src\GeneralManagers\TextureManager.hpp" />
     <ClInclude Include="Src\Program.hpp" />
     <ClInclude Include="Src\ProgramUtils.hpp" />

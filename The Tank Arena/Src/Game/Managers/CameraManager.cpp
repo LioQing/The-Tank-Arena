@@ -31,7 +31,7 @@ void CameraManager::Update()
 	}
 }
 
-void CameraManager::Draw()
+void CameraManager::Draw() const
 {
 	program_info->window->setView(view);
 }
