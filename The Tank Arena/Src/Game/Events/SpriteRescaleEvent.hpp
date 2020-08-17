@@ -4,10 +4,10 @@
 
 #include "../../ProgramUtils.hpp"
 
-struct WindowResizedEvent : lev::Event
+struct SpriteRescaleEvent : lev::Event
 {
 	const Scale& previous_scale;
 	const Scale& current_scale;
 
-	WindowResizedEvent(const Scale& previous_scale, const Scale& current_scale);
+	SpriteRescaleEvent(const Scale& previous_scale, const Scale& current_scale);
 };

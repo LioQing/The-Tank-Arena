@@ -55,7 +55,7 @@ void CameraManager::UpdateView()
 
 	view.setSize(sf::Vector2f(program_info->window->getSize()));
 
-	lev::Emit<WindowResizedEvent>(pre_scale, *program_info->scale);
+	lev::Emit<SpriteRescaleEvent>(pre_scale, *program_info->scale);
 
 	// post update const
 	if (width_shrinked)

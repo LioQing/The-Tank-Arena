@@ -2,12 +2,16 @@
 
 #include <iostream>
 
+#include "../Events.hpp"
 #include "SpawnEntity.hpp"
 #include "Systems.hpp"
 #include "Components.hpp"
 
 void Game::Init(ProgramInfo program_info)
 {
+	// listen events
+	Listen<WindowResizedEvent>();
+
 	// store program var
 	m_program_info = program_info;
 	m_program_info.scale = &m_scale;
@@ -42,16 +46,6 @@ void Game::Init(ProgramInfo program_info)
 
 void Game::Update(float dt)
 {
-	// sf event
-	sf::Event event;
-	while (m_program_info.window->pollEvent(event))
-	{
-		if (event.type == sf::Event::Closed)
-			m_program_info.window->close();
-		else if (event.type == sf::Event::Resized) {}
-			m_cam_man.UpdateView();
-	}
-
 	m_sys_man.SetDeltaTime(dt);
 
 	// get input
@@ -77,4 +71,12 @@ void Game::Draw()
 
 void Game::CleanUp()
 {
+}
+
+void Game::On(const lev::Event& event)
+{
+	if (event.Is<WindowResizedEvent>())
+	{
+		m_cam_man.UpdateView();
+	}
 }

@@ -1,13 +1,14 @@
 #pragma once
 
 #include <lic.hpp>
+#include <lev.hpp>
 #include <SFML/Graphics.hpp>
 
 #include "Managers.hpp"
 #include "../ProgramUtils.hpp"
 #include "../GeneralManagers/TextureManager.hpp"
 
-class Game
+class Game : public lev::Listener
 {
 private:
 
@@ -28,4 +29,6 @@ public:
 	void Update(float dt);
 	void Draw();
 	void CleanUp();
+
+	void On(const lev::Event& event) override;
 };

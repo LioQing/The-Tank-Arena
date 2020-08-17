@@ -1,7 +1,12 @@
 #include "UI.hpp"
 
+#include "../Events.hpp"
+
 void UI::Init(ProgramInfo program_info)
 {
+	// listen events
+	Listen<WindowResizedEvent>();
+
 	// store program var
 	m_program_info = program_info;
 	m_program_info.scale = &m_scale;
@@ -24,7 +29,7 @@ void UI::Update()
 {
 	{ //Cursor
 		auto& cursor = element_man.Get<CursorElement>("cursor");
-		cursor.SetPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(*m_program_info.window)));
+		cursor.SetPosition(m_program_info.window->mapPixelToCoords(sf::Mouse::getPosition(*m_program_info.window)));
 	}
 }
 
@@ -36,5 +41,13 @@ void UI::Draw()
 		auto& cursor = element_man.Get<CursorElement>("cursor");
 		m_program_info.window->draw(cursor.GetColorSprite());
 		m_program_info.window->draw(cursor.GetOutlineSprite());
+	}
+}
+
+void UI::On(const lev::Event& event)
+{
+	if (event.Is<WindowResizedEvent>())
+	{
+		m_view.setSize(static_cast<sf::Vector2f>(m_program_info.window->getSize()));
 	}
 }

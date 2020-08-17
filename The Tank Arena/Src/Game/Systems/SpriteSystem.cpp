@@ -8,7 +8,7 @@
 
 SpriteSystem::SpriteSystem()
 {
-	Listen<WindowResizedEvent>();
+	Listen<SpriteRescaleEvent>();
 }
 
 void SpriteSystem::Update()
@@ -46,10 +46,10 @@ void SpriteSystem::Draw()
 
 void SpriteSystem::On(const lev::Event& event)
 {
-	if (event.Is<WindowResizedEvent>())
+	if (event.Is<SpriteRescaleEvent>())
 	{
-		const auto& wr_ev = static_cast<const WindowResizedEvent&>(event);
-		auto rescale = wr_ev.current_scale.Get() / wr_ev.previous_scale.Get();
+		const auto& ev = static_cast<const SpriteRescaleEvent&>(event);
+		auto rescale = ev.current_scale.Get() / ev.previous_scale.Get();
 
 		// level sprite
 		for (auto [level, sprite] : manager->Filter<LevelComponent, LevelSpriteComponent>().Each())
@@ -60,7 +60,7 @@ void SpriteSystem::On(const lev::Event& event)
 				{
 					auto& tile_sprite = sprite.tile_sprites.at(y * level.level.width + x);
 					tile_sprite.setPosition(tile_sprite.getPosition().x * rescale, tile_sprite.getPosition().y * rescale);
-					tile_sprite.setScale(wr_ev.current_scale.sfVec2f());
+					tile_sprite.setScale(ev.current_scale.sfVec2f());
 				}
 			}
 		}
@@ -68,8 +68,8 @@ void SpriteSystem::On(const lev::Event& event)
 		// tank sprite
 		for (auto [transform, sprite] : manager->Filter<TankTransformComponent, TankSpriteComponent>().Each())
 		{
-			sprite.hull_sprite.setScale((wr_ev.current_scale * .5f).sfVec2f());
-			sprite.turret_sprite.setScale((wr_ev.current_scale * .5f).sfVec2f());
+			sprite.hull_sprite.setScale((ev.current_scale * .5f).sfVec2f());
+			sprite.turret_sprite.setScale((ev.current_scale * .5f).sfVec2f());
 			transform.position *= rescale;
 		}
 	}

@@ -1,11 +1,12 @@
 #pragma once
 
+#include <lev.hpp>
 #include <SFML/Graphics.hpp>
 
 #include "Managers.hpp"
 #include "../ProgramUtils.hpp"
 
-class UI
+class UI : public lev::Listener
 {
 private:
 
@@ -32,4 +33,6 @@ public:
 	// Pause game menu
 
 	// End game menu
+
+	void On(const lev::Event& event) override;
 };

@@ -1,5 +1,9 @@
 #include "Program.hpp"
 
+#include <lev.hpp>
+
+#include "Events.hpp"
+
 void Program::Init()
 {
 	// create window
@@ -26,6 +30,16 @@ void Program::Gameplay()
 
 	while (window.isOpen())
 	{
+		// sf event
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+			else if (event.type == sf::Event::Resized)
+				lev::Emit<WindowResizedEvent>();
+		}
+
 		// update
 		game.Update(delta_time);
 		ui.Update();

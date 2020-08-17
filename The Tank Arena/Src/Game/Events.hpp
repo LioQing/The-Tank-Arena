@@ -1,3 +1,3 @@
 #pragma once
 
-#include "Events/WindowResizedEvent.hpp"
+#include "Events/SpriteRescaleEvent.hpp"
