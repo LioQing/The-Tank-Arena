@@ -18,14 +18,15 @@ void MovementSystem::Update()
 		auto reverse = std::abs(diffs[1]) < std::abs(diffs[0]) ? true : false;
 		auto diff = !reverse ? diffs[0] : diffs[1];
 		auto rot_vel = (transform.speed / (transform.size.x * program_info->scale->Get())) * diff / std::abs(diff);
+		auto rot_speed_scale = control.movement.Magnitude();
 
-		if (std::abs(diff) > std::abs(rot_vel * space_time_scale))
+		if (std::abs(diff) > std::abs(rot_vel * space_time_scale * rot_speed_scale))
 		{
-			transform.hull_rotation += rot_vel * space_time_scale;
+			transform.hull_rotation += rot_vel * space_time_scale * rot_speed_scale;
 
 			// movement
 			auto math_rot = M_PI / 2 - transform.hull_rotation;
-			transform.velocity = lio::Vec2f(std::cos(math_rot), -std::sin(math_rot)).Normalized() * (reverse ? -1 : 1);
+			transform.velocity = lio::Vec2f(std::cos(math_rot), -std::sin(math_rot)).Normalized() * (reverse ? -1 : 1) * rot_speed_scale;
 			transform.position += .5f * transform.speed * transform.velocity * space_time_scale;
 		}
 		else

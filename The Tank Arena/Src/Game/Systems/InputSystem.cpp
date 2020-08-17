@@ -11,6 +11,7 @@ void InputSystem::Update()
 	for (auto& control : manager->Filter<PlayerControlComponent>().Component())
 	{
 		// movement
+		// keyboard
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 			control.movement.x = -1.f;
 		else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::A) && sf::Keyboard::isKeyPressed(sf::Keyboard::D))
@@ -25,19 +26,48 @@ void InputSystem::Update()
 		else
 			control.movement.y = 0.f;
 
-		control.movement.Normalize();
+		// joystick
+		if (sf::Joystick::isConnected(0))
+		{
+			auto move_axis = lio::Vec2f(
+				sf::Joystick::getAxisPosition(0, sf::Joystick::X),
+				sf::Joystick::getAxisPosition(0, sf::Joystick::Y));
+
+			if (move_axis.Magnitude() > 15.f)
+				control.movement = (move_axis.Cast<double>() - 15.f) / 85.f * lio::Vec2(1, -1);
+		}
+
+		if (control.movement.Magnitude() > 1.f)
+			control.movement.Normalize();
 
 		// turret direction
 		if (manager->HasComponent<TankTransformComponent>(control.GetEntityID()))
 		{
 			auto& transform = manager->GetComponent<TankTransformComponent>(control.GetEntityID());
 
-			auto dir_vec =
-				lio::stolvec<float>(program_info->window->mapPixelToCoords(sf::Mouse::getPosition(*program_info->window))) -
-				transform.position;
-			dir_vec.Normalize();
+			// keyboard
+			static auto pre_mouse_pos = lio::Vec2f(0.f, 0.f);
+			if (pre_mouse_pos != lio::stolvec<float>(sf::Mouse::getPosition()))
+			{
+				auto dir_vec =
+					lio::stolvec<float>(program_info->window->mapPixelToCoords(sf::Mouse::getPosition(*program_info->window))) -
+					transform.position;
+				control.turret_dir = dir_vec;
+			}
+			pre_mouse_pos = lio::stolvec<float>(sf::Mouse::getPosition());
 
-			control.turret_dir = dir_vec;
+			// joystick
+			if (sf::Joystick::isConnected(0))
+			{
+				auto turret_axis = lio::Vec2f(
+					sf::Joystick::getAxisPosition(0, sf::Joystick::U),
+					sf::Joystick::getAxisPosition(0, sf::Joystick::V));
+
+				if (turret_axis.Magnitude() > 15.f)
+					control.turret_dir = turret_axis;
+			}
+
+			control.turret_dir.Normalize();
 		}
 	}
 }
