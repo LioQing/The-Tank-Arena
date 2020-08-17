@@ -179,6 +179,9 @@
     <ClCompile Include="Src\ProgramUtils\ProgramInfo.cpp" />
     <ClCompile Include="Src\ProgramUtils\Scale.cpp" />
     <ClCompile Include="Src\ProgramUtils\MinorUtils.cpp" />
+    <ClCompile Include="Src\UI\Elements\CursorElement.cpp" />
+    <ClCompile Include="Src\UI\Managers\ElementManager.cpp" />
+    <ClCompile Include="Src\UI\UI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Utils\Utils.vcxproj">
@@ -214,7 +217,12 @@
     <ClInclude Include="Src\ProgramUtils\MinorUtils.hpp" />
     <ClInclude Include="Src\ProgramUtils\ProgramInfo.hpp" />
     <ClInclude Include="Src\ProgramUtils\Scale.hpp" />
-    <ClInclude Include="Src\UI\UIManager.hpp" />
+    <ClInclude Include="Src\UI\Elements.hpp" />
+    <ClInclude Include="Src\UI\Elements\CursorElement.hpp" />
+    <ClInclude Include="Src\UI\Elements\Element.hpp" />
+    <ClInclude Include="Src\UI\Managers.hpp" />
+    <ClInclude Include="Src\UI\Managers\ElementManager.hpp" />
+    <ClInclude Include="Src\UI\UI.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

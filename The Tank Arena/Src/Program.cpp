@@ -5,6 +5,10 @@ void Program::Init()
 	// create window
 	window.create(sf::VideoMode(1280, 720), "The Tank Arena");
 	window.setFramerateLimit(60);
+	window.setMouseCursorVisible(false);
+
+	// ui
+	ui.Init(ProgramInfo(window, texture_manager));
 }
 
 void Program::MainMenu()
@@ -24,10 +28,12 @@ void Program::Gameplay()
 	{
 		// update
 		game.Update(delta_time);
+		ui.Update();
 
 		// draw
 		window.clear();
 		game.Draw();
+		ui.Draw();
 		window.display();
 
 		delta_time = static_cast<float>(delta_clock.restart().asMicroseconds()) / 1000.0;

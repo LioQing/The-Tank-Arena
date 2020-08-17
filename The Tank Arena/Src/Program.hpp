@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Game/Game.hpp"
-#include "UI/UIManager.hpp"
+#include "UI/UI.hpp"
 #include "ProgramUtils.hpp"
 #include "GeneralManagers/TextureManager.hpp"
 
@@ -19,6 +19,7 @@ private:
 	TextureManager texture_manager;
 
 	Game game;
+	UI ui;
 
 	// state of program
 
