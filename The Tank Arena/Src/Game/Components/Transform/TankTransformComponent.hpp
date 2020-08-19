@@ -11,7 +11,9 @@ struct TankTransformComponent : lic::Component
 
 	lio::Vec2f position = lio::Vec2f::Zero();
 	lio::Vec2f velocity = lio::Vec2f::Zero();
+	bool reverse = false;
 
+	float angular_velocity = 0.f;
 	float hull_rotation = 0.f;
 	float turret_rotation = 0.f;
 

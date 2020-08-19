@@ -38,16 +38,18 @@ void CollisionSystem::Update()
 		collider.pts.at(0) = (transform.size / 2.f).Rotated(transform.hull_rotation);
 		collider.pts.at(1) = (lio::Vec2f(transform.size.x, -transform.size.y) / 2.f).Rotated(transform.hull_rotation);
 
-		auto dir_vec = transform.velocity / transform.velocity.Abs();
-		if (std::isnan(dir_vec.x)) dir_vec.x = 0;
-		if (std::isnan(dir_vec.y)) dir_vec.y = 0;
-
 		auto& level = m_arena_entity.GetComponent<LevelComponent>();
 		for (auto& pos : level.walls)
 		{
 			for (auto i = 0u; i < 4; ++i)
 			{
 				auto pt = transform.position + collider.pts.at(i % 2) * ((i / 2 >= 1) ? -1 : 1) * program_info->scale->Vec2f();
+
+				auto dir_vec = pt - transform.position;
+				dir_vec /= dir_vec.Abs();
+
+				if (std::isnan(dir_vec.x)) dir_vec.x = 0;
+				if (std::isnan(dir_vec.y)) dir_vec.y = 0;
 
 				if (!lio::Rect<float>(
 					pos * level.tile_size * program_info->scale->Vec2f(),
