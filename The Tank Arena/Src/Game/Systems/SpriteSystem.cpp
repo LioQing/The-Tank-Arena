@@ -34,11 +34,21 @@ void SpriteSystem::Update()
 
 void SpriteSystem::Draw()
 {
+	auto view_bound = sf::FloatRect{
+		program_info->window->getView().getCenter().x - program_info->window->getView().getSize().x / 2.f,
+		program_info->window->getView().getCenter().y - program_info->window->getView().getSize().y / 2.f,
+		program_info->window->getView().getSize().x,
+		program_info->window->getView().getSize().y
+	};
+
 	// level sprite
 	for (auto& sprite : manager->Filter<LevelSpriteComponent>().Component())
 	{
 		for (auto& actual_sprite : sprite.tile_sprites)
 		{
+			if (!lio::inview(actual_sprite.getGlobalBounds(), view_bound))
+				continue;
+
 			program_info->window->draw(actual_sprite);
 		}
 	}
@@ -46,6 +56,9 @@ void SpriteSystem::Draw()
 	// tank sprite
 	for (auto& sprite : manager->Filter<TankSpriteComponent>().Component())
 	{
+		if (!lio::inview(sprite.hull_sprite.getGlobalBounds(), view_bound))
+			continue;
+
 		program_info->window->draw(sprite.hull_sprite);
 		program_info->window->draw(sprite.turret_sprite);
 	}
@@ -53,6 +66,9 @@ void SpriteSystem::Draw()
 	// proj sprite
 	for (auto& sprite : manager->Filter<ProjectileSpriteComponent>().Component())
 	{
+		if (!lio::inview(sprite.sprite.getGlobalBounds(), view_bound))
+			continue;
+
 		program_info->window->draw(sprite.sprite);
 	}
 }
