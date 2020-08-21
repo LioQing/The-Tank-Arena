@@ -33,6 +33,7 @@ void Game::Init(ProgramInfo program_info)
 	m_sys_man.Add<InputSystem>();
 	m_sys_man.Add<MovementSystem>();
 	m_sys_man.Add<TurretSystem>();
+	m_sys_man.Add<ProjectileSystem>();
 	m_sys_man.Add<CollisionSystem>(arena_entity);
 
 	// spawn
@@ -58,6 +59,7 @@ void Game::Update(float dt)
 
 	// systems update
 	m_sys_man.Get<MovementSystem>().Update();
+	m_sys_man.Get<ProjectileSystem>().Update();
 	m_sys_man.Get<TurretSystem>().Update();
 	m_sys_man.Get<CollisionSystem>().Update();
 	m_sys_man.Get<SpriteSystem>().Update();

@@ -84,7 +84,7 @@ void InputSystem::Update()
 
 			if (turret.interval_timer >= turret.interval && sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
-				turret.interval_timer = 0.f;
+				turret.interval_timer -= turret.interval;
 				control.fire = true;
 			}
 			else if (turret.interval_timer < turret.interval)

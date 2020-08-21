@@ -37,27 +37,33 @@ lic::Entity spawn::Player()
 
 	auto& sprite = AddComponent_Info<TankSpriteComponent>(player, "hull", "turret");
 
-	auto& transform = AddComponent<TankTransformComponent>(player, lio::Vec2i(20, 19), .15f);
+	auto& transform = AddComponent<TankTransformComponent>(player, lio::Vec2i(20, 19), .15f); // size, speed
 	transform.position = { 400, 300 };
 
 	auto& control = AddComponent<PlayerControlComponent>(player);
 
 	auto& collider = AddComponent<TankColliderComponent>(player);
 
-	auto& turret = AddComponent<TurretComponent>(player, 5.f, 500.f);
+	auto& turret = AddComponent<TurretComponent>(player, .3f, 200.f, 1200.f); // speed, interval, decay
 
 	return lic::Entity(man, player);
 }
 
-lic::Entity spawn::Projectile(const lio::Vec2f& pos, const lio::Vec2f& init_vel)
+lic::Entity spawn::Projectile(
+	const lio::Vec2f& pos, 
+	const lio::Vec2f& init_vel, 
+	float speed,
+	float decay)
 {
 	lic::EntityID projectile = man->AddEntity();
 
 	auto& sprite = AddComponent_Info<ProjectileSpriteComponent>(projectile, "bullet");
 
-	auto& transform = AddComponent<ProjectileTransformComponent>(projectile, .5f, 12.f);
+	auto& transform = AddComponent<ProjectileTransformComponent>(projectile, speed, 12.f); // speed, radius
 	transform.position = pos;
 	transform.velocity = init_vel;
+
+	auto& proj_comp = AddComponent<ProjectileComponent>(projectile, decay); // decay
 
 	return lic::Entity(man, projectile);
 }

@@ -9,3 +9,4 @@
 #include "Components/Tank/TurretComponent.hpp"
 #include "Components/Sprite/ProjectileSpriteComponent.hpp"
 #include "Components/Transform/ProjectileTransformComponent.hpp"
+#include "Components/Tank/ProjectileComponent.hpp"

@@ -99,6 +99,12 @@
     <ClCompile Include="Src\Game\Components\Transform\ProjectileTransformComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Game\Components\Tank\ProjectileComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Systems\ProjectileSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\Game.hpp">
@@ -219,6 +225,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\Components\Transform\ProjectileTransformComponent.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Components\Tank\ProjectileComponent.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Systems\ProjectileSystem.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
