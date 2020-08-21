@@ -44,5 +44,20 @@ lic::Entity spawn::Player()
 
 	auto& collider = AddComponent<TankColliderComponent>(player);
 
+	auto& turret = AddComponent<TurretComponent>(player, 5.f, 500.f);
+
 	return lic::Entity(man, player);
+}
+
+lic::Entity spawn::Projectile(const lio::Vec2f& pos, const lio::Vec2f& init_vel)
+{
+	lic::EntityID projectile = man->AddEntity();
+
+	auto& sprite = AddComponent_Info<ProjectileSpriteComponent>(projectile, "bullet");
+
+	auto& transform = AddComponent<ProjectileTransformComponent>(projectile, .5f, 12.f);
+	transform.position = pos;
+	transform.velocity = init_vel;
+
+	return lic::Entity(man, projectile);
 }

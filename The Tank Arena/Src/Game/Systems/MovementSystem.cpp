@@ -5,6 +5,7 @@
 
 void MovementSystem::Update()
 {
+	// tank
 	for (auto [control, transform] : manager->Filter<PlayerControlComponent, TankTransformComponent>().Each())
 	{
 		if (control.movement == lio::Vec2f::Zero())
@@ -49,5 +50,11 @@ void MovementSystem::Update()
 			transform.velocity.y = -control.movement.y;
 			transform.position += transform.velocity * transform.speed * space_time_scale;
 		}
+	}
+
+	// proj
+	for (auto& transform : manager->Filter<ProjectileTransformComponent>().Component())
+	{
+		transform.position += transform.velocity * transform.speed * space_time_scale;
 	}
 }

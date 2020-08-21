@@ -6,3 +6,6 @@
 #include "Components/Arena/LevelComponent.hpp"
 #include "Components/Sprite/LevelSpriteComponent.hpp"
 #include "Components/Collider/TankColliderComponent.hpp"
+#include "Components/Tank/TurretComponent.hpp"
+#include "Components/Sprite/ProjectileSpriteComponent.hpp"
+#include "Components/Transform/ProjectileTransformComponent.hpp"

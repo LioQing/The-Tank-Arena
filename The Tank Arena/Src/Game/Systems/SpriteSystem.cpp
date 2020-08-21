@@ -13,6 +13,7 @@ SpriteSystem::SpriteSystem()
 
 void SpriteSystem::Update()
 {
+	// tank
 	for (auto [transform, sprite] : manager->Filter<TankTransformComponent, TankSpriteComponent>().Each())
 	{
 		// position
@@ -22,6 +23,12 @@ void SpriteSystem::Update()
 		// rotation
 		sprite.hull_sprite.setRotation(transform.hull_rotation * 180.0 / M_PI);
 		sprite.turret_sprite.setRotation(transform.turret_rotation * 180.0 / M_PI);
+	}
+
+	// proj
+	for (auto [transform, sprite] : manager->Filter<ProjectileTransformComponent, ProjectileSpriteComponent>().Each())
+	{
+		sprite.sprite.setPosition(lio::ltosvec<float>(transform.position));
 	}
 }
 
@@ -41,6 +48,12 @@ void SpriteSystem::Draw()
 	{
 		program_info->window->draw(sprite.hull_sprite);
 		program_info->window->draw(sprite.turret_sprite);
+	}
+
+	// proj sprite
+	for (auto& sprite : manager->Filter<ProjectileSpriteComponent>().Component())
+	{
+		program_info->window->draw(sprite.sprite);
 	}
 }
 
@@ -70,6 +83,13 @@ void SpriteSystem::On(const lev::Event& event)
 		{
 			sprite.hull_sprite.setScale((ev.current_scale * .5f).sfVec2f());
 			sprite.turret_sprite.setScale((ev.current_scale * .5f).sfVec2f());
+			transform.position *= rescale;
+		}
+
+		// proj sprite
+		for (auto [transform, sprite] : manager->Filter<ProjectileTransformComponent, ProjectileSpriteComponent>().Each())
+		{
+			sprite.sprite.setScale((ev.current_scale).sfVec2f());
 			transform.position *= rescale;
 		}
 	}

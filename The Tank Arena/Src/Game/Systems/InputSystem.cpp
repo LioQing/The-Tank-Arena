@@ -76,5 +76,26 @@ void InputSystem::Update()
 
 			control.turret_dir.Normalize();
 		}
+
+		// fire
+		if (manager->HasComponent<TurretComponent>(control.GetEntityID()))
+		{
+			auto& turret = control.GetEntity().GetComponent<TurretComponent>();
+
+			if (turret.interval_timer >= turret.interval && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			{
+				turret.interval_timer = 0.f;
+				control.fire = true;
+			}
+			else if (turret.interval_timer < turret.interval)
+			{
+				turret.interval_timer += dt;
+				control.fire = false;
+			}
+		}
+		else
+		{
+			control.fire = sf::Mouse::isButtonPressed(sf::Mouse::Left);
+		}
 	}
 }
