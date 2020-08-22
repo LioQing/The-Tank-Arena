@@ -39,6 +39,26 @@ void CollisionSystem::Update()
 		collider.pts.at(1) = (lio::Vec2f(transform.size.x, -transform.size.y) / 2.f).Rotated(transform.hull_rotation);
 
 		auto& level = m_arena_entity.GetComponent<LevelComponent>();
+
+		// map boundary
+		for (auto i = 0u; i < 4; ++i)
+		{
+			auto pt = transform.position + collider.pts.at(i % 2) * ((i / 2 >= 1) ? -1 : 1) * program_info->scale->Vec2f();
+
+			// x axis
+			if (0.f > pt.x)
+				transform.position.x += 0.f - pt.x;
+			else if (float x_bound = level.size.x * level.tile_size * program_info->scale->Get(); x_bound <= pt.x)
+				transform.position.x += x_bound - pt.x;
+			
+			// y axis
+			if (0.f > pt.y)
+				transform.position.y += 0.f - pt.y;
+			else if (float y_bound = level.size.y * level.tile_size * program_info->scale->Get(); y_bound <= pt.y)
+				transform.position.y += y_bound - pt.y;
+		}
+
+		// obstacle wall
 		for (auto& pos : level.walls)
 		{
 			for (auto i = 0u; i < 4; ++i)
