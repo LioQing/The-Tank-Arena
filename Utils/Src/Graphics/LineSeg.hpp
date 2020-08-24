@@ -106,6 +106,30 @@ namespace lio
 
 			return false;
 		}
+		template <typename U>
+		auto IntersectPt(const LineSeg<U>& l) const -> Vec2<decltype(std::declval<T&>() + std::declval<U&>())>
+		{
+			double a1 = p2.y - p1.y;
+			double b1 = p1.x - p2.x;
+			double c1 = a1 * (p1.x) + b1 * (p1.y);
+
+			double a2 = l.p2.y - l.p1.y;
+			double b2 = l.p1.x - l.p2.x;
+			double c2 = a2 * (l.p1.x) + b2 * (l.p1.y);
+
+			double determinant = a1 * b2 - a2 * b1;
+
+			if (determinant == 0)
+			{
+				return Vec2<double>(DBL_MAX, DBL_MAX);
+			}
+			else
+			{
+				double x = (b2 * c1 - b1 * c2) / determinant;
+				double y = (a1 * c2 - a2 * c1) / determinant;
+				return Vec2<double>(x, y);
+			}
+		}
 
 		Vec2<double> MidPt() const
 		{

@@ -15,6 +15,10 @@ CollisionSystem::CollisionSystem(lic::Entity& arena_entity)
 
 void CollisionSystem::Update()
 {
+	auto& level = m_arena_entity.GetComponent<LevelComponent>();
+	auto bound = level.size * level.tile_size * program_info->scale->Get();
+
+	// tank
 	for (auto [collider, transform] : manager->Filter<TankColliderComponent, TankTransformComponent>().Each())
 	{
 		auto HasNoCollision = [&](const lio::Vec2f& pos) -> bool
@@ -38,7 +42,6 @@ void CollisionSystem::Update()
 		collider.pts.at(0) = (transform.size / 2.f).Rotated(transform.hull_rotation);
 		collider.pts.at(1) = (lio::Vec2f(transform.size.x, -transform.size.y) / 2.f).Rotated(transform.hull_rotation);
 
-		auto& level = m_arena_entity.GetComponent<LevelComponent>();
 
 		// map boundary
 		for (auto i = 0u; i < 4; ++i)
@@ -48,14 +51,14 @@ void CollisionSystem::Update()
 			// x axis
 			if (0.f > pt.x)
 				transform.position.x += 0.f - pt.x;
-			else if (float x_bound = level.size.x * level.tile_size * program_info->scale->Get(); x_bound <= pt.x)
-				transform.position.x += x_bound - pt.x;
+			else if (bound.x <= pt.x)
+				transform.position.x += bound.x - pt.x;
 			
 			// y axis
 			if (0.f > pt.y)
 				transform.position.y += 0.f - pt.y;
-			else if (float y_bound = level.size.y * level.tile_size * program_info->scale->Get(); y_bound <= pt.y)
-				transform.position.y += y_bound - pt.y;
+			else if (bound.y <= pt.y)
+				transform.position.y += bound.y - pt.y;
 		}
 
 		// obstacle wall
@@ -129,6 +132,26 @@ void CollisionSystem::Update()
 			}
 		}
 	}
+
+	// projectile
+	for (auto [projectile, transform] : manager->Filter<ProjectileComponent, ProjectileTransformComponent>().Each())
+	{
+		auto line = lio::LineSegf(projectile.start_pt, transform.position);
+
+		// map boundary
+
+		// x axis
+		if (transform.position.x - transform.radius < 0.f)
+			transform.velocity.x = std::abs(transform.velocity.x);
+		else if (transform.position.x + transform.radius >= bound.x)
+			transform.velocity.x = -1 * std::abs(transform.velocity.x);
+
+		// y axis
+		if (transform.position.y - transform.radius < 0.f)
+			transform.velocity.y = std::abs(transform.velocity.y);
+		else if (transform.position.y + transform.radius >= bound.y)
+			transform.velocity.y = -1 * std::abs(transform.velocity.y);
+	}
 }
 
 void CollisionSystem::Draw()
@@ -167,5 +190,19 @@ void CollisionSystem::Draw()
 
 			program_info->window->draw(box);
 		}
+	}
+
+	// projectile collider
+	for (auto& transform : manager->Filter<ProjectileTransformComponent>().Component())
+	{
+		sf::CircleShape circle(transform.radius);
+		
+		circle.setPosition(lio::ltosvec<float>(transform.position - lio::Vec2f(transform.radius, transform.radius) * program_info->scale->Get()));
+		circle.setFillColor(sf::Color::Transparent);
+		circle.setOutlineColor(sf::Color::Green);
+		circle.setOutlineThickness(1.f);
+		circle.setScale(program_info->scale->sfVec2f());
+
+		program_info->window->draw(circle);
 	}
 }
