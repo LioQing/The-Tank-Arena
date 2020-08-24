@@ -25,10 +25,19 @@ void ArenaManager::LoadMap(const std::string& path)
 	{
 		for (auto x = 0u; x < csvr.At(0).size(); ++x)
 		{
-			level.level.At(x, y) = std::stoi(csvr.At(y, x));
+			level.level.At(x, y).id = std::stoi(csvr.At(y, x));
 
 			if (csvr.At(y, x) == "1")
 				level.walls.emplace_back(x, y);
+		}
+	}
+
+	// process edges
+	for (auto y = 0u; y < level.level.height; ++y)
+	{
+		for (auto x = 0u; x < level.level.width; ++x)
+		{
+
 		}
 	}
 

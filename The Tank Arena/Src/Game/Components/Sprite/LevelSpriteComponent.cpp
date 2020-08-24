@@ -1,6 +1,6 @@
 #include "LevelSpriteComponent.hpp"
 
-LevelSpriteComponent::LevelSpriteComponent(const ProgramInfo& program_info, const lio::Matrixi& level, const std::string& tileset_id, int tile_size)
+LevelSpriteComponent::LevelSpriteComponent(const ProgramInfo& program_info, const lio::Matrix<Cell>& level, const std::string& tileset_id, int tile_size)
 {
 	for (auto y = 0u; y < level.height; ++y)
 	{
