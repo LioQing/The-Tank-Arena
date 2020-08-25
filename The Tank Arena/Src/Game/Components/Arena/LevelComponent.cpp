@@ -9,16 +9,16 @@ lio::Vec2i Cell::DirToVec(Dir dir)
 {
 	switch (dir)
 	{
-		case UP:
+		case Dir::DOWN:
 			return lio::Vec2i::Up();
 		
-		case DOWN:
+		case Dir::UP:
 			return lio::Vec2i::Down();
 
-		case LEFT:
+		case Dir::LEFT:
 			return lio::Vec2i::Left();
 
-		case RIGHT:
+		case Dir::RIGHT:
 			return lio::Vec2i::Right();
 
 		default:
@@ -29,16 +29,21 @@ lio::Vec2i Cell::DirToVec(Dir dir)
 Cell::Dir Cell::VecToDir(const lio::Vec2i& dir)
 {
 	if (dir == lio::Vec2i::Up())
-		return UP;
+		return Dir::DOWN;
 	else if (dir == lio::Vec2i::Down())
-		return DOWN;
+		return Dir::UP;
 	else if (dir == lio::Vec2i::Left())
-		return LEFT;
+		return Dir::LEFT;
 	else
-		return RIGHT;
+		return Dir::RIGHT;
 }
 
 Cell::operator int() const
 {
 	return id;
+}
+
+Edge::operator lio::LineSegi() const
+{
+	return edge;
 }

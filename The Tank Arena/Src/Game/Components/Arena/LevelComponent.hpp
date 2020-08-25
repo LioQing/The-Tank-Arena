@@ -10,7 +10,8 @@ struct Cell
 {
 	enum Dir : int8_t
 	{
-		UP, DOWN, LEFT, RIGHT
+		UP, DOWN, LEFT, RIGHT,
+		SIZE
 	};
 
 	static lio::Vec2i DirToVec(Dir dir);
@@ -23,11 +24,25 @@ struct Cell
 	operator int() const;
 };
 
+struct Edge
+{
+	enum Dir : int8_t
+	{
+		UP, DOWN, LEFT, RIGHT,
+		SIZE
+	};
+
+	lio::LineSegi edge;
+	Dir dir;
+
+	operator lio::LineSegi() const;
+};
+
 struct LevelComponent : lic::Component
 {
 	std::vector<lio::Vec2i> walls;
 	lio::Matrix<Cell> level;
-	std::vector<lio::LineSegi> edge_pool;
+	std::vector<Edge> edge_pool;
 
 	lio::Vec2i size;
 	int tile_size;

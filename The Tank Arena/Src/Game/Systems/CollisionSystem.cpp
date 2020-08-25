@@ -42,7 +42,6 @@ void CollisionSystem::Update()
 		collider.pts.at(0) = (transform.size / 2.f).Rotated(transform.hull_rotation);
 		collider.pts.at(1) = (lio::Vec2f(transform.size.x, -transform.size.y) / 2.f).Rotated(transform.hull_rotation);
 
-
 		// map boundary
 		for (auto i = 0u; i < 4; ++i)
 		{
@@ -178,14 +177,17 @@ void CollisionSystem::Draw()
 	// wall collider
 	for (auto& level : manager->Filter<LevelComponent>().Component())
 	{
-		sf::RectangleShape box(sf::Vector2f(level.tile_size - 1, level.tile_size - 1));
+		sf::RectangleShape box;
 
-		for (auto& pos : level.walls)
+		for (const auto& line : level.edge_pool)
 		{
-			box.setPosition(lio::ltosvec<float>(pos * level.tile_size * program_info->scale->Vec2f()));
+			auto tmp = lio::LineSegi(line.edge.p1 * lio::Vec2i::Left(), line.edge.p2 * lio::Vec2i::Left());
+
+			box.setPosition(lio::ltosvec<float>(line.edge.p1 * level.tile_size * program_info->scale->Vec2f()));
+			box.setSize(lio::ltosvec<float>((line.edge.p2 - line.edge.p1) * level.tile_size));
 			box.setFillColor(sf::Color::Transparent);
 			box.setOutlineColor(sf::Color::Green);
-			box.setOutlineThickness(1.f);
+			box.setOutlineThickness(.5f);
 			box.setScale(program_info->scale->sfVec2f());
 
 			program_info->window->draw(box);
@@ -193,7 +195,7 @@ void CollisionSystem::Draw()
 	}
 
 	// projectile collider
-	for (auto& transform : manager->Filter<ProjectileTransformComponent>().Component())
+	for (const auto& transform : manager->Filter<ProjectileTransformComponent>().Component())
 	{
 		sf::CircleShape circle(transform.radius);
 		
