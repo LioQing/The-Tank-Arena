@@ -5,10 +5,10 @@
 
 struct ProjectileComponent : lic::Component
 {
-	const float decay;
-	float decay_timer = 0.f;
+	uint32_t bounce_counter = 0u;
+	uint32_t bounce_count;
 
 	lio::Vec2f start_pt = lio::Vec2f::Zero();
 
-	ProjectileComponent(float decay, const lio::Vec2f& start_pt);
+	ProjectileComponent(uint32_t bounce_count, const lio::Vec2f& start_pt);
 };

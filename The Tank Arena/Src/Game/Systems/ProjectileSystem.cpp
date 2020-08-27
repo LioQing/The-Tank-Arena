@@ -6,9 +6,7 @@ void ProjectileSystem::Update()
 {
 	for (auto& projectile : manager->Filter<ProjectileComponent>().Component())
 	{
-		projectile.decay_timer += dt;
-
-		if (projectile.decay_timer > projectile.decay)
+		if (projectile.bounce_counter >= projectile.bounce_count)
 			projectile.GetEntity().Destroy();
 	}
 }

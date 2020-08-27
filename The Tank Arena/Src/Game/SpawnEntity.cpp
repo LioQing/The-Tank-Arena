@@ -44,7 +44,7 @@ lic::Entity spawn::Player()
 
 	auto& collider = AddComponent<TankColliderComponent>(player);
 
-	auto& turret = AddComponent<TurretComponent>(player, .2f, 200.f, 2000.f); // speed, interval, decay
+	auto& turret = AddComponent<TurretComponent>(player, .2f, 200.f, 2); // speed, interval, bounce_count
 
 	return lic::Entity(man, player);
 }
@@ -53,7 +53,7 @@ lic::Entity spawn::Projectile(
 	const lio::Vec2f& pos, 
 	const lio::Vec2f& init_vel, 
 	float speed,
-	float decay)
+	float bounce_count)
 {
 	lic::EntityID projectile = man->AddEntity();
 
@@ -63,7 +63,7 @@ lic::Entity spawn::Projectile(
 	transform.position = pos;
 	transform.velocity = init_vel;
 
-	auto& proj_comp = AddComponent<ProjectileComponent>(projectile, decay, pos); // decay
+	auto& proj_comp = AddComponent<ProjectileComponent>(projectile, bounce_count, pos); // bounce_count, pos
 
 	return lic::Entity(man, projectile);
 }

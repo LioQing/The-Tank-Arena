@@ -6,46 +6,32 @@
 #include <Matrix.hpp>
 #include <LioGraphics.hpp>
 
+#include "../../../ProgramUtils.hpp"
+
 struct Cell
 {
-	enum Dir : int8_t
-	{
-		UP, DOWN, LEFT, RIGHT,
-		SIZE
-	};
-
-	static lio::Vec2i DirToVec(Dir dir);
-	static Dir VecToDir(const lio::Vec2i& dir);
-
-	int id;
+	uint32_t id;
 	std::array<bool, 4> edge_exist;
-	std::array<int, 4> edge_id;
+	std::array<size_t, 4> edge_id;
 
-	operator int() const;
+	operator uint32_t() const;
 };
 
 struct Edge
 {
-	enum Dir : int8_t
-	{
-		UP, DOWN, LEFT, RIGHT,
-		SIZE
-	};
-
 	lio::LineSegi edge;
-	Dir dir;
+	Dir::Dir dir;
 
 	operator lio::LineSegi() const;
 };
 
 struct LevelComponent : lic::Component
 {
-	std::vector<lio::Vec2i> walls;
 	lio::Matrix<Cell> level;
 	std::vector<Edge> edge_pool;
 
 	lio::Vec2i size;
-	int tile_size;
+	size_t tile_size;
 
-	LevelComponent(int width, int height, int tile_size);
+	LevelComponent(size_t width, size_t height, size_t tile_size);
 };

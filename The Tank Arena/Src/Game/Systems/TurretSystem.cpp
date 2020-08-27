@@ -21,7 +21,7 @@ void TurretSystem::Update()
 				transform.position + adjusted_turret_dir * 36.f, // radius of turret gun barrel
 				adjusted_turret_dir.Normalized(),
 				turret.speed,
-				turret.decay);
+				turret.bounce_count);
 		}
 	}
 }

@@ -24,3 +24,15 @@ namespace lio
 	bool inview(const sf::FloatRect& rect, const sf::View& view);
 	bool inview(const sf::FloatRect& rect, const sf::FloatRect& view_bound);
 }
+
+namespace Dir
+{
+	enum Dir : int8_t
+	{
+		UP, DOWN, LEFT, RIGHT,
+		SIZE
+	};
+
+	lio::Vec2i DirToVec(Dir dir);
+	Dir VecToDir(const lio::Vec2i& dir);
+}

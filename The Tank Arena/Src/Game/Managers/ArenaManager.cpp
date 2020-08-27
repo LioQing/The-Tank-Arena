@@ -4,6 +4,7 @@
 #include <CSVReader.hpp>
 
 #include "../Components.hpp"
+#include "../../ProgramUtils.hpp"
 
 void ArenaManager::Init(ProgramInfo& program_info)
 {
@@ -26,9 +27,6 @@ void ArenaManager::LoadMap(const std::string& path)
 		for (auto x = 0u; x < csvr.At(0).size(); ++x)
 		{
 			level.level.At(x, y).id = std::stoi(csvr.At(y, x));
-
-			if (csvr.At(y, x) == "1")
-				level.walls.emplace_back(x, y);
 		}
 	}
 
@@ -42,9 +40,9 @@ void ArenaManager::LoadMap(const std::string& path)
 			if (cell.id != 0)
 				continue;
 
-			for (int8_t dir = Cell::Dir::UP; dir != Cell::Dir::SIZE; ++dir)
+			for (int8_t dir = Dir::UP; dir != Dir::SIZE; ++dir)
 			{
-				auto cell_to_be_check = lio::Vec2i(x, y) + Cell::DirToVec(static_cast<Cell::Dir>(dir));
+				auto cell_to_be_check = lio::Vec2i(x, y) + Dir::DirToVec(static_cast<Dir::Dir>(dir));
 
 				if ((cell_to_be_check.x < 0 ||
 					cell_to_be_check.x >= level.level.width ||
@@ -58,15 +56,15 @@ void ArenaManager::LoadMap(const std::string& path)
 
 				cell.edge_exist.at(dir) = true;
 
-				auto adjacent_cell = lio::Vec2i(x, y) + Cell::DirToVec(Cell::Dir::LEFT);
-				if (dir == Cell::Dir::LEFT || dir == Cell::Dir::RIGHT)
-					adjacent_cell = lio::Vec2i(x, y) + Cell::DirToVec(Cell::Dir::UP);
+				auto adjacent_cell = lio::Vec2i(x, y) + Dir::DirToVec(Dir::LEFT);
+				if (dir == Dir::LEFT || dir == Dir::RIGHT)
+					adjacent_cell = lio::Vec2i(x, y) + Dir::DirToVec(Dir::UP);
 
 				if ((adjacent_cell.x >= 0 && adjacent_cell.y >= 0) &&
 					level.level.At(adjacent_cell.x, adjacent_cell.y) == 1 &&
 					level.level.At(adjacent_cell.x, adjacent_cell.y).edge_exist.at(dir))
 				{
-					if (dir == Cell::Dir::LEFT || dir == Cell::Dir::RIGHT)
+					if (dir == Dir::LEFT || dir == Dir::RIGHT)
 						++level.edge_pool.at(level.level.At(adjacent_cell.x, adjacent_cell.y).edge_id.at(dir)).edge.p2.y;
 					else
 						++level.edge_pool.at(level.level.At(adjacent_cell.x, adjacent_cell.y).edge_id.at(dir)).edge.p2.x;
@@ -75,15 +73,15 @@ void ArenaManager::LoadMap(const std::string& path)
 				{
 					cell.edge_id.at(dir) = level.edge_pool.size();
 					level.edge_pool.push_back(Edge());
-					level.edge_pool.at(cell.edge_id.at(dir)).dir = static_cast<Edge::Dir>(dir);
+					level.edge_pool.at(cell.edge_id.at(dir)).dir = static_cast<Dir::Dir>(dir);
 
-					if (dir == Cell::Dir::UP)
+					if (dir == Dir::UP)
 						level.edge_pool.at(cell.edge_id.at(dir)).edge = lio::LineSegi(x, y, x + 1, y);
-					else if (dir == Cell::Dir::DOWN)
+					else if (dir == Dir::DOWN)
 						level.edge_pool.at(cell.edge_id.at(dir)).edge = lio::LineSegi(x, y + 1, x + 1, y + 1);
-					else if (dir == Cell::Dir::LEFT)
+					else if (dir == Dir::LEFT)
 						level.edge_pool.at(cell.edge_id.at(dir)).edge = lio::LineSegi(x, y, x, y + 1);
-					else if (dir == Cell::Dir::RIGHT)
+					else if (dir == Dir::RIGHT)
 						level.edge_pool.at(cell.edge_id.at(dir)).edge = lio::LineSegi(x + 1, y, x + 1, y + 1);
 				}
 			}

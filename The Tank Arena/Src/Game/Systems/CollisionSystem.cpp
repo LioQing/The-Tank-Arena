@@ -21,24 +21,6 @@ void CollisionSystem::Update()
 	// tank
 	for (auto [collider, transform] : manager->Filter<TankColliderComponent, TankTransformComponent>().Each())
 	{
-		auto HasNoCollision = [&](const lio::Vec2f& pos) -> bool
-		{
-			auto& level = m_arena_entity.GetComponent<LevelComponent>();
-			for (auto& pos : level.walls)
-			{
-				for (auto i = 0u; i < 4; ++i)
-				{
-					auto pt = pos + collider.pts.at(i % 2) * ((i / 2 >= 1) ? -1 : 1) * program_info->scale->Vec2f();
-					if (lio::Rect<float>(
-						pos * level.tile_size * program_info->scale->Vec2f(),
-						program_info->scale->Vec2f() * level.tile_size)
-						.Lies(pt))
-						return false;
-				}
-			}
-			return true;
-		};
-
 		collider.pts.at(0) = (transform.size / 2.f).Rotated(transform.hull_rotation);
 		collider.pts.at(1) = (lio::Vec2f(transform.size.x, -transform.size.y) / 2.f).Rotated(transform.hull_rotation);
 
@@ -61,77 +43,6 @@ void CollisionSystem::Update()
 		}
 
 		// obstacle wall
-		//for (auto& pos : level.walls)
-		//{
-		//	for (auto i = 0u; i < 4; ++i)
-		//	{
-		//		auto pt = transform.position + collider.pts.at(i % 2) * ((i / 2 >= 1) ? -1 : 1) * program_info->scale->Vec2f();
-
-		//		auto dir_vec = pt - transform.position;
-		//		dir_vec /= dir_vec.Abs();
-
-		//		if (std::isnan(dir_vec.x)) dir_vec.x = 0;
-		//		if (std::isnan(dir_vec.y)) dir_vec.y = 0;
-
-		//		if (!lio::Rect<float>(
-		//			pos * level.tile_size * program_info->scale->Vec2f(),
-		//			program_info->scale->Vec2f() * level.tile_size)
-		//			.Lies(pt))
-		//			continue;
-
-		//		auto diff = 0.f;
-		//		auto s = 0u;
-		//		auto resolve_vec = lio::Vec2f::Zero();
-
-		//		// x axis
-		//		if (pos.x - dir_vec.x >= 0 && pos.x - dir_vec.x < level.size.x &&
-		//			!level.level.At(pos.x - dir_vec.x, pos.y))
-		//		{
-		//			for (s = 0u; s != 2; ++s)
-		//			{
-		//				diff = (pos.x + s) * level.tile_size * program_info->scale->Get() - pt.x;
-		//				if (diff / std::abs(diff) == dir_vec.x)
-		//					continue;
-		//				
-		//				resolve_vec.x = diff;
-		//				break;
-		//			}
-		//		}
-
-		//		// y axis
-		//		if (pos.y - dir_vec.y >= 0 && pos.y - dir_vec.y < level.size.y &&
-		//			!level.level.At(pos.x, pos.y - dir_vec.y))
-		//		{
-		//			for (s = 0u; s != 2; ++s)
-		//			{
-		//				diff = (pos.y + s) * level.tile_size * program_info->scale->Get() - pt.y;
-		//				if (diff / std::abs(diff) == dir_vec.y)
-		//					continue;
-
-		//				resolve_vec.y = diff;
-		//				break;
-		//			}
-		//		}
-
-		//		// apply resolve
-		//		if (HasNoCollision(transform.position + lio::Vec2f(resolve_vec.x, 0)) &&
-		//			resolve_vec.x && std::abs(resolve_vec.x) < std::abs(resolve_vec.y))
-		//		{
-		//			transform.position += lio::Vec2f(resolve_vec.x, 0);
-		//			continue;
-		//		}
-		//		if (HasNoCollision(transform.position + lio::Vec2f(0, resolve_vec.y)) &&
-		//			resolve_vec.y && std::abs(resolve_vec.x) > std::abs(resolve_vec.y))
-		//		{
-		//			transform.position += lio::Vec2f(0, resolve_vec.y);
-		//			continue;
-		//		}
-
-		//		transform.position += resolve_vec;
-		//	}
-		//}
-
-		// obstacle wall
 		for (auto& edge : level.edge_pool)
 		{
 			auto edgef = edge.edge * level.tile_size * program_info->scale->Get();
@@ -148,8 +59,8 @@ void CollisionSystem::Update()
 				{
 					for (auto j = 0u; j < 2; ++j)
 					{
-						if (edge.dir == Edge::LEFT && pts[j].x < edgef.p1.x ||
-							edge.dir == Edge::RIGHT && pts[j].x > edgef.p1.x)
+						if (edge.dir == Dir::LEFT && pts[j].x < edgef.p1.x ||
+							edge.dir == Dir::RIGHT && pts[j].x > edgef.p1.x)
 						{
 							if (std::abs(edgef.p1.x - pts[j].x) > std::abs(resolve.x))
 							{
@@ -157,8 +68,8 @@ void CollisionSystem::Update()
 								break;
 							}
 						}
-						else if (edge.dir == Edge::UP && pts[j].y < edgef.p1.y ||
-							edge.dir == Edge::DOWN && pts[j].y > edgef.p1.y)
+						else if (edge.dir == Dir::UP && pts[j].y < edgef.p1.y ||
+							edge.dir == Dir::DOWN && pts[j].y > edgef.p1.y)
 						{
 							if (std::abs(edgef.p1.y - pts[j].y) > std::abs(resolve.y))
 							{
@@ -180,21 +91,56 @@ void CollisionSystem::Update()
 	// projectile
 	for (auto [projectile, transform] : manager->Filter<ProjectileComponent, ProjectileTransformComponent>().Each())
 	{
-		auto line = lio::LineSegf(projectile.start_pt, transform.position);
+		auto proj_line = lio::LineSegf(projectile.start_pt, transform.position);
 
 		// map boundary
+		auto hit_bound = false;
 
 		// x axis
 		if (transform.position.x - transform.radius < 0.f)
+		{
 			transform.velocity.x = std::abs(transform.velocity.x);
+			hit_bound = true;
+		}
 		else if (transform.position.x + transform.radius >= bound.x)
+		{
 			transform.velocity.x = -1 * std::abs(transform.velocity.x);
+			hit_bound = true;
+		}
 
 		// y axis
 		if (transform.position.y - transform.radius < 0.f)
+		{
 			transform.velocity.y = std::abs(transform.velocity.y);
+			hit_bound = true;
+		}
 		else if (transform.position.y + transform.radius >= bound.y)
+		{
 			transform.velocity.y = -1 * std::abs(transform.velocity.y);
+			hit_bound = true;
+		}
+
+		if (hit_bound)
+		{
+			projectile.start_pt = transform.position;
+			++projectile.bounce_counter;
+		}
+
+		// obstacle wall
+		for (auto& edge : level.edge_pool)
+		{
+			auto edgef = (edge.edge * level.tile_size - Dir::DirToVec(edge.dir) * transform.radius) * program_info->scale->Get();
+
+			if (!edgef.Intersect(proj_line))
+				continue;
+
+			auto contact_pt = edgef.IntersectPt(proj_line);
+
+			projectile.start_pt = contact_pt - Dir::DirToVec(edge.dir);
+			transform.position = contact_pt - Dir::DirToVec(edge.dir);
+			transform.velocity *= (edge.dir == Dir::UP || edge.dir == Dir::DOWN) ? lio::Vec2(1, -1) : lio::Vec2(-1, 1);
+			++projectile.bounce_counter;
+		}
 	}
 }
 
@@ -206,7 +152,7 @@ void CollisionSystem::Draw()
 		sf::ConvexShape box(4);
 		for (auto i = 0u; i < 4; ++i)
 		{
-			box.setPoint(i, lio::ltosvec<float>(collider.pts.at(i % 2) * ((i / 2 >= 1) ? -1 : 1))); // to be replaced by coroutine
+			box.setPoint(i, lio::ltosvec<float>(collider.pts.at(i % 2) * ((i / 2 >= 1) ? -1 : 1)));
 		}
 
 		box.setPosition(lio::ltosvec<float>(transform.position));
@@ -234,15 +180,15 @@ void CollisionSystem::Draw()
 
 			switch (line.dir)
 			{
-				case Edge::DOWN:
+				case Dir::DOWN:
 					box.setOutlineColor(sf::Color::Green);
 					break;
 
-				case Edge::UP:
+				case Dir::UP:
 					box.setOutlineColor(sf::Color::Red);
 					break;
 
-				case Edge::LEFT:
+				case Dir::LEFT:
 					box.setOutlineColor(sf::Color::Blue);
 					break;
 
