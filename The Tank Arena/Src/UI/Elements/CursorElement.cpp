@@ -1,5 +1,12 @@
 #include "CursorElement.hpp"
 
+#include "../../Events.hpp"
+
+CursorElement::CursorElement()
+{
+	Listen<InGameCursorEvent>();
+}
+
 CursorElement& CursorElement::SetPosition(const sf::Vector2f& pos)
 {
 	cursor_color.setPosition(pos);
@@ -42,4 +49,13 @@ const sf::Sprite& CursorElement::GetColorSprite() const
 const sf::Sprite& CursorElement::GetOutlineSprite() const
 {
 	return cursor_outline;
+}
+
+void CursorElement::On(const lev::Event& event)
+{
+	if (event.Is<InGameCursorEvent>())
+	{
+		const auto& pos = static_cast<const InGameCursorEvent&>(event).pos;
+		SetPosition(pos);
+	}
 }

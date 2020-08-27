@@ -6,12 +6,12 @@
 
 struct CollisionSystem : System
 {
-	CollisionSystem(lic::Entity& arena_entity);
+	CollisionSystem(const lic::Entity& arena_entity);
 
 	void Update() override;
 	void Draw();
 
 private:
 
-	lic::Entity& m_arena_entity;
+	const lic::Entity& m_arena_entity;
 };

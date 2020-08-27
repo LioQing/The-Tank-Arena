@@ -1,12 +1,16 @@
 #include "TurretSystem.hpp"
 
+#include <SFML/Graphics.hpp>
 #include <cmath>
+#include <lev.hpp>
 
 #include "../Components.hpp"
 #include "../SpawnEntity.hpp"
+#include "../../Events.hpp"
 
 void TurretSystem::Update()
 {
+	// turret action
 	for (auto [control, transform, turret] : manager->Filter<PlayerControlComponent, TankTransformComponent, TurretComponent>().Each())
 	{
 		// turret rotation
@@ -18,6 +22,7 @@ void TurretSystem::Update()
 		{
 			auto adjusted_turret_dir = control.turret_dir * (-1.f, 1.f);
 			spawn::Projectile(
+				transform.position,
 				transform.position + adjusted_turret_dir * 36.f, // radius of turret gun barrel
 				adjusted_turret_dir.Normalized(),
 				turret.speed,

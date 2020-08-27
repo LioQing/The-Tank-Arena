@@ -35,6 +35,7 @@ void Game::Init(ProgramInfo program_info)
 	m_sys_man.Add<TurretSystem>();
 	m_sys_man.Add<ProjectileSystem>();
 	m_sys_man.Add<CollisionSystem>(arena_entity);
+	m_sys_man.Add<CrosshairSystem>(arena_entity);
 
 	// spawn
 	spawn::Init(m_program_info, m_ic_man);
@@ -66,6 +67,9 @@ void Game::Update(float dt)
 
 	// camera
 	m_cam_man.Update();
+
+	// ui
+	m_sys_man.Get<CrosshairSystem>().Update();
 }
 
 void Game::Draw()

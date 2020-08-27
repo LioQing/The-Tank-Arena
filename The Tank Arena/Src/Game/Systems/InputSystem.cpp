@@ -46,17 +46,16 @@ void InputSystem::Update()
 			auto& transform = manager->GetComponent<TankTransformComponent>(control.GetEntityID());
 
 			// mouse
-			static auto is_joystick = false;
 			static auto pre_mouse_pos = lio::Vec2f::Zero();
 
-			if (!is_joystick || pre_mouse_pos != lio::stolvec<float>(sf::Mouse::getPosition()))
+			if (!control.is_joystick || pre_mouse_pos != lio::stolvec<float>(sf::Mouse::getPosition()))
 			{
 				auto dir_vec =
 					lio::stolvec<float>(program_info->window->mapPixelToCoords(sf::Mouse::getPosition(*program_info->window))) -
 					transform.position;
 				control.turret_dir = dir_vec;
 
-				is_joystick = false;
+				control.is_joystick = false;
 			}
 			pre_mouse_pos = lio::stolvec<float>(sf::Mouse::getPosition());
 
@@ -70,7 +69,7 @@ void InputSystem::Update()
 				if (turret_axis.Magnitude() > 15.f)
 				{
 					control.turret_dir = turret_axis;
-					is_joystick = true;
+					control.is_joystick = true;
 				}
 			}
 

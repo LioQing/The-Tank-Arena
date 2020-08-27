@@ -50,6 +50,7 @@ lic::Entity spawn::Player()
 }
 
 lic::Entity spawn::Projectile(
+	const lio::Vec2f& start_pos,
 	const lio::Vec2f& pos, 
 	const lio::Vec2f& init_vel, 
 	float speed,
@@ -63,7 +64,7 @@ lic::Entity spawn::Projectile(
 	transform.position = pos;
 	transform.velocity = init_vel;
 
-	auto& proj_comp = AddComponent<ProjectileComponent>(projectile, bounce_count, pos); // bounce_count, pos
+	auto& proj_comp = AddComponent<ProjectileComponent>(projectile, bounce_count, start_pos); // bounce_count, pos
 
 	return lic::Entity(man, projectile);
 }

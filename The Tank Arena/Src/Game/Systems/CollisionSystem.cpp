@@ -8,7 +8,7 @@
 #include "../Components.hpp"
 #include "../../ProgramUtils.hpp"
 
-CollisionSystem::CollisionSystem(lic::Entity& arena_entity)
+CollisionSystem::CollisionSystem(const lic::Entity& arena_entity)
 	: m_arena_entity(arena_entity)
 {
 }
@@ -166,8 +166,8 @@ void CollisionSystem::Draw()
 	}
 
 	// wall collider
-	for (auto& level : manager->Filter<LevelComponent>().Component())
 	{
+		auto& level = m_arena_entity.GetComponent<LevelComponent>();
 		sf::RectangleShape box;
 
 		for (const auto& line : level.edge_pool)

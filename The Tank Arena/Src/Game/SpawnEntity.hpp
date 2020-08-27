@@ -10,6 +10,7 @@ namespace spawn
 
 	lic::Entity Player();
 	lic::Entity Projectile(
+		const lio::Vec2f& start_pos,
 		const lio::Vec2f& pos, 
 		const lio::Vec2f& init_vel, 
 		float speed,
