@@ -7,7 +7,7 @@
 #include "../Components.hpp"
 #include "../../Events.hpp"
 
-CrosshairSystem::CrosshairSystem(const lic::Entity& arena_entity)
+CrosshairSystem::CrosshairSystem(lic::Entity& arena_entity)
 	: arena_entity(arena_entity)
 {
 }
@@ -21,6 +21,7 @@ void CrosshairSystem::Update()
 	program_info->window->setView(program_info->window->getDefaultView());
 	auto pos = program_info->window->mapPixelToCoords(sf::Mouse::getPosition(*program_info->window));
 	program_info->window->setView(view);
+	arena_entity.GetComponent<HUDComponent>().crosshair_pos = lio::stolvec<float>(program_info->window->mapPixelToCoords(sf::Mouse::getPosition(*program_info->window)));
 
 	const auto max_distance = lio::stolvec<float>(view.getSize()).Magnitude();
 	for (auto& control : manager->Filter<PlayerControlComponent>().Component())
@@ -61,6 +62,8 @@ void CrosshairSystem::Update()
 		pos = lio::ltosvec<float>(min_view_line.p1
 			+ lio::stolvec<float>(view.getSize()) / 2.f
 			- lio::stolvec<float>(view.getCenter()));
+
+		arena_entity.GetComponent<HUDComponent>().crosshair_pos = min_view_line.p1;
 	}
 
 	lev::Emit<InGameCursorEvent>(pos);

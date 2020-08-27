@@ -8,3 +8,4 @@
 #include "Systems/TurretSystem.hpp"
 #include "Systems/ProjectileSystem.hpp"
 #include "Systems/CrosshairSystem.hpp"
+#include "Systems/HUDSystem.hpp"

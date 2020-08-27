@@ -6,6 +6,7 @@ void UI::Init(ProgramInfo program_info)
 {
 	// listen events
 	Listen<WindowResizedEvent>();
+	Listen<GameSettingEvent>();
 
 	// store program var
 	m_program_info = program_info;
@@ -19,10 +20,9 @@ void UI::Init(ProgramInfo program_info)
 
 	// add elements
 	element_man.Init(m_program_info);
-	element_man.Add<CursorElement>("cursor")
+	element_man.Add<CursorElement>("cursor") // config
 		.SetTextures("cursor_color", "cursor_outline")
-		.SetScale(2.5f)
-		.SetColor(sf::Color::Green);
+		.SetScale(2.5f);
 }
 
 void UI::Update()
@@ -46,5 +46,10 @@ void UI::On(const lev::Event& event)
 	if (event.Is<WindowResizedEvent>())
 	{
 		m_view.setSize(static_cast<sf::Vector2f>(m_program_info.window->getSize()));
+	}
+	else if (event.Is<GameSettingEvent>())
+	{
+		const auto& game_setting = static_cast<const GameSettingEvent&>(event);
+		element_man.Get<CursorElement>("cursor").SetColor(game_setting.crosshair_col);
 	}
 }

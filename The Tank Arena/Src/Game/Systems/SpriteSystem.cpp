@@ -53,6 +53,12 @@ void SpriteSystem::Draw()
 		}
 	}
 
+	// crosshair line
+	for (auto& hud : manager->Filter<HUDComponent>().Component())
+	{
+		program_info->window->draw(hud.crosshair_line);
+	}
+
 	// tank sprite
 	for (auto& sprite : manager->Filter<TankSpriteComponent>().Component())
 	{

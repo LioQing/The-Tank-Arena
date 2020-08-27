@@ -10,3 +10,4 @@
 #include "Components/Sprite/ProjectileSpriteComponent.hpp"
 #include "Components/Transform/ProjectileTransformComponent.hpp"
 #include "Components/Tank/ProjectileComponent.hpp"
+#include "Components/Arena/HUDComponent.hpp"

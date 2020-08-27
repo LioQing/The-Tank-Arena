@@ -6,11 +6,11 @@
 
 struct CrosshairSystem : System
 {
-	CrosshairSystem(const lic::Entity& arena_entity);
+	CrosshairSystem(lic::Entity& arena_entity);
 
 	void Update() override;
 
 private:
 
-	const lic::Entity& arena_entity;
+	lic::Entity& arena_entity;
 };

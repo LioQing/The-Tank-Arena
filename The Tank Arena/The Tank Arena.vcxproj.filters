@@ -111,6 +111,15 @@
     <ClCompile Include="Src\Game\Systems\CrosshairSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Game\Systems\HUDSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Components\Arena\HUDComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Events\GameSettingEvent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\Game.hpp">
@@ -243,6 +252,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\Systems\CrosshairSystem.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Systems\HUDSystem.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Components\Arena\HUDComponent.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Events\GameSettingEvent.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

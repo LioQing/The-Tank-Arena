@@ -36,6 +36,7 @@ void Game::Init(ProgramInfo program_info)
 	m_sys_man.Add<ProjectileSystem>();
 	m_sys_man.Add<CollisionSystem>(arena_entity);
 	m_sys_man.Add<CrosshairSystem>(arena_entity);
+	m_sys_man.Add<HUDSystem>(arena_entity);
 
 	// spawn
 	spawn::Init(m_program_info, m_ic_man);
@@ -70,15 +71,17 @@ void Game::Update(float dt)
 
 	// ui
 	m_sys_man.Get<CrosshairSystem>().Update();
+	m_sys_man.Get<HUDSystem>().Update();
 }
 
 void Game::Draw()
 {
 	m_cam_man.Draw();
 	m_sys_man.Get<SpriteSystem>().Draw();
+	m_sys_man.Get<HUDSystem>().Draw();
 
 	// debug use
-	m_sys_man.Get<CollisionSystem>().Draw();
+	//m_sys_man.Get<CollisionSystem>().Draw();
 }
 
 void Game::CleanUp()
