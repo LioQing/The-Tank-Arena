@@ -17,8 +17,8 @@ void Game::Init(ProgramInfo program_info)
 	m_program_info.scale = &m_scale;
 
 	// load textures
-	m_program_info.texture_manager->LoadTexture("hull", R"(Assets\Player\base_hull.png)");
-	m_program_info.texture_manager->LoadTexture("turret", R"(Assets\Player\base_turret.png)");
+	m_program_info.texture_manager->LoadTexture("hull", R"(Assets\Player\base_hullg.png)");
+	m_program_info.texture_manager->LoadTexture("turret", R"(Assets\Player\base_turretg.png)");
 	m_program_info.texture_manager->LoadTexture("tileset", R"(Assets\TileMap\Chess.png)");
 	m_program_info.texture_manager->LoadTexture("bullet", R"(Assets\Projectile\Default.png)");
 

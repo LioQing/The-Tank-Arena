@@ -4,10 +4,12 @@
 
 #include "../Components.hpp"
 #include "../Events.hpp"
+#include "../../Events.hpp"
 #include "../../ProgramUtils.hpp"
 
 SpriteSystem::SpriteSystem()
 {
+	Listen<GameSettingEvent>();
 	Listen<SpriteRescaleEvent>();
 }
 
@@ -113,6 +115,16 @@ void SpriteSystem::On(const lev::Event& event)
 		{
 			sprite.sprite.setScale((ev.current_scale).sfVec2f());
 			transform.position *= rescale;
+		}
+	}
+	else if (event.Is<GameSettingEvent>())
+	{
+		const auto& game_setting = static_cast<const GameSettingEvent&>(event);
+
+		for (auto [control, sprite] : manager->Filter<PlayerControlComponent, TankSpriteComponent>().Each())
+		{
+			sprite.hull_sprite.setColor(game_setting.tank_col);
+			sprite.turret_sprite.setColor(game_setting.tank_col);
 		}
 	}
 }

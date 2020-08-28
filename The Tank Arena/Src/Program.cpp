@@ -26,6 +26,7 @@ void Program::Gameplay()
 
 	// config
 	lev::Emit<GameSettingEvent>(
+		sf::Color(148, 255, 127), // tank col
 		sf::Color(0, 255, 0), // crosshair col
 		sf::Color(64, 255, 64, 75), // crosshair line col
 		1.f // crosshair line thickness
