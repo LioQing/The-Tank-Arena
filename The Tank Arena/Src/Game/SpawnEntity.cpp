@@ -55,9 +55,18 @@ lic::Entity spawn::Player(
 	return lic::Entity(man, player);
 }
 
-lic::Entity spawn::Enemy()
+lic::Entity spawn::Enemy(
+	const lio::Vec2f& pos,
+	const lio::Vec2i& hull_size)
 {
-	return lic::Entity();
+	lic::EntityID enemy = man->AddEntity();
+
+	auto& sprite = AddComponent_Info<TankSpriteComponent>(enemy, "ehull", "eturret");
+
+	auto& transform = AddComponent<TankTransformComponent>(enemy, hull_size, 0.f);
+	transform.position = pos;
+
+	return lic::Entity(man, enemy);
 }
 
 lic::Entity spawn::Projectile(

@@ -48,7 +48,12 @@ void Game::Init(ProgramInfo program_info)
 		.15f,
 		.2,
 		200.f,
-		2.f);
+		2.f
+	);
+	auto enemy = spawn::Enemy(
+		{ 400, 300 },
+		{ 20, 19 }
+	);
 
 	// camera manager
 	m_cam_man.Init(

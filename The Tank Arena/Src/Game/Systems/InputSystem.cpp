@@ -81,7 +81,10 @@ void InputSystem::Update()
 		{
 			auto& turret = control.GetEntity().GetComponent<TurretComponent>();
 
-			if (turret.interval_timer >= turret.interval && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			if (turret.interval_timer >= turret.interval && 
+				(sf::Mouse::isButtonPressed(sf::Mouse::Left) || 
+					sf::Joystick::isConnected(0) && 
+					std::abs(sf::Joystick::getAxisPosition(0, sf::Joystick::Z)) > .5f)) // might be config
 			{
 				turret.interval_timer -= turret.interval;
 				control.fire = true;
@@ -94,7 +97,12 @@ void InputSystem::Update()
 		}
 		else
 		{
-			control.fire = sf::Mouse::isButtonPressed(sf::Mouse::Left);
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left) ||
+				sf::Joystick::isConnected(0) &&
+				std::abs(sf::Joystick::getAxisPosition(0, sf::Joystick::Z)) > .5f) // same might be config
+				control.fire = true;
+			else
+				control.fire = false;
 		}
 	}
 }
