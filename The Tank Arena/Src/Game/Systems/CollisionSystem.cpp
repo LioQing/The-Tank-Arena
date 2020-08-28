@@ -131,6 +131,15 @@ void CollisionSystem::Update()
 		{
 			auto edgef = (edge.edge * level.tile_size - Dir::DirToVec(edge.dir) * transform.radius) * program_info->scale->Get();
 
+			std::pair<double*, double*> pts;
+			if (edge.dir == Dir::LEFT || edge.dir == Dir::RIGHT)
+				pts = std::make_pair(&edgef.p1.y, &edgef.p2.y);
+			else
+				pts = std::make_pair(&edgef.p1.x, &edgef.p2.x);
+
+			*pts.first -= transform.radius * program_info->scale->Get();
+			*pts.second += transform.radius * program_info->scale->Get();
+
 			if (!edgef.Intersect(proj_line))
 				continue;
 

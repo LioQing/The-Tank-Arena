@@ -105,8 +105,8 @@ void SpriteSystem::On(const lev::Event& event)
 		// tank sprite
 		for (auto [transform, sprite] : manager->Filter<TankTransformComponent, TankSpriteComponent>().Each())
 		{
-			sprite.hull_sprite.setScale((ev.current_scale * .5f).sfVec2f());
-			sprite.turret_sprite.setScale((ev.current_scale * .5f).sfVec2f());
+			sprite.hull_sprite.setScale(ev.current_scale.sfVec2f());
+			sprite.turret_sprite.setScale(ev.current_scale.sfVec2f());
 			transform.position *= rescale;
 		}
 

@@ -17,8 +17,10 @@ void Game::Init(ProgramInfo program_info)
 	m_program_info.scale = &m_scale;
 
 	// load textures
-	m_program_info.texture_manager->LoadTexture("hull", R"(Assets\Player\base_hullg.png)");
-	m_program_info.texture_manager->LoadTexture("turret", R"(Assets\Player\base_turretg.png)");
+	m_program_info.texture_manager->LoadTexture("hull", R"(Assets\Player\hull.png)");
+	m_program_info.texture_manager->LoadTexture("turret", R"(Assets\Player\turret.png)");
+	m_program_info.texture_manager->LoadTexture("ehull", R"(Assets\Enemies\normal\hull.png)");
+	m_program_info.texture_manager->LoadTexture("eturret", R"(Assets\Enemies\normal\turret.png)");
 	m_program_info.texture_manager->LoadTexture("tileset", R"(Assets\TileMap\Chess.png)");
 	m_program_info.texture_manager->LoadTexture("bullet", R"(Assets\Projectile\Default.png)");
 
@@ -40,7 +42,13 @@ void Game::Init(ProgramInfo program_info)
 
 	// spawn
 	spawn::Init(m_program_info, m_ic_man);
-	auto player = spawn::Player();
+	auto player = spawn::Player(
+		{ 400, 300 },
+		{ 20, 19 },
+		.15f,
+		.2,
+		200.f,
+		2.f);
 
 	// camera manager
 	m_cam_man.Init(

@@ -31,22 +31,33 @@ void spawn::Init(ProgramInfo& program_info, lic::Manager& man)
 	spawn::man = &man;
 }
 
-lic::Entity spawn::Player()
+lic::Entity spawn::Player(
+	const lio::Vec2f& pos,
+	const lio::Vec2i& hull_size,
+	float speed,
+	float projectile_speed,
+	float turret_interval,
+	float projectile_bounce_count)
 {
 	lic::EntityID player = man->AddEntity();
 
 	auto& sprite = AddComponent_Info<TankSpriteComponent>(player, "hull", "turret");
 
-	auto& transform = AddComponent<TankTransformComponent>(player, lio::Vec2i(20, 19), .15f); // size, speed
-	transform.position = { 400, 300 };
+	auto& transform = AddComponent<TankTransformComponent>(player, hull_size, speed);
+	transform.position = pos;
 
 	auto& control = AddComponent<PlayerControlComponent>(player);
 
 	auto& collider = AddComponent<TankColliderComponent>(player);
 
-	auto& turret = AddComponent<TurretComponent>(player, .2f, 200.f, 2); // speed, interval, bounce_count
+	auto& turret = AddComponent<TurretComponent>(player, projectile_speed, turret_interval, projectile_bounce_count);
 
 	return lic::Entity(man, player);
+}
+
+lic::Entity spawn::Enemy()
+{
+	return lic::Entity();
 }
 
 lic::Entity spawn::Projectile(
