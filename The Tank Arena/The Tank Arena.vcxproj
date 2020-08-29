@@ -169,6 +169,7 @@
     <ClCompile Include="Src\Game\Components\Transform\TankTransformComponent.cpp" />
     <ClCompile Include="Src\Game\Events\SpriteRescaleEvent.cpp" />
     <ClCompile Include="Src\Game\Game.cpp" />
+    <ClCompile Include="Src\Game\Managers\AIManager.cpp" />
     <ClCompile Include="Src\Game\Managers\ArenaManager.cpp" />
     <ClCompile Include="Src\Game\Managers\CameraManager.cpp" />
     <ClCompile Include="Src\Game\Managers\SystemManager.cpp" />

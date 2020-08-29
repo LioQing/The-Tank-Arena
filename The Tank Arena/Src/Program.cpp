@@ -48,6 +48,10 @@ void Program::Gameplay()
 				lev::Emit<WindowResizedEvent>();
 		}
 
+		// tmp quick exit
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+			break;
+
 		// update
 		game.Update(delta_time);
 		ui.Update();
@@ -60,6 +64,8 @@ void Program::Gameplay()
 
 		delta_time = static_cast<float>(delta_clock.restart().asMicroseconds()) / 1000.0;
 	}
+
+	game.CleanUp();
 }
 
 TextureManager& Program::TextureManager()
