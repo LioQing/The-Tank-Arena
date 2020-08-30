@@ -48,7 +48,8 @@ void Game::Init(ProgramInfo program_info)
 		.15f,
 		.2,
 		200.f,
-		2.f
+		2.f,
+		5
 	);
 	auto enemy = spawn::Enemy(
 		{ 400, 300 },

@@ -3,6 +3,7 @@
 #include <lic.hpp>
 
 #include "../ProgramUtils.hpp"
+#include "Components.hpp"
 
 namespace spawn
 {
@@ -14,7 +15,8 @@ namespace spawn
 		float speed,
 		float projectile_speed,
 		float turret_interval,
-		float projectile_bounce_count);
+		float projectile_bounce_count,
+		uint32_t bullet_count);
 
 	lic::Entity Enemy(
 		const lio::Vec2f& pos,
@@ -25,5 +27,6 @@ namespace spawn
 		const lio::Vec2f& pos, 
 		const lio::Vec2f& init_vel, 
 		float speed,
-		float decay);
+		float decay,
+		TurretComponent& turret);
 }

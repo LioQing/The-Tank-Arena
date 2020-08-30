@@ -1,7 +1,5 @@
 #include "SpawnEntity.hpp"
 
-#include "Components.hpp"
-
 namespace spawn
 {
 	namespace
@@ -37,7 +35,8 @@ lic::Entity spawn::Player(
 	float speed,
 	float projectile_speed,
 	float turret_interval,
-	float projectile_bounce_count)
+	float projectile_bounce_count,
+	uint32_t bullet_count)
 {
 	lic::EntityID player = man->AddEntity();
 
@@ -50,7 +49,7 @@ lic::Entity spawn::Player(
 
 	auto& collider = AddComponent<TankColliderComponent>(player);
 
-	auto& turret = AddComponent<TurretComponent>(player, projectile_speed, turret_interval, projectile_bounce_count);
+	auto& turret = AddComponent<TurretComponent>(player, projectile_speed, turret_interval, projectile_bounce_count, bullet_count);
 
 	return lic::Entity(man, player);
 }
@@ -74,7 +73,8 @@ lic::Entity spawn::Projectile(
 	const lio::Vec2f& pos, 
 	const lio::Vec2f& init_vel, 
 	float speed,
-	float bounce_count)
+	float bounce_count,
+	TurretComponent& turret)
 {
 	lic::EntityID projectile = man->AddEntity();
 
@@ -84,7 +84,7 @@ lic::Entity spawn::Projectile(
 	transform.position = pos;
 	transform.velocity = init_vel;
 
-	auto& proj_comp = AddComponent<ProjectileComponent>(projectile, bounce_count, start_pos); // bounce_count, pos
+	auto& proj_comp = AddComponent<ProjectileComponent>(projectile, bounce_count, start_pos, turret); // bounce_count, pos, tank
 
 	return lic::Entity(man, projectile);
 }
