@@ -9,6 +9,8 @@
 
 void Game::Init(ProgramInfo program_info)
 {
+	auto tile_size = 32u;
+
 	// listen events
 	Listen<WindowResizedEvent>();
 
@@ -27,7 +29,7 @@ void Game::Init(ProgramInfo program_info)
 	// level
 	m_arena_man.Init(m_program_info);
 	auto& arena_entity = m_arena_man.SetArena(m_ic_man.AddEntity());
-	m_arena_man.LoadMap(R"(Assets\TileMap\DebugLevel.csv)");
+	m_arena_man.LoadMap(R"(Assets\TileMap\DebugLevel.csv)", tile_size);
 
 	// add system
 	m_sys_man.Init(m_program_info, m_ic_man);
@@ -40,6 +42,9 @@ void Game::Init(ProgramInfo program_info)
 	m_sys_man.Add<CrosshairSystem>(arena_entity);
 	m_sys_man.Add<HUDSystem>(arena_entity);
 
+	// ai manager
+	m_ai_man.Init(m_program_info);
+
 	// spawn
 	spawn::Init(m_program_info, m_ic_man);
 	auto player = spawn::Player(
@@ -51,18 +56,12 @@ void Game::Init(ProgramInfo program_info)
 		2.f,
 		5
 	);
-	auto enemy = spawn::Enemy(
-		{ 400, 300 },
-		{ 20, 19 }
-	);
-
-	// ai manager
-	m_ai_man.Init(program_info);
+	m_ai_man.Spawn(R"(Assets\TileMap\DebugLevel.csv)", m_ic_man, tile_size);
 
 	// camera manager
 	m_cam_man.Init(
-		m_program_info, 
-		player.GetComponent<TankTransformComponent>().position, 
+		m_program_info,
+		player.GetComponent<TankTransformComponent>().position,
 		m_arena_man.GetEntity().GetComponent<LevelComponent>());
 
 	m_ai_man.StartProcess();

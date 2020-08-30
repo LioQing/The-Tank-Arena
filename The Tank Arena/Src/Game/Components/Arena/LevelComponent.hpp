@@ -10,11 +10,11 @@
 
 struct Cell
 {
-	uint32_t id;
+	int32_t id;
 	std::array<bool, 4> edge_exist;
 	std::array<size_t, 4> edge_id;
 
-	operator uint32_t() const;
+	operator int32_t() const;
 };
 
 struct Edge

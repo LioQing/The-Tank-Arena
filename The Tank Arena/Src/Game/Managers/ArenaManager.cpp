@@ -16,10 +16,9 @@ lic::Entity& ArenaManager::SetArena(lic::Entity entity)
 	return m_arena_entity = entity;
 }
 
-void ArenaManager::LoadMap(const std::string& path)
+void ArenaManager::LoadMap(const std::string& path, size_t tile_size)
 {
 	lio::CSVReader csvr(path, true);
-	auto tile_size = 32;
 	auto& level = m_arena_entity.AddComponent<LevelComponent>(csvr.At(0).size(), csvr.Row(), tile_size);
 
 	for (auto y = 0u; y < csvr.Row(); ++y)
@@ -27,6 +26,9 @@ void ArenaManager::LoadMap(const std::string& path)
 		for (auto x = 0u; x < csvr.At(0).size(); ++x)
 		{
 			level.level.At(x, y).id = std::stoi(csvr.At(y, x));
+
+			if (level.level.At(x, y).id <= 0)
+				level.level.At(x, y).id = 0;
 		}
 	}
 

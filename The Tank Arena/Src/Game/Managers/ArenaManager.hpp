@@ -16,7 +16,7 @@ public:
 	void Init(ProgramInfo& program_info);
 	lic::Entity& SetArena(lic::Entity entity);
 
-	void LoadMap(const std::string& path);
+	void LoadMap(const std::string& path, size_t tile_size);
 
 	const lic::Entity& GetEntity() const;
 };

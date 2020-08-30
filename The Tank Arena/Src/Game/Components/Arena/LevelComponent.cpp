@@ -5,7 +5,7 @@ LevelComponent::LevelComponent(size_t width, size_t height, size_t tile_size)
 {
 }
 
-Cell::operator uint32_t() const
+Cell::operator int32_t() const
 {
 	return id;
 }
