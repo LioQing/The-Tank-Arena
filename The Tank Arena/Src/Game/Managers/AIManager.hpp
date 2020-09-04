@@ -3,14 +3,19 @@
 #include <lic.hpp>
 #include <thread>
 #include <atomic>
+#include <vector>
+#include <functional>
 
+#include "../AI/AIProcessData.hpp"
 #include "../../ProgramUtils.hpp"
 
 class AIManager
 {
 private:
 
-	// list of ai
+	std::vector<std::pair<AIControlComponent&, std::function<void(AIControlComponent&, const AIProcessData&)>>> ais;
+	AIProcessData ai_data;
+	lic::EntityID player_id;
 
 	std::thread process_thread;
 	std::atomic_bool is_processing = false;
@@ -21,13 +26,9 @@ private:
 
 public:
 
-	void Init(const ProgramInfo& program_info);
+	void Init(const ProgramInfo& program_info, lic::EntityID player);
 	void Spawn(const std::string& path, lic::Manager& manager, size_t tile_size);
 	void ReadData(lic::Manager& manager);
-	void StartProcess();
+	void StartProcess(lic::Manager& manager);
 	void EndProcess();
-
-	// read game data
-
-	// process thread
 };

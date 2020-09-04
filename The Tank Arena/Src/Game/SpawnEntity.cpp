@@ -56,7 +56,12 @@ lic::Entity spawn::Player(
 
 lic::Entity spawn::Enemy(
 	const lio::Vec2f& pos,
-	const lio::Vec2i& hull_size)
+	const lio::Vec2i& hull_size,
+	float speed,
+	float projectile_speed,
+	float turret_interval,
+	float projectile_bounce_count,
+	uint32_t bullet_count)
 {
 	lic::EntityID enemy = man->AddEntity();
 
@@ -64,6 +69,10 @@ lic::Entity spawn::Enemy(
 
 	auto& transform = AddComponent<TankTransformComponent>(enemy, hull_size, 0.f);
 	transform.position = pos;
+
+	auto& control = AddComponent<AIControlComponent>(enemy);
+
+	auto& turret = AddComponent<TurretComponent>(enemy, projectile_speed, turret_interval, projectile_bounce_count, bullet_count);
 
 	return lic::Entity(man, enemy);
 }

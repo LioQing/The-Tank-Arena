@@ -10,7 +10,7 @@
 
 void TurretSystem::Update()
 {
-	// turret action
+	// player turret action
 	for (auto [control, transform, turret] : manager->Filter<PlayerControlComponent, TankTransformComponent, TurretComponent>().Each())
 	{
 		// turret rotation
@@ -30,5 +30,13 @@ void TurretSystem::Update()
 				turret);
 			++turret.bullet_counter;
 		}
+	}
+
+	// ai turret action
+	for (auto [control, transform, turret] : manager->Filter<AIControlComponent, TankTransformComponent, TurretComponent>().Each())
+	{
+		// turret rotation
+		if (*control.turret_dir.load() != lio::Vec2f::Zero())
+			transform.turret_rotation = M_PI / 2 - std::atan2(-control.turret_dir.load()->y, control.turret_dir.load()->x);
 	}
 }

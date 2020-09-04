@@ -30,11 +30,9 @@ public:
 	template <IsSystem S, typename ...TArgs>
 	void Add(TArgs&& ...args)
 	{
-		System* sys(new S(std::forward<TArgs>(args)...));
-		sys->program_info = program_info;
-		sys->manager = manager;
-
-		std::unique_ptr<System> u_ptr{ sys };
+		auto u_ptr = std::unique_ptr<System>(new S(std::forward<TArgs>(args)...));
+		u_ptr->program_info = program_info;
+		u_ptr->manager = manager;
 		systems.emplace(&typeid(S), std::move(u_ptr));
 	}
 

@@ -20,7 +20,12 @@ namespace spawn
 
 	lic::Entity Enemy(
 		const lio::Vec2f& pos,
-		const lio::Vec2i& hull_size);
+		const lio::Vec2i& hull_size,
+		float speed,
+		float projectile_speed,
+		float turret_interval,
+		float projectile_bounce_count,
+		uint32_t bullet_count);
 
 	lic::Entity Projectile(
 		const lio::Vec2f& start_pos,

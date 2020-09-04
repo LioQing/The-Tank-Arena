@@ -29,10 +29,8 @@ public:
 	template <IsElement T, typename ...TArgs>
 	T& Add(const std::string& id, TArgs ...args)
 	{
-		Element* e(new T(std::forward<TArgs>(args)...));
-		e->program_info = program_info;
-
-		std::unique_ptr<Element> u_ptr{ e };
+		auto u_ptr = std::unique_ptr<Element>(new T(std::forward<TArgs>(args)...));
+		u_ptr->program_info = program_info;
 		auto& ref = *u_ptr;
 
 		elements.insert(std::make_pair(id, std::move(u_ptr)));
