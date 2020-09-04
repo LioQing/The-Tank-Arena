@@ -17,6 +17,7 @@ void AIManager::Init(const ProgramInfo& program_info, lic::EntityID player)
 void AIManager::Spawn(const std::string& path, lic::Manager& manager, size_t tile_size)
 {
 	lio::CSVReader csvr(path, true);
+	ai_data.map = lio::Matrix<int8_t>(csvr.At(0).size(), csvr.Row(), false);
 
 	for (auto y = 0u; y < csvr.Row(); ++y)
 	{
@@ -25,16 +26,21 @@ void AIManager::Spawn(const std::string& path, lic::Manager& manager, size_t til
 			auto id = std::stoi(csvr.At(y, x));
 			if (id < 0)
 			{
-				auto ai = spawn::Enemy(
+				auto ai = spawn::Enemy( // config
 					lio::Vec2f(x + .5f, y + .5f) * tile_size * m_program_info->scale->Get(),
 					{ 20, 19 },
 					.15f,
-					.2,
+					.2f,
 					200.f,
 					2.f,
-					5
+					5,
+					.0005f
 				);
 				ais.emplace_back(ai.GetComponent<AIControlComponent>(), ai::IDToProcess(-id));
+			}
+			else if (id > 0)
+			{
+				ai_data.map.At(x, y) = true;
 			}
 		}
 	}

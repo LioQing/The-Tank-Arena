@@ -4,6 +4,7 @@
 #include <cmath>
 #include <lev.hpp>
 
+#include "../../ProgramUtils.hpp"
 #include "../Components.hpp"
 #include "../SpawnEntity.hpp"
 #include "../../Events.hpp"
@@ -36,7 +37,19 @@ void TurretSystem::Update()
 	for (auto [control, transform, turret] : manager->Filter<AIControlComponent, TankTransformComponent, TurretComponent>().Each())
 	{
 		// turret rotation
-		if (*control.turret_dir.load() != lio::Vec2f::Zero())
-			transform.turret_rotation = M_PI / 2 - std::atan2(-control.turret_dir.load()->y, control.turret_dir.load()->x);
+		if (*control.turret_dir.load() == lio::Vec2f::Zero())
+			continue;
+
+		auto target_rot = M_PI / 2 - std::atan2(-control.turret_dir.load()->y, control.turret_dir.load()->x);
+		auto diff = lio::rotbound(target_rot - transform.turret_rotation);
+
+		if (std::abs(diff) > std::abs(control.turret_speed * space_time_scale))
+		{
+			transform.turret_rotation += control.turret_speed * space_time_scale * diff / std::abs(diff);
+		}
+		else
+		{
+			transform.turret_rotation = target_rot;
+		}
 	}
 }

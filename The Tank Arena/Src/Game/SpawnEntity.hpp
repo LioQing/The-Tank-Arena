@@ -25,7 +25,8 @@ namespace spawn
 		float projectile_speed,
 		float turret_interval,
 		float projectile_bounce_count,
-		uint32_t bullet_count);
+		uint32_t bullet_count,
+		float turret_speed);
 
 	lic::Entity Projectile(
 		const lio::Vec2f& start_pos,
