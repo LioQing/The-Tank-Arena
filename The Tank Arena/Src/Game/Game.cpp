@@ -62,10 +62,10 @@ void Game::Init(ProgramInfo program_info)
 	m_cam_man.Init(
 		m_program_info,
 		player.GetComponent<TankTransformComponent>().position,
-		m_arena_man.GetEntity().GetComponent<LevelComponent>());
+		m_arena_man.GetEntity().GetComponent<LevelComponent>()
+	);
 
-	m_ai_man.StartProcess(m_ic_man);
-	m_ai_man.ReadData(m_ic_man);
+	m_ai_man.StartProcess(m_ic_man, arena_entity);
 }
 
 void Game::Update(float dt)
@@ -76,6 +76,7 @@ void Game::Update(float dt)
 	m_sys_man.SetDeltaTime(dt);
 
 	// get input
+	m_ai_man.ReadData(m_ic_man);
 	m_sys_man.Get<InputSystem>().Update();
 
 	// systems update

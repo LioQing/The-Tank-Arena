@@ -17,7 +17,6 @@ void AIManager::Init(const ProgramInfo& program_info, lic::EntityID player)
 void AIManager::Spawn(const std::string& path, lic::Manager& manager, size_t tile_size)
 {
 	lio::CSVReader csvr(path, true);
-	ai_data.map = lio::Matrix<int8_t>(csvr.At(0).size(), csvr.Row(), false);
 
 	for (auto y = 0u; y < csvr.Row(); ++y)
 	{
@@ -37,10 +36,7 @@ void AIManager::Spawn(const std::string& path, lic::Manager& manager, size_t til
 					.0005f
 				);
 				ais.emplace_back(ai.GetComponent<AIControlComponent>(), ai::IDToProcess(-id));
-			}
-			else if (id > 0)
-			{
-				ai_data.map.At(x, y) = true;
+				ai_data.ai_pos.emplace(ai.GetID(), lio::Vec2f::Zero());
 			}
 		}
 	}
@@ -48,12 +44,16 @@ void AIManager::Spawn(const std::string& path, lic::Manager& manager, size_t til
 
 void AIManager::ReadData(lic::Manager& manager)
 {
-	ai_data.player_pos = &manager.GetEntity(player_id).GetComponent<TankTransformComponent>().position;
+	// program info
+	ai_data.scale = *m_program_info->scale;
 
-	ai_data.ai_pos.clear();
+	// player position
+	ai_data.player_pos = manager.GetEntity(player_id).GetComponent<TankTransformComponent>().position;
+
+	// ai positions
 	for (auto [control, transform] : manager.Filter<AIControlComponent, TankTransformComponent>().Each())
 	{
-		ai_data.ai_pos.emplace(transform.GetEntityID(), &transform.position);
+		ai_data.ai_pos.at(transform.GetEntityID()) = transform.position;
 	}
 }
 
@@ -68,9 +68,12 @@ void AIManager::AIThreadProcess()
 	}
 }
 
-void AIManager::StartProcess(lic::Manager& manager)
+void AIManager::StartProcess(lic::Manager& manager, const lic::Entity& arena_entity)
 {
 	ReadData(manager);
+
+	ai_data.level = arena_entity.GetComponent<LevelComponent>();
+
 	process_thread = std::thread(&AIManager::AIThreadProcess, this);
 	is_processing = true;
 }

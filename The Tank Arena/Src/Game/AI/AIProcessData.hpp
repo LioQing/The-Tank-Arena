@@ -2,16 +2,16 @@
 
 #include <Matrix.hpp>
 #include <LioGraphics.hpp>
-#include <unordered_map>
-#include <memory>
-#include <atomic>
+#include <map>
 
 #include "../Components.hpp"
+#include "../../ProgramUtils.hpp"
 
 struct AIProcessData
 {
-	std::atomic<lio::Vec2f*> player_pos;
-	std::map<lic::EntityID, std::atomic<lio::Vec2f*>> ai_pos;
+	lio::Vec2f player_pos;
+	std::map<lic::EntityID, lio::Vec2f> ai_pos;
 
-	lio::Matrix<int8_t> map;
+	LevelComponent level;
+	Scale scale;
 };

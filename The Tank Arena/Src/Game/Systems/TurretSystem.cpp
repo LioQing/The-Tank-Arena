@@ -44,12 +44,8 @@ void TurretSystem::Update()
 		auto diff = lio::rotbound(target_rot - transform.turret_rotation);
 
 		if (std::abs(diff) > std::abs(control.turret_speed * space_time_scale))
-		{
 			transform.turret_rotation += control.turret_speed * space_time_scale * diff / std::abs(diff);
-		}
 		else
-		{
 			transform.turret_rotation = target_rot;
-		}
 	}
 }

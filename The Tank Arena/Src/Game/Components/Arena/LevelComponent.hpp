@@ -34,4 +34,5 @@ struct LevelComponent : lic::Component
 	size_t tile_size;
 
 	LevelComponent(size_t width, size_t height, size_t tile_size);
+	LevelComponent() = default;
 };
