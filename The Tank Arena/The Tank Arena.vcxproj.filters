@@ -281,5 +281,8 @@
     <ClInclude Include="Src\Game\AI\AIProcessor.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Game\Components\Control\BaseControlComponent.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

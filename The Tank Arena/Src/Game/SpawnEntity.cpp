@@ -74,10 +74,12 @@ lic::Entity spawn::Enemy(
 
 	auto& sprite = AddComponent_Info<TankSpriteComponent>(enemy, "ehull", "eturret");
 
-	auto& transform = AddComponent<TankTransformComponent>(enemy, hull_size, 0.f);
+	auto& transform = AddComponent<TankTransformComponent>(enemy, hull_size, speed);
 	transform.position = pos;
 
 	auto& control = AddComponent<AIControlComponent>(enemy, turret_speed);
+
+	auto& collider = AddComponent<TankColliderComponent>(enemy);
 
 	auto& turret = AddComponent<TurretComponent>(
 		enemy, 

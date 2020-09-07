@@ -12,3 +12,4 @@
 #include "Components/Tank/ProjectileComponent.hpp"
 #include "Components/Arena/HUDComponent.hpp"
 #include "Components/Control/AIControlComponent.hpp"
+#include "Components/Control/BaseControlComponent.hpp"

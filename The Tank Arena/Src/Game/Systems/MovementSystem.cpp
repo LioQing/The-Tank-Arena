@@ -6,9 +6,18 @@
 void MovementSystem::Update()
 {
 	// tank
-	for (auto [control, transform] : manager->Filter<PlayerControlComponent, TankTransformComponent>().Each())
+	for (auto& transform : manager->Filter<TankTransformComponent>().Component())
 	{
-		if (control.movement == lio::Vec2f::Zero())
+		BaseControlComponent* control;
+
+		if (transform.GetEntity().HasComponent<PlayerControlComponent>())
+			control = &transform.GetEntity().GetComponent<PlayerControlComponent>();
+		else if (transform.GetEntity().HasComponent<AIControlComponent>())
+			control = &transform.GetEntity().GetComponent<AIControlComponent>();
+		else
+			continue;
+
+		if (control->GetMovement() == lio::Vec2f::Zero())
 		{
 			transform.velocity *= 0.f;
 			transform.angular_velocity = 0.f;
@@ -16,13 +25,13 @@ void MovementSystem::Update()
 		}
 
 		// rotation
-		auto target_rot = M_PI / 2 - atan2(control.movement.y, control.movement.x);
+		auto target_rot = M_PI / 2 - atan2(control->GetMovement().y, control->GetMovement().x);
 		float diffs[2] = {
 			lio::rotbound(target_rot - transform.hull_rotation),
 			lio::rotbound(target_rot - lio::rotbound(transform.hull_rotation + M_PI)) };
 		transform.reverse = std::abs(diffs[1]) < std::abs(diffs[0]) ? true : false;
 		auto diff = !transform.reverse ? diffs[0] : diffs[1];
-		auto rot_speed_scale = control.movement.Magnitude();
+		auto rot_speed_scale = control->GetMovement().Magnitude();
 		transform.angular_velocity = (transform.speed / (transform.size.x * program_info->scale->Get())) * diff / std::abs(diff);
 
 		if (std::abs(diff) > std::abs(transform.angular_velocity * space_time_scale * rot_speed_scale))
@@ -46,8 +55,8 @@ void MovementSystem::Update()
 				transform.angular_velocity = 0.f;
 
 			// movement
-			transform.velocity.x = control.movement.x;
-			transform.velocity.y = -control.movement.y;
+			transform.velocity.x = control->GetMovement().x;
+			transform.velocity.y = -control->GetMovement().y;
 			transform.position += transform.velocity * transform.speed * space_time_scale;
 		}
 	}

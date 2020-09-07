@@ -214,6 +214,7 @@
     <ClInclude Include="Src\Game\Components\Arena\LevelComponent.hpp" />
     <ClInclude Include="Src\Game\Components\Collider\TankColliderComponent.hpp" />
     <ClInclude Include="Src\Game\Components\Control\AIControlComponent.hpp" />
+    <ClInclude Include="Src\Game\Components\Control\BaseControlComponent.hpp" />
     <ClInclude Include="Src\Game\Components\Control\PlayerControlComponent.hpp" />
     <ClInclude Include="Src\Game\Components\Sprite\LevelSpriteComponent.hpp" />
     <ClInclude Include="Src\Game\Components\Sprite\ProjectileSpriteComponent.hpp" />

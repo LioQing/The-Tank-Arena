@@ -28,7 +28,7 @@ void AIManager::Spawn(const std::string& path, lic::Manager& manager, size_t til
 				auto ai = spawn::Enemy( // config
 					lio::Vec2f(x + .5f, y + .5f) * tile_size * m_program_info->scale->Get(),
 					{ 20, 19 },
-					.15f,
+					.05f,
 					.2f,
 					200.f,
 					2.f,

@@ -3,7 +3,9 @@
 #include <lic.hpp>
 #include <LioGraphics.hpp>
 
-struct PlayerControlComponent : lic::Component
+#include "BaseControlComponent.hpp"
+
+struct PlayerControlComponent : lic::Component, BaseControlComponent
 {
 	lio::Vec2f movement;
 	lio::Vec2f turret_dir;
@@ -11,4 +13,6 @@ struct PlayerControlComponent : lic::Component
 	bool is_joystick = false;
 
 	PlayerControlComponent();
+
+	const lio::Vec2f& GetMovement() const override;
 };
