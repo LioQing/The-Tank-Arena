@@ -14,4 +14,5 @@ struct AIProcessData
 
 	LevelComponent level;
 	Scale scale;
+	float dt;
 };

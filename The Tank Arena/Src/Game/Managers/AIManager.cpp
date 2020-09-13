@@ -61,12 +61,20 @@ void AIManager::AIThreadProcess()
 {
 	srand(time(NULL));
 
+	float delta_time = 0.f;
+	sf::Clock delta_clock;
+
+	delta_clock.restart();
 	while (is_processing)
 	{
+		ai_data.dt = delta_time;
+
 		for (auto& [control, process] : ais)
 		{
 			process(control, ai_data);
 		}
+
+		delta_time = static_cast<float>(delta_clock.restart().asMicroseconds()) / 1000.0;
 	}
 }
 
