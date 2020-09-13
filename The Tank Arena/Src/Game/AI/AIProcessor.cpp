@@ -4,7 +4,7 @@
 
 namespace ai
 {
-	std::function<void(AIControlComponent&, const AIProcessData&)> IDToProcess(int id)
+	std::function<void(AIHandle&, const AIProcessData&)> IDToProcess(int id)
 	{
 		switch (id)
 		{
@@ -12,13 +12,29 @@ namespace ai
 		}
 	}
 
-	void Normal(AIControlComponent& control, const AIProcessData& data)
+	void Normal(AIHandle& handle, const AIProcessData& data)
 	{
 		// movement
-		*control.movement.load() = lio::Vec2f::Left();
+		if (!handle.current_node)
+		{
+			auto start_pos = data.ai_pos.at(handle.id) / data.scale.Get() / data.level.tile_size;
+
+			handle.pathfinder = std::make_shared<lio::AStarPathfinder<uint32_t, Cell>>(
+				data.level.level.matrix,
+				data.level.size,
+				start_pos,
+				start_pos
+				);
+
+			handle.current_node = handle.pathfinder->GetStartNode();
+		}
+		else
+		{
+			
+		}
 
 		// turret rotation
-		auto position = data.ai_pos.at(control.GetEntityID());
+		auto position = data.ai_pos.at(handle.id);
 		auto displacement_line = lio::LineSegf(position, data.player_pos);
 
 		if (std::find_if(data.level.edge_pool.begin(), data.level.edge_pool.end(), [&](const auto& edge) -> bool {
@@ -26,7 +42,7 @@ namespace ai
 				return edgef.Intersect(displacement_line);
 			}) == data.level.edge_pool.end())
 		{
-			*control.turret_dir.load() = (data.player_pos - position).Normalize();
+			*handle.control.turret_dir.load() = (data.player_pos - position).Normalize();
 		}
 	}
 }

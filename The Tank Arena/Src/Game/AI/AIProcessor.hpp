@@ -5,10 +5,11 @@
 
 #include "../Components.hpp"
 #include "AIProcessData.hpp"
+#include "AIHandle.hpp"
 
 namespace ai
 {
-	std::function<void(AIControlComponent&, const AIProcessData&)> IDToProcess(int id);
+	std::function<void(AIHandle&, const AIProcessData&)> IDToProcess(int id);
 
-	void Normal(AIControlComponent& control, const AIProcessData& data);
+	void Normal(AIHandle& control, const AIProcessData& data);
 }

@@ -29,7 +29,7 @@ void Game::Init(ProgramInfo program_info)
 	// level
 	m_arena_man.Init(m_program_info);
 	auto& arena_entity = m_arena_man.SetArena(m_ic_man.AddEntity());
-	m_arena_man.LoadMap(R"(Assets\TileMap\DebugLevel.csv)", tile_size);
+	m_arena_man.LoadMap(R"(Data\Levels\DebugLevel.csv)", tile_size);
 
 	// add system
 	m_sys_man.Init(m_program_info, m_ic_man);
@@ -56,7 +56,7 @@ void Game::Init(ProgramInfo program_info)
 
 	// ai manager
 	m_ai_man.Init(m_program_info, player.GetID());
-	m_ai_man.Spawn(R"(Assets\TileMap\DebugLevel.csv)", m_ic_man, tile_size);
+	m_ai_man.Spawn(R"(Data\Levels\DebugLevel.csv)", m_ic_man, tile_size);
 
 	// camera manager
 	m_cam_man.Init(

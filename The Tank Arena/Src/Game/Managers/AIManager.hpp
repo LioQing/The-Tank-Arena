@@ -6,6 +6,7 @@
 #include <vector>
 #include <functional>
 
+#include "../AI/AIHandle.hpp"
 #include "../AI/AIProcessData.hpp"
 #include "../../ProgramUtils.hpp"
 
@@ -13,7 +14,7 @@ class AIManager
 {
 private:
 
-	std::vector<std::pair<AIControlComponent&, std::function<void(AIControlComponent&, const AIProcessData&)>>> ais;
+	std::vector<std::pair<AIHandle, std::function<void(AIHandle&, const AIProcessData&)>>> ais;
 	AIProcessData ai_data;
 	lic::EntityID player_id;
 
