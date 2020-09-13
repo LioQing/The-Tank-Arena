@@ -13,8 +13,10 @@ struct AIControlComponent : lic::Component, BaseControlComponent
 
 	std::atomic<std::shared_ptr<lio::Vec2f>> turret_dir;
 	std::atomic<std::shared_ptr<lio::Vec2f>> movement;
+	std::atomic_bool turret_lock;
 
 	AIControlComponent(float turret_speed);
 
 	const lio::Vec2f& GetMovement() const override;
+	bool TurretLockHull() const override;
 };

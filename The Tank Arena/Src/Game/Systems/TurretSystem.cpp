@@ -37,7 +37,7 @@ void TurretSystem::Update()
 	for (auto [control, transform, turret] : manager->Filter<AIControlComponent, TankTransformComponent, TurretComponent>().Each())
 	{
 		// turret rotation
-		if (*control.turret_dir.load() == lio::Vec2f::Zero())
+		if (*control.turret_dir.load() == lio::Vec2f::Zero() || control.turret_lock.load())
 			continue;
 
 		auto target_rot = M_PI / 2 - std::atan2(-control.turret_dir.load()->y, control.turret_dir.load()->x);

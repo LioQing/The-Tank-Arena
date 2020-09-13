@@ -23,6 +23,9 @@ namespace lio
 	float rotbound(float rad);
 	bool inview(const sf::FloatRect& rect, const sf::View& view);
 	bool inview(const sf::FloatRect& rect, const sf::FloatRect& view_bound);
+
+	int32_t random(int32_t start, size_t size);
+	size_t randomu(size_t start, size_t size);
 }
 
 namespace Dir

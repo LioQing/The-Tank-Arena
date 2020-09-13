@@ -39,6 +39,16 @@ namespace lio
 
 		return true;
 	}
+
+	int32_t random(int32_t start, size_t size)
+	{
+		return rand() % size + start;
+	}
+
+	size_t randomu(size_t start, size_t size)
+	{
+		return rand() % size + start;
+	}
 }
 
 namespace Dir

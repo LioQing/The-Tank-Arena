@@ -59,6 +59,8 @@ void AIManager::ReadData(lic::Manager& manager)
 
 void AIManager::AIThreadProcess()
 {
+	srand(time(NULL));
+
 	while (is_processing)
 	{
 		for (auto& [control, process] : ais)

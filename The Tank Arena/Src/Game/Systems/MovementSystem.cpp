@@ -37,6 +37,8 @@ void MovementSystem::Update()
 		if (std::abs(diff) > std::abs(transform.angular_velocity * space_time_scale * rot_speed_scale))
 		{
 			transform.hull_rotation += transform.angular_velocity * space_time_scale * rot_speed_scale;
+			if (control->TurretLockHull())
+				transform.turret_rotation += transform.angular_velocity * space_time_scale * rot_speed_scale;
 
 			// movement
 			auto math_rot = M_PI / 2 - transform.hull_rotation;
@@ -47,6 +49,8 @@ void MovementSystem::Update()
 		}
 		else
 		{
+			if (control->TurretLockHull())
+				transform.turret_rotation += lio::rotbound(lio::rotbound(target_rot + transform.reverse * M_PI) - transform.hull_rotation);
 			transform.hull_rotation = lio::rotbound(target_rot + transform.reverse * M_PI);
 
 			if (diff > 1e-4)

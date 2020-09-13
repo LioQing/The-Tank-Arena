@@ -15,4 +15,5 @@ struct PlayerControlComponent : lic::Component, BaseControlComponent
 	PlayerControlComponent();
 
 	const lio::Vec2f& GetMovement() const override;
+	bool TurretLockHull() const override;
 };

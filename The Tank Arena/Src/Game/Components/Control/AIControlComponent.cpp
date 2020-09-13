@@ -11,3 +11,8 @@ const lio::Vec2f& AIControlComponent::GetMovement() const
 {
 	return *movement.load();
 }
+
+bool AIControlComponent::TurretLockHull() const
+{
+	return turret_lock.load();
+}

@@ -9,3 +9,8 @@ const lio::Vec2f& PlayerControlComponent::GetMovement() const
 {
 	return movement;
 }
+
+bool PlayerControlComponent::TurretLockHull() const
+{
+	return false;
+}
