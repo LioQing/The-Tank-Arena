@@ -30,7 +30,7 @@ namespace lio
 			return Rect<U>(Transformable<T>::GetPosition(), m_size);
 		}
 
-		Vec2<T> GetSize() const { return m_size; }
+		const Vec2<T>& GetSize() const { return m_size; }
 		void SetSize(const Vec2<T>& size)
 		{
 			m_size = size;

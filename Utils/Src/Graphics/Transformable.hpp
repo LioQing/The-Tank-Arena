@@ -31,7 +31,7 @@ namespace lio
 			return Transformable<U>(m_position);
 		}
 
-		Vec2<T> GetPosition() const { return m_position; }
+		const Vec2<T>& GetPosition() const { return m_position; }
 		void SetPosition(const Vec2<T>& pos)
 		{
 			m_position = pos;

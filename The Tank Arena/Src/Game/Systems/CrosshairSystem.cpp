@@ -1,14 +1,13 @@
 #include "CrosshairSystem.hpp"
 
-#include <SFML/Graphics.hpp>
 #include <cmath>
 #include <lev.hpp>
 
 #include "../Components.hpp"
 #include "../../Events.hpp"
 
-CrosshairSystem::CrosshairSystem(lic::Entity& arena_entity)
-	: arena_entity(arena_entity)
+CrosshairSystem::CrosshairSystem(lic::Entity& arena_entity, const sf::View& ui_view)
+	: arena_entity(arena_entity), ui_view(ui_view)
 {
 }
 
@@ -18,7 +17,7 @@ void CrosshairSystem::Update()
 
 	// cursor / cross hair
 	const auto view = program_info->window->getView();
-	program_info->window->setView(program_info->window->getDefaultView());
+	program_info->window->setView(ui_view);
 	auto pos = program_info->window->mapPixelToCoords(sf::Mouse::getPosition(*program_info->window));
 	program_info->window->setView(view);
 	arena_entity.GetComponent<HUDComponent>().crosshair_pos = lio::stolvec<float>(program_info->window->mapPixelToCoords(sf::Mouse::getPosition(*program_info->window)));

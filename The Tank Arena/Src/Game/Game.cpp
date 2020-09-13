@@ -7,7 +7,7 @@
 #include "Systems.hpp"
 #include "Components.hpp"
 
-void Game::Init(ProgramInfo program_info)
+void Game::Init(ProgramInfo program_info, const sf::View& ui_view)
 {
 	auto tile_size = 32u;
 
@@ -39,7 +39,7 @@ void Game::Init(ProgramInfo program_info)
 	m_sys_man.Add<TurretSystem>();
 	m_sys_man.Add<ProjectileSystem>();
 	m_sys_man.Add<CollisionSystem>(arena_entity);
-	m_sys_man.Add<CrosshairSystem>(arena_entity);
+	m_sys_man.Add<CrosshairSystem>(arena_entity, ui_view);
 	m_sys_man.Add<HUDSystem>(arena_entity);
 
 	// spawn

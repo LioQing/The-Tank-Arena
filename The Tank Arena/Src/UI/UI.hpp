@@ -24,6 +24,8 @@ public:
 	void Update();
 	void Draw();
 
+	const sf::View& GetView() const;
+
 	// Main menu
 
 	// Option menu

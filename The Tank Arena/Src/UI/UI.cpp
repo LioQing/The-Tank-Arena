@@ -41,6 +41,11 @@ void UI::Draw()
 	}
 }
 
+const sf::View& UI::GetView() const
+{
+	return m_view;
+}
+
 void UI::On(const lev::Event& event)
 {
 	if (event.Is<WindowResizedEvent>())

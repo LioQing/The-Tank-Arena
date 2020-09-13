@@ -22,7 +22,7 @@ void Program::MainMenu()
 void Program::Gameplay()
 {
 	// game init
-	game.Init(ProgramInfo(window, texture_manager));
+	game.Init(ProgramInfo(window, texture_manager), ui.GetView());
 
 	// config
 	lev::Emit<GameSettingEvent>(

@@ -33,8 +33,8 @@ namespace lio
 		{
 			return Circle<U, _Uy>(m_radius, Transformable<T>::GetPosition());
 		}
-		
-		_Ty GetRadius() const { return m_radius; }
+
+		const _Ty& GetRadius() const { return m_radius; }
 		void SetRadius(_Ty radius)
 		{
 			m_radius = radius;

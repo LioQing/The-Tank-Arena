@@ -25,7 +25,7 @@ private:
 
 public:
 
-	void Init(ProgramInfo program_info);
+	void Init(ProgramInfo program_info, const sf::View& ui_view);
 	void Update(float dt);
 	void Draw();
 	void CleanUp();
