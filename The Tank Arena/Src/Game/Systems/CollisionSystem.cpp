@@ -86,6 +86,25 @@ void CollisionSystem::Update()
 
 			transform.position += resolve;
 		}
+
+		// tank
+		for (auto [collider1, transform1] : manager->Filter<TankColliderComponent, TankTransformComponent>().Each())
+		{
+			if (transform.GetEntityID() == transform1.GetEntityID())
+				continue;
+
+			auto distance = transform.position.Distance(transform1.position);
+
+			if (distance > collider.tank_collide_radius * program_info->scale->Get())
+				continue;
+
+			auto repulsion =
+				(transform1.position - transform.position).Normalized() * -1 *
+				(collider1.tank_collide_radius * program_info->scale->Get() - distance) / (collider1.tank_collide_radius * program_info->scale->Get()) *
+				collider1.tank_repulsion * dt * program_info->scale->Get();
+
+			transform.position += repulsion;
+		}
 	}
 
 	// projectile

@@ -16,7 +16,9 @@ namespace spawn
 		float projectile_speed,
 		float turret_interval,
 		float projectile_bounce_count,
-		uint32_t bullet_count);
+		uint32_t bullet_count,
+		float tank_collide_radius,
+		float tank_repulsion);
 
 	lic::Entity Enemy(
 		const lio::Vec2f& pos,
@@ -26,7 +28,9 @@ namespace spawn
 		float turret_interval,
 		float projectile_bounce_count,
 		uint32_t bullet_count,
-		float turret_speed);
+		float turret_speed,
+		float tank_collide_radius,
+		float tank_repulsion);
 
 	lic::Entity Projectile(
 		const lio::Vec2f& start_pos,

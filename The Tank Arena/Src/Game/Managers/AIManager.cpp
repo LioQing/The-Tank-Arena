@@ -33,7 +33,9 @@ void AIManager::Spawn(const std::string& path, lic::Manager& manager, size_t til
 					200.f,
 					2.f,
 					5,
-					.0005f
+					.0005f,
+					20.f,
+					.2f
 				);
 				ais.emplace_back(AIHandle(ai.GetID(), ai.GetComponent<AIControlComponent>()), ai::IDToProcess(-id));
 				ai_data.ai_pos.emplace(ai.GetID(), lio::Vec2f::Zero());

@@ -51,7 +51,9 @@ void Game::Init(ProgramInfo program_info, const sf::View& ui_view)
 		.2,
 		200.f,
 		2.f,
-		5
+		5,
+		20.f,
+		.2f
 	);
 
 	// ai manager

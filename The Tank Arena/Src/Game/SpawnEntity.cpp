@@ -36,7 +36,9 @@ lic::Entity spawn::Player(
 	float projectile_speed,
 	float turret_interval,
 	float projectile_bounce_count,
-	uint32_t bullet_count)
+	uint32_t bullet_count,
+	float tank_collide_radius,
+	float tank_repulsion)
 {
 	lic::EntityID player = man->AddEntity();
 
@@ -47,7 +49,7 @@ lic::Entity spawn::Player(
 
 	auto& control = AddComponent<PlayerControlComponent>(player);
 
-	auto& collider = AddComponent<TankColliderComponent>(player);
+	auto& collider = AddComponent<TankColliderComponent>(player, tank_collide_radius, tank_repulsion);
 
 	auto& turret = AddComponent<TurretComponent>(
 		player, 
@@ -68,7 +70,9 @@ lic::Entity spawn::Enemy(
 	float turret_interval,
 	float projectile_bounce_count,
 	uint32_t bullet_count,
-	float turret_speed)
+	float turret_speed,
+	float tank_collide_radius,
+	float tank_repulsion)
 {
 	lic::EntityID enemy = man->AddEntity();
 
@@ -79,7 +83,7 @@ lic::Entity spawn::Enemy(
 
 	auto& control = AddComponent<AIControlComponent>(enemy, turret_speed);
 
-	auto& collider = AddComponent<TankColliderComponent>(enemy);
+	auto& collider = AddComponent<TankColliderComponent>(enemy, tank_collide_radius, tank_repulsion);
 
 	auto& turret = AddComponent<TurretComponent>(
 		enemy, 
