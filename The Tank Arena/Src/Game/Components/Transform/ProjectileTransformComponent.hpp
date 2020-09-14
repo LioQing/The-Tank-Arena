@@ -10,6 +10,7 @@ struct ProjectileTransformComponent : lic::Component
 
 	lio::Vec2f position = lio::Vec2f::Zero();
 	lio::Vec2f velocity = lio::Vec2f::Zero();
+	lio::Vec2f scaled_velocity = lio::Vec2f::Zero();
 
 	ProjectileTransformComponent(float speed, float radius);
 };

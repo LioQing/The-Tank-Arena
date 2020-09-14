@@ -111,6 +111,7 @@ void CollisionSystem::Update()
 	for (auto [projectile, transform] : manager->Filter<ProjectileComponent, ProjectileTransformComponent>().Each())
 	{
 		auto proj_line = lio::LineSegf(projectile.start_pt, transform.position);
+		auto vel_line = lio::LineSegf(transform.position, transform.position - transform.scaled_velocity);
 
 		// map boundary
 		auto hit_bound = false;
@@ -169,6 +170,33 @@ void CollisionSystem::Update()
 			transform.velocity *= (edge.dir == Dir::UP || edge.dir == Dir::DOWN) ? lio::Vec2(1, -1) : lio::Vec2(-1, 1);
 			++projectile.bounce_counter;
 		}
+
+		// tank
+		for (auto [collider, ttransform] : manager->Filter<TankColliderComponent, TankTransformComponent>().Each())
+		{
+			auto pre_pt = ttransform.position + collider.pts.at(1) * program_info->scale->Vec2f();
+			for (auto i = 0u; i < 4; ++i)
+			{
+				auto pt = ttransform.position + collider.pts.at(i % 2) * ((i / 2 >= 1) ? -1 : 1) * program_info->scale->Vec2f();
+				auto hitbox_line = lio::LineSegf(pre_pt, pt);
+
+				if (vel_line.Intersect(hitbox_line))
+				{
+					--projectile.turret.bullet_counter;
+					projectile.GetEntity().Destroy();
+
+					if (ttransform.GetEntity().HasComponent<HealthComponent>())
+						ttransform.GetEntity().GetComponent<HealthComponent>().is_dead = true;
+
+					std::cout << "Hit " << ttransform.GetEntityID() << std::endl;
+
+					goto ContinueProjLoop;
+				}
+
+				pre_pt = std::move(pt);
+			}
+		}
+		ContinueProjLoop:;
 	}
 }
 

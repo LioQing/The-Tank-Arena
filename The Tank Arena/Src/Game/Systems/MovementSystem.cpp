@@ -21,6 +21,7 @@ void MovementSystem::Update()
 		{
 			transform.velocity *= 0.f;
 			transform.angular_velocity = 0.f;
+			transform.scaled_velocity = lio::Vec2f::Zero();
 			continue;
 		}
 
@@ -45,7 +46,8 @@ void MovementSystem::Update()
 			transform.velocity =
 				lio::Vec2f(std::cos(math_rot), -std::sin(math_rot)).Normalized() * 
 				(transform.reverse ? -1 : 1) * rot_speed_scale;
-			transform.position += .5f * transform.speed * transform.velocity * space_time_scale;
+			transform.scaled_velocity = .5f * transform.speed * transform.velocity * space_time_scale;
+			transform.position += transform.scaled_velocity;
 		}
 		else
 		{
@@ -61,13 +63,15 @@ void MovementSystem::Update()
 			// movement
 			transform.velocity.x = control->GetMovement().x;
 			transform.velocity.y = -control->GetMovement().y;
-			transform.position += transform.velocity * transform.speed * space_time_scale;
+			transform.scaled_velocity = transform.velocity * transform.speed * space_time_scale;
+			transform.position += transform.scaled_velocity;
 		}
 	}
 
 	// proj
 	for (auto& transform : manager->Filter<ProjectileTransformComponent>().Component())
 	{
-		transform.position += transform.velocity * transform.speed * space_time_scale;
+		transform.scaled_velocity = transform.velocity * transform.speed * space_time_scale;
+		transform.position += transform.scaled_velocity;
 	}
 }

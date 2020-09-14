@@ -86,12 +86,12 @@ lic::Entity spawn::Enemy(
 	auto& collider = AddComponent<TankColliderComponent>(enemy, tank_collide_radius, tank_repulsion);
 
 	auto& turret = AddComponent<TurretComponent>(
-		enemy, 
-		projectile_speed, 
-		turret_interval, 
-		projectile_bounce_count, 
+		enemy,
+		projectile_speed,
+		turret_interval,
+		projectile_bounce_count,
 		bullet_count
-	);
+		);
 
 	return lic::Entity(man, enemy);
 }

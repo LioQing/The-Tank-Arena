@@ -293,5 +293,8 @@
     <ClInclude Include="Src\Game\AI\AIHandle.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Game\Components\Tank\HealthComponent.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

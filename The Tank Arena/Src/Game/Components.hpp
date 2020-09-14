@@ -13,3 +13,4 @@
 #include "Components/Arena/HUDComponent.hpp"
 #include "Components/Control/AIControlComponent.hpp"
 #include "Components/Control/BaseControlComponent.hpp"
+#include "Components/Tank/HealthComponent.hpp"

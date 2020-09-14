@@ -222,6 +222,7 @@
     <ClInclude Include="Src\Game\Components\Sprite\LevelSpriteComponent.hpp" />
     <ClInclude Include="Src\Game\Components\Sprite\ProjectileSpriteComponent.hpp" />
     <ClInclude Include="Src\Game\Components\Sprite\TankSpriteComponent.hpp" />
+    <ClInclude Include="Src\Game\Components\Tank\HealthComponent.hpp" />
     <ClInclude Include="Src\Game\Components\Tank\ProjectileComponent.hpp" />
     <ClInclude Include="Src\Game\Components\Tank\TurretComponent.hpp" />
     <ClInclude Include="Src\Game\Components\Transform\ProjectileTransformComponent.hpp" />

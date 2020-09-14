@@ -25,13 +25,9 @@ namespace ai
 			}
 
 			if (handle.current_state == AIHandle::State::WANDERING)
-			{
 				handle.current_node = handle.current_node->GetChild();
-			}
 			else
-			{
 				*handle.control.movement.load() = lio::Vec2f::Zero();
-			}
 		};
 
 		// movement
@@ -102,9 +98,7 @@ namespace ai
 			handle.idle_timer += data.dt;
 
 			if (handle.idle_timer >= handle.idle_length)
-			{
 				GenAction();
-			}
 		}
 
 		// turret rotation
