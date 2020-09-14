@@ -27,13 +27,6 @@ namespace ai
 			if (handle.current_state == AIHandle::State::WANDERING)
 			{
 				handle.current_node = handle.current_node->GetChild();
-
-				if (handle.current_node)
-					*handle.control.movement.load() =
-						(((handle.current_node->GetPos() + lio::Vec2f(.5f, .5f))
-							* data.level.tile_size * data.scale.Get()
-							- data.ai_pos.at(handle.id))
-							* lio::Vec2i(1, -1)).Normalized();
 			}
 			else
 			{
@@ -84,24 +77,23 @@ namespace ai
 				handle.current_node = handle.pathfinder->GetStartNode();
 			}
 
+			// go to node
+			if (handle.current_node)
+				*handle.control.movement.load() =
+				(((handle.current_node->GetPos() + lio::Vec2f(.5f, .5f))
+					* data.level.tile_size * data.scale.Get()
+					- data.ai_pos.at(handle.id))
+					* lio::Vec2i(1, -1)).Normalized();
+
 			// arrived node
 			if (((handle.current_node->GetPos() + lio::Vec2f(.5f, .5f)) * data.level.tile_size * data.scale.Get())
 				.Distance(data.ai_pos.at(handle.id))
-				< .5 * data.level.tile_size * data.scale.Get())
+				< .2 * data.level.tile_size * data.scale.Get())
 			{
 				if (handle.current_node == handle.pathfinder->GetStartNode())
 					GenAction();
 				else
-				{
 					handle.current_node = handle.current_node->GetChild();
-
-					if (handle.current_node)
-						*handle.control.movement.load() =
-						(((handle.current_node->GetPos() + lio::Vec2f(.5f, .5f))
-							* data.level.tile_size * data.scale.Get()
-							- data.ai_pos.at(handle.id))
-							* lio::Vec2i(1, -1)).Normalized();
-				}
 			}
 		}
 		// idle
