@@ -259,6 +259,9 @@
     <ClInclude Include="Src\UI\Managers\ElementManager.hpp" />
     <ClInclude Include="Src\UI\UI.hpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Enemies\normal\info.json" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

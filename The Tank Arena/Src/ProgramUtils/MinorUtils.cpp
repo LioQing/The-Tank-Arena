@@ -1,5 +1,7 @@
 #include "MinorUtils.hpp"
 
+#include <fstream>
+
 namespace lio
 {
 	float rotbound(float rad)
@@ -48,6 +50,24 @@ namespace lio
 	size_t randomu(size_t start, size_t size)
 	{
 		return rand() % size + start;
+	}
+
+	nlohmann::json parse_json(const std::string& path)
+	{
+		std::ifstream json_file;
+		json_file.open(path);
+
+		std::string json_str;
+		do
+		{
+			std::string tmp_str;
+			json_file >> tmp_str;
+			json_str += tmp_str + '\n';
+		}
+		while (!json_file.eof());
+
+		json_file.close();
+		return nlohmann::json::parse(json_str);
 	}
 }
 

@@ -3,6 +3,7 @@
 #include <type_traits>
 #include <SFML/Graphics.hpp>
 #include <LioGraphics.hpp>
+#include <nlohmann/json.hpp>
 
 namespace lio
 {
@@ -26,6 +27,8 @@ namespace lio
 
 	int32_t random(int32_t start, size_t size);
 	size_t randomu(size_t start, size_t size);
+
+	nlohmann::json parse_json(const std::string& path);
 }
 
 namespace Dir

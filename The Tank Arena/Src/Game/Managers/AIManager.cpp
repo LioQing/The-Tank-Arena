@@ -25,18 +25,7 @@ void AIManager::Spawn(const std::string& path, lic::Manager& manager, size_t til
 			auto id = std::stoi(csvr.At(y, x));
 			if (id < 0)
 			{
-				auto ai = spawn::Enemy( // config
-					lio::Vec2f(x + .5f, y + .5f) * tile_size * m_program_info->scale->Get(),
-					{ 20, 19 },
-					.05f,
-					.2f,
-					200.f,
-					2.f,
-					5,
-					.0005f,
-					20.f,
-					.2f
-				);
+				auto ai = spawn::Enemy(lio::Vec2f(x + .5f, y + .5f) * tile_size * m_program_info->scale->Get(), "enemy_normal");
 				ais.emplace_back(AIHandle(ai.GetID(), ai.GetComponent<AIControlComponent>()), ai::IDToProcess(-id));
 				ai_data.ai_pos.emplace(ai.GetID(), lio::Vec2f::Zero());
 			}
