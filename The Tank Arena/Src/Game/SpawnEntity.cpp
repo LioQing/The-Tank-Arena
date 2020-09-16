@@ -81,13 +81,14 @@ lic::Entity spawn::Enemy(const lio::Vec2f& pos, const std::string& id)
 
 	auto& collider = AddComponent<TankColliderComponent>(enemy, info["tank_collide_radius"], info["tank_repulsion"]);
 
-	auto& turret = AddComponent<TurretComponent>(
-		enemy,
+	auto& turret = AddComponent<TurretComponent>(enemy,
 		info["projectile_speed"],
 		info["turret_interval"],
 		info["projectile_bounce_count"],
 		info["bullet_count"]
 		);
+
+	auto& health = AddComponent<HealthComponent>(enemy);
 
 	return lic::Entity(man, enemy);
 }

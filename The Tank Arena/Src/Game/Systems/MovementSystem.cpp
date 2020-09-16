@@ -8,6 +8,10 @@ void MovementSystem::Update()
 	// tank
 	for (auto& transform : manager->Filter<TankTransformComponent>().Component())
 	{
+		if (transform.GetEntity().HasComponent<HealthComponent>() &&
+			transform.GetEntity().GetComponent<HealthComponent>().is_dead)
+			continue;
+
 		BaseControlComponent* control;
 
 		if (transform.GetEntity().HasComponent<PlayerControlComponent>())

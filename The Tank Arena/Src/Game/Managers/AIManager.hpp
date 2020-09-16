@@ -15,7 +15,7 @@ class AIManager
 private:
 
 	std::vector<std::pair<AIHandle, std::function<void(AIHandle&, const AIProcessData&)>>> ais;
-	AIProcessData ai_data;
+	AIProcessData process_data;
 	lic::EntityID player_id;
 
 	std::thread process_thread;

@@ -174,7 +174,7 @@ void CollisionSystem::Update()
 		// tank
 		for (auto [collider, ttransform] : manager->Filter<TankColliderComponent, TankTransformComponent>().Each())
 		{
-			auto pre_pt = ttransform.position + collider.pts.at(1) * program_info->scale->Vec2f();
+			auto pre_pt = ttransform.position + collider.pts.at(1) * -1 * program_info->scale->Vec2f();
 			for (auto i = 0u; i < 4; ++i)
 			{
 				auto pt = ttransform.position + collider.pts.at(i % 2) * ((i / 2 >= 1) ? -1 : 1) * program_info->scale->Vec2f();
@@ -185,10 +185,15 @@ void CollisionSystem::Update()
 					--projectile.turret.bullet_counter;
 					projectile.GetEntity().Destroy();
 
-					if (ttransform.GetEntity().HasComponent<HealthComponent>())
-						ttransform.GetEntity().GetComponent<HealthComponent>().is_dead = true;
+					if (!ttransform.GetEntity().HasComponent<HealthComponent>())
+						goto ContinueProjLoop;
 
-					std::cout << "Hit " << ttransform.GetEntityID() << std::endl;
+					auto& health = ttransform.GetEntity().GetComponent<HealthComponent>();
+
+					if (health.is_dead)
+						goto ContinueProjLoop;
+
+					health.is_dead = true;
 
 					goto ContinueProjLoop;
 				}

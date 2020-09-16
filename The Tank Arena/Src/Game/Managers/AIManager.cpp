@@ -27,7 +27,7 @@ void AIManager::Spawn(const std::string& path, lic::Manager& manager, size_t til
 			{
 				auto ai = spawn::Enemy(lio::Vec2f(x + .5f, y + .5f) * tile_size * m_program_info->scale->Get(), "enemy_normal");
 				ais.emplace_back(AIHandle(ai.GetID(), ai.GetComponent<AIControlComponent>()), ai::IDToProcess(-id));
-				ai_data.ai_pos.emplace(ai.GetID(), lio::Vec2f::Zero());
+				process_data.ai_data.emplace(ai.GetID(), AIProcessData::AISpecificData());
 			}
 		}
 	}
@@ -36,15 +36,16 @@ void AIManager::Spawn(const std::string& path, lic::Manager& manager, size_t til
 void AIManager::ReadData(lic::Manager& manager)
 {
 	// program info
-	ai_data.scale = *m_program_info->scale;
+	process_data.scale = *m_program_info->scale;
 
 	// player position
-	ai_data.player_pos = manager.GetEntity(player_id).GetComponent<TankTransformComponent>().position;
+	process_data.player_pos = manager.GetEntity(player_id).GetComponent<TankTransformComponent>().position;
 
-	// ai positions
-	for (auto [control, transform] : manager.Filter<AIControlComponent, TankTransformComponent>().Each())
+	// ai data
+	for (auto [control, transform, health] : manager.Filter<AIControlComponent, TankTransformComponent, HealthComponent>().Each())
 	{
-		ai_data.ai_pos.at(transform.GetEntityID()) = transform.position;
+		process_data.ai_data.at(transform.GetEntityID()).position = transform.position;
+		process_data.ai_data.at(transform.GetEntityID()).is_dead = health.is_dead;
 	}
 }
 
@@ -58,11 +59,11 @@ void AIManager::AIThreadProcess()
 	delta_clock.restart();
 	while (is_processing)
 	{
-		ai_data.dt = delta_time;
+		process_data.dt = delta_time;
 
 		for (auto& [control, process] : ais)
 		{
-			process(control, ai_data);
+			process(control, process_data);
 		}
 
 		delta_time = static_cast<float>(delta_clock.restart().asMicroseconds()) / 1000.0;
@@ -73,7 +74,7 @@ void AIManager::StartProcess(lic::Manager& manager, const lic::Entity& arena_ent
 {
 	ReadData(manager);
 
-	ai_data.level = arena_entity.GetComponent<LevelComponent>();
+	process_data.level = arena_entity.GetComponent<LevelComponent>();
 
 	process_thread = std::thread(&AIManager::AIThreadProcess, this);
 	is_processing = true;

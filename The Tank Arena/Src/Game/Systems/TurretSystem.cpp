@@ -36,6 +36,10 @@ void TurretSystem::Update()
 	// ai turret action
 	for (auto [control, transform, turret] : manager->Filter<AIControlComponent, TankTransformComponent, TurretComponent>().Each())
 	{
+		if(transform.GetEntity().HasComponent<HealthComponent>() &&
+			transform.GetEntity().GetComponent<HealthComponent>().is_dead)
+			continue;
+
 		// turret rotation
 		if (*control.turret_dir.load() == lio::Vec2f::Zero() || control.turret_lock.load())
 			continue;

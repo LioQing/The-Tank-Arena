@@ -14,6 +14,9 @@ namespace ai
 
 	void Normal(AIHandle& handle, const AIProcessData& data)
 	{
+		if (data.ai_data.at(handle.id).is_dead)
+			return;
+
 		auto GenAction = [&]() -> void
 		{
 			handle.current_state = static_cast<AIHandle::State>(lio::randomu(0u, AIHandle::State::SIZE));
@@ -37,7 +40,7 @@ namespace ai
 			if (!handle.current_node || handle.current_node == handle.pathfinder->GetEndNode())
 			{
 				// start pos
-				lio::Vec2i start_pos = data.ai_pos.at(handle.id) / data.scale.Get() / data.level.tile_size;
+				lio::Vec2i start_pos = data.ai_data.at(handle.id).position / data.scale.Get() / data.level.tile_size;
 				if (handle.current_node && handle.current_node == handle.pathfinder->GetEndNode())
 					start_pos = handle.current_node->GetPos();
 
@@ -78,12 +81,12 @@ namespace ai
 				*handle.control.movement.load() =
 				(((handle.current_node->GetPos() + lio::Vec2f(.5f, .5f))
 					* data.level.tile_size * data.scale.Get()
-					- data.ai_pos.at(handle.id))
+					- data.ai_data.at(handle.id).position)
 					* lio::Vec2i(1, -1)).Normalized();
 
 			// arrived node
 			if (((handle.current_node->GetPos() + lio::Vec2f(.5f, .5f)) * data.level.tile_size * data.scale.Get())
-				.Distance(data.ai_pos.at(handle.id))
+				.Distance(data.ai_data.at(handle.id).position)
 				< .2 * data.level.tile_size * data.scale.Get())
 			{
 				if (handle.current_node == handle.pathfinder->GetStartNode())
@@ -102,7 +105,7 @@ namespace ai
 		}
 
 		// turret rotation
-		auto position = data.ai_pos.at(handle.id);
+		auto position = data.ai_data.at(handle.id).position;
 		auto displacement_line = lio::LineSegf(position, data.player_pos);
 
 		if (std::find_if(data.level.edge_pool.begin(), data.level.edge_pool.end(), [&](const auto& edge) -> bool {
