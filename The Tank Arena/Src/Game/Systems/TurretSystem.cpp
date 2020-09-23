@@ -36,20 +36,42 @@ void TurretSystem::Update()
 	// ai turret action
 	for (auto [control, transform, turret] : manager->Filter<AIControlComponent, TankTransformComponent, TurretComponent>().Each())
 	{
-		if(transform.GetEntity().HasComponent<HealthComponent>() &&
+		if (transform.GetEntity().HasComponent<HealthComponent>() &&
 			transform.GetEntity().GetComponent<HealthComponent>().is_dead)
 			continue;
 
 		// turret rotation
-		if (*control.turret_dir.load() == lio::Vec2f::Zero() || control.turret_lock.load())
-			continue;
+		if (*control.turret_dir.load() != lio::Vec2f::Zero() && !control.turret_lock.load())
+		{
+			auto target_rot = M_PI / 2 - std::atan2(-control.turret_dir.load()->y, control.turret_dir.load()->x);
+			auto diff = lio::rotbound(target_rot - transform.turret_rotation);
 
-		auto target_rot = M_PI / 2 - std::atan2(-control.turret_dir.load()->y, control.turret_dir.load()->x);
-		auto diff = lio::rotbound(target_rot - transform.turret_rotation);
+			if (std::abs(diff) > std::abs(control.turret_speed * space_time_scale))
+				transform.turret_rotation += control.turret_speed * space_time_scale * diff / std::abs(diff);
+			else
+				transform.turret_rotation = target_rot;
+		}
 
-		if (std::abs(diff) > std::abs(control.turret_speed * space_time_scale))
-			transform.turret_rotation += control.turret_speed * space_time_scale * diff / std::abs(diff);
-		else
-			transform.turret_rotation = target_rot;
+		// fire
+		if (control.fire.load())
+		{
+			if (turret.interval_timer >= turret.interval && turret.bullet_counter < turret.bullet_count)
+			{
+				auto adjusted_turret_dir = lio::Vec2f(std::sin(transform.turret_rotation), -std::cos(transform.turret_rotation));
+				spawn::Projectile(
+					transform.position,
+					transform.position + adjusted_turret_dir * 36.f, // radius of turret gun barrel
+					adjusted_turret_dir.Normalized(),
+					turret.speed,
+					turret.bounce_count,
+					turret);
+				++turret.bullet_counter;
+				turret.interval_timer = 0.f;
+			}
+			else if (turret.interval_timer < turret.interval)
+			{
+				turret.interval_timer += dt;
+			}
+		}
 	}
 }

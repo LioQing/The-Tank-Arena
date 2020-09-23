@@ -9,16 +9,7 @@ namespace spawn
 {
 	void Init(ProgramInfo& program_info, lic::Manager& man);
 
-	lic::Entity Player(
-		const lio::Vec2f& pos,
-		const lio::Vec2i& hull_size,
-		float speed,
-		float projectile_speed,
-		float turret_interval,
-		float projectile_bounce_count,
-		uint32_t bullet_count,
-		float tank_collide_radius,
-		float tank_repulsion);
+	lic::Entity Player(const lio::Vec2f& pos, const std::string& texture_id, const std::string& info_path);
 
 	lic::Entity Enemy(const lio::Vec2f& pos, const std::string& id);
 

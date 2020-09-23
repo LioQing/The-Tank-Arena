@@ -12,6 +12,7 @@ struct AIProcessData
 	struct AISpecificData
 	{
 		lio::Vec2f position;
+		float turret_rotation;
 		bool is_dead;
 	};
 

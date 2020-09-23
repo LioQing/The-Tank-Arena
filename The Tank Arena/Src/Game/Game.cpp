@@ -19,11 +19,11 @@ void Game::Init(ProgramInfo program_info, const sf::View& ui_view)
 	m_program_info.scale = &m_scale;
 
 	// load textures
-	m_program_info.texture_manager->LoadTankTexture("player_default", R"(Assets\Player)");
-	m_program_info.texture_manager->LoadTankTexture("enemy_normal", R"(Assets\Enemies)");
+	m_program_info.texture_manager->LoadTankTexture("player_default", R"(Data\Player)");
+	m_program_info.texture_manager->LoadTankTexture("enemy_normal", R"(Data\Enemies)");
 
-	m_program_info.texture_manager->LoadTexture("tileset", R"(Assets\TileMap\Chess.png)");
-	m_program_info.texture_manager->LoadTexture("bullet", R"(Assets\Projectile\Default.png)");
+	m_program_info.texture_manager->LoadTexture("tileset", R"(Data\TileMap\Chess.png)");
+	m_program_info.texture_manager->LoadTexture("bullet", R"(Data\Projectile\Default.png)");
 
 	// level
 	m_arena_man.Init(m_program_info);
@@ -43,17 +43,7 @@ void Game::Init(ProgramInfo program_info, const sf::View& ui_view)
 
 	// spawn
 	spawn::Init(m_program_info, m_ic_man);
-	auto player = spawn::Player(
-		{ 400, 300 },
-		{ 20, 19 },
-		.15f,
-		.2,
-		200.f,
-		2.f,
-		5,
-		20.f,
-		.2f
-	);
+	auto player = spawn::Player({ 400, 300 }, "player_default", R"(Data\Player\player_default\info.json)");
 
 	// ai manager
 	m_ai_man.Init(m_program_info, player.GetID());

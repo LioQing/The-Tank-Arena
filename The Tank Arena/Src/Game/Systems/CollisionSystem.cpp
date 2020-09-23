@@ -193,7 +193,7 @@ void CollisionSystem::Update()
 					if (health.is_dead)
 						goto ContinueProjLoop;
 
-					health.is_dead = true;
+					//health.is_dead = true;
 
 					goto ContinueProjLoop;
 				}

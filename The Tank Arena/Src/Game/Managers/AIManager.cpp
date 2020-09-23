@@ -44,8 +44,10 @@ void AIManager::ReadData(lic::Manager& manager)
 	// ai data
 	for (auto [control, transform, health] : manager.Filter<AIControlComponent, TankTransformComponent, HealthComponent>().Each())
 	{
-		process_data.ai_data.at(transform.GetEntityID()).position = transform.position;
-		process_data.ai_data.at(transform.GetEntityID()).is_dead = health.is_dead;
+		auto& ai_data = process_data.ai_data.at(transform.GetEntityID());
+		ai_data.position = transform.position;
+		ai_data.is_dead = health.is_dead;
+		ai_data.turret_rotation = transform.turret_rotation;
 	}
 }
 

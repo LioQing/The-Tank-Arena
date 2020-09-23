@@ -1,5 +1,6 @@
 #include "AIProcessor.hpp"
 
+#include <cmath>
 #include <algorithm>
 
 namespace ai
@@ -113,12 +114,20 @@ namespace ai
 				return edgef.Intersect(displacement_line);
 			}) == data.level.edge_pool.end())
 		{
-			*handle.control.turret_dir.load() = (data.player_pos - position).Normalize();
+			auto target_dir = (data.player_pos - position).Normalize();
+			*handle.control.turret_dir.load() = target_dir;
 			handle.control.turret_lock.store(false);
+
+			// fire
+			if (std::abs(std::atan2(target_dir.y, target_dir.x) - data.ai_data.at(handle.id).turret_rotation) - M_PI / 2 < .1f)
+				handle.control.fire.store(true);
+			else
+				handle.control.fire.store(false);
 		}
 		else
 		{
 			handle.control.turret_lock.store(true);
+			handle.control.fire.store(false);
 		}
 	}
 }

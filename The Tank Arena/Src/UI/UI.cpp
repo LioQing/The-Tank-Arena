@@ -15,8 +15,8 @@ void UI::Init(ProgramInfo program_info)
 	m_view = m_program_info.window->getView();
 
 	// load textures
-	m_program_info.texture_manager->LoadTexture("cursor_color", R"(Assets\Cursor\default-color.png)");
-	m_program_info.texture_manager->LoadTexture("cursor_outline", R"(Assets\Cursor\default-outline.png)");
+	m_program_info.texture_manager->LoadTexture("cursor_color", R"(Data\Cursor\default-color.png)");
+	m_program_info.texture_manager->LoadTexture("cursor_outline", R"(Data\Cursor\default-outline.png)");
 
 	// add elements
 	element_man.Init(m_program_info);

@@ -299,5 +299,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Enemies\normal\info.json" />
+    <None Include="Data\Player\player_default\info.json" />
+    <None Include="Data\Enemies\enemy_normal\info.json" />
   </ItemGroup>
 </Project>
