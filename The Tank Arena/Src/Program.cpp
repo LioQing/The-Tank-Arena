@@ -42,7 +42,7 @@ void Program::Gameplay()
 	game->Init(ProgramInfo(window, texture_manager), ui->GetView());
 
 	game->CleanUp();
-	game = nullptr;
+	game.reset();
 
 
 	// game init
@@ -94,7 +94,7 @@ void Program::Gameplay()
 	}
 
 	game->CleanUp();
-	game = nullptr;
+	game.reset();
 }
 
 TextureManager& Program::TextureManager()

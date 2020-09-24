@@ -76,6 +76,7 @@ namespace lic
 		ComponentID GetComponentID() const
 		{
 			static ComponentID id = m_next_component_id++;
+			if (m_next_component_id == id + 1) std::cout << typeid(T).name() << " : " << id << std::endl;
 			return id;
 		}
 

@@ -21,8 +21,6 @@ private:
 	SystemManager m_sys_man;
 	CameraManager m_cam_man;
 
-	// state of game (for communication with other managers)
-
 public:
 
 	void Init(ProgramInfo program_info, const sf::View& ui_view);

@@ -11,6 +11,12 @@ void Game::Init(ProgramInfo program_info, const sf::View& ui_view)
 {
 	auto tile_size = 32u;
 
+	// yo this a temp fix for multithread race condition
+	m_ic_man.GetComponentID<LevelComponent>();
+	m_ic_man.GetComponentID<LevelSpriteComponent>();
+	m_ic_man.GetComponentID<ProjectileComponent>();
+	m_ic_man.GetComponentID<ProjectileSpriteComponent>();
+
 	// listen events
 	Listen<WindowResizedEvent>();
 
