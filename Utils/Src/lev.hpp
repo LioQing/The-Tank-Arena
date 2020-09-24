@@ -53,7 +53,17 @@ namespace lev
 
 	struct Listener
 	{
-		virtual ~Listener() = default;
+		virtual ~Listener()
+		{
+			for (auto& event : listeners)
+			{
+				event.erase(std::remove_if(event.begin(), event.end(),
+					[this](const auto& listener) -> bool
+					{
+						return listener == this;
+					}), event.end());
+			}
+		}
 
 		template <IsEvent E>
 		void Listen()

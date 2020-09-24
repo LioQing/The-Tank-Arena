@@ -21,11 +21,22 @@ sf::Texture* TextureManager::LoadTexture(const std::string& id, const std::strin
 	return &m_textures[id].texture;
 }
 
+void TextureManager::UnloadTexture(const std::string& id)
+{
+	m_textures.erase(id);
+}
+
 std::pair<sf::Texture*, sf::Texture*> TextureManager::LoadTankTexture(const std::string& id, const std::string& path)
 {
 	auto hull = LoadTexture(id + "_hull", path + "\\" + id + "\\hull.png");
 	auto turret = LoadTexture(id + "_turret", path + "\\" + id + "\\turret.png");
 	return { hull, turret };
+}
+
+void TextureManager::UnloadTankTexture(const std::string& id)
+{
+	UnloadTexture(id + "_hull");
+	UnloadTexture(id + "_turret");
 }
 
 sf::Texture* TextureManager::GetTexture(const std::string& id)

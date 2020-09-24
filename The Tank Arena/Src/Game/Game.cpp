@@ -98,6 +98,13 @@ void Game::Draw()
 void Game::CleanUp()
 {
 	m_ai_man.EndProcess();
+
+	// unload textures
+	m_program_info.texture_manager->UnloadTankTexture("player_default");
+	m_program_info.texture_manager->UnloadTankTexture("enemy_normal");
+
+	m_program_info.texture_manager->UnloadTexture("tileset");
+	m_program_info.texture_manager->UnloadTexture("bullet");
 }
 
 void Game::On(const lev::Event& event)

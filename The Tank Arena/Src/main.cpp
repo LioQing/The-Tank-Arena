@@ -10,9 +10,19 @@ int main(int argc, char** argv)
 
 	program.Init();
 
-	program.MainMenu();
+	while (program.GetState() != Program::CLOSED)
+	{
+		switch (program.GetState())
+		{
+			case Program::IN_MAIN_MENU:
+				program.MainMenu();
+				break;
 
-	program.Gameplay();
+			case Program::IN_GAME:
+				program.Gameplay();
+				break;
+		}
+	}
 
 	return 0;
 }

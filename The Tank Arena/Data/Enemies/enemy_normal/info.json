@@ -4,10 +4,10 @@
 		"y": 19
 	},
 	"speed": 0.05,
-	"projectile_speed": 0.2,
+	"projectile_speed": 0.1,
 	"turret_interval": 200.0,
 	"projectile_bounce_count": 2.0,
-	"bullet_count": 5,
+	"bullet_count": 3,
 	"turret_speed": 0.0005,
 	"tank_collide_radius": 20.0,
 	"tank_repulsion": 0.2

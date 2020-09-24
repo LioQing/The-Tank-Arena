@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <SFML/Graphics.hpp>
 
 #include "Game/Game.hpp"
@@ -18,12 +19,17 @@ private:
 
 	TextureManager texture_manager;
 
-	Game game;
-	UI ui;
-
-	// state of program
+	std::shared_ptr<Game> game;
+	std::shared_ptr<UI> ui;
 
 public:
+
+	enum State : uint32_t
+	{
+		CLOSED,
+		IN_GAME,
+		IN_MAIN_MENU
+	};
 
 	void Init();
 	void MainMenu();
@@ -31,4 +37,10 @@ public:
 
 	TextureManager& TextureManager();
 	sf::RenderWindow& Window();
+	
+	State GetState() const;
+
+private:
+
+	State state = State::IN_GAME;
 };

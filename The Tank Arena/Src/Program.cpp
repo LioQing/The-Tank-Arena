@@ -11,18 +11,43 @@ void Program::Init()
 	window.setFramerateLimit(60);
 	window.setMouseCursorVisible(false);
 
-	// ui
-	ui.Init(ProgramInfo(window, texture_manager));
+	// ui 
+	ui = std::shared_ptr<UI>(new UI());
+	ui->Init(ProgramInfo(window, texture_manager));
 }
 
 void Program::MainMenu()
 {
+	while (state == State::IN_MAIN_MENU)
+	{
+		// sf event
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+			{
+				state = State::CLOSED;
+				window.close();
+			}
+			else if (event.type == sf::Event::Resized)
+				lev::Emit<WindowResizedEvent>();
+		}
+	}
 }
 
 void Program::Gameplay()
 {
 	// game init
-	game.Init(ProgramInfo(window, texture_manager), ui.GetView());
+	game = std::shared_ptr<Game>(new Game());
+	game->Init(ProgramInfo(window, texture_manager), ui->GetView());
+
+	game->CleanUp();
+	game = nullptr;
+
+
+	// game init
+	game = std::shared_ptr<Game>(new Game());
+	game->Init(ProgramInfo(window, texture_manager), ui->GetView());
 
 	// config
 	lev::Emit<GameSettingEvent>(
@@ -36,14 +61,17 @@ void Program::Gameplay()
 	delta_time = 0.f;
 	delta_clock.restart();
 
-	while (window.isOpen())
+	while (state == State::IN_GAME)
 	{
 		// sf event
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
+			{
+				state = State::CLOSED;
 				window.close();
+			}
 			else if (event.type == sf::Event::Resized)
 				lev::Emit<WindowResizedEvent>();
 		}
@@ -53,19 +81,20 @@ void Program::Gameplay()
 			break;
 
 		// update
-		game.Update(delta_time);
-		ui.Update();
+		game->Update(delta_time);
+		ui->Update();
 
 		// draw
 		window.clear();
-		game.Draw();
-		ui.Draw();
+		game->Draw();
+		ui->Draw();
 		window.display();
 
 		delta_time = static_cast<float>(delta_clock.restart().asMicroseconds()) / 1000.0;
 	}
 
-	game.CleanUp();
+	game->CleanUp();
+	game = nullptr;
 }
 
 TextureManager& Program::TextureManager()
@@ -76,4 +105,9 @@ TextureManager& Program::TextureManager()
 sf::RenderWindow& Program::Window()
 {
 	return window;
+}
+
+Program::State Program::GetState() const
+{
+	return state;
 }
