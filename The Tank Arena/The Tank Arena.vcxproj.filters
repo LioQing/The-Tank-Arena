@@ -135,6 +135,9 @@
     <ClCompile Include="Src\Game\Components\Collider\TankColliderComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Events\UISettingEvent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\Game.hpp">
@@ -294,6 +297,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\Components\Tank\HealthComponent.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Events\UISettingEvent.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

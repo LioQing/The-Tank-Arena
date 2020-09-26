@@ -5,7 +5,7 @@
 
 struct InGameCursorEvent : lev::Event
 {
-	const sf::Vector2f& pos;
+	sf::Vector2f pos;
 
 	InGameCursorEvent(const sf::Vector2f& pos);
 };

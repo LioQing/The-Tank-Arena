@@ -9,6 +9,7 @@ HUDSystem::HUDSystem(lic::Entity& arena_entity)
 	: arena_entity(arena_entity)
 {
 	Listen<GameSettingEvent>();
+	Listen<UISettingEvent>();
 }
 
 void HUDSystem::Update()

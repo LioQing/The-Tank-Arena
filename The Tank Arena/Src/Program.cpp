@@ -18,6 +18,10 @@ void Program::Init()
 
 void Program::MainMenu()
 {
+	// init delta time
+	delta_time = 0.f;
+	delta_clock.restart();
+
 	while (state == State::IN_MAIN_MENU)
 	{
 		// sf event
@@ -32,6 +36,16 @@ void Program::MainMenu()
 			else if (event.type == sf::Event::Resized)
 				lev::Emit<WindowResizedEvent>();
 		}
+
+		// update
+		ui->Update();
+
+		// draw
+		window.clear();
+		ui->Draw();
+		window.display();
+
+		delta_time = static_cast<float>(delta_clock.restart().asMicroseconds()) / 1000.0;
 	}
 }
 
@@ -41,18 +55,9 @@ void Program::Gameplay()
 	game = std::shared_ptr<Game>(new Game());
 	game->Init(ProgramInfo(window, texture_manager), ui->GetView());
 
-	game->CleanUp();
-	game.reset();
-
-
-	// game init
-	game = std::shared_ptr<Game>(new Game());
-	game->Init(ProgramInfo(window, texture_manager), ui->GetView());
-
 	// config
 	lev::Emit<GameSettingEvent>(
 		sf::Color(0x96FF7FFF), // tank col
-		sf::Color(0x00FF00FF), // crosshair col
 		sf::Color(0x40FF403F), // crosshair line col
 		1.f // crosshair line thickness
 		);
@@ -75,10 +80,6 @@ void Program::Gameplay()
 			else if (event.type == sf::Event::Resized)
 				lev::Emit<WindowResizedEvent>();
 		}
-
-		// tmp quick exit
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-			break;
 
 		// update
 		game->Update(delta_time);

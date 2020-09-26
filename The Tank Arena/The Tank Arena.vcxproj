@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClCompile Include="Src\Events\GameSettingEvent.cpp" />
     <ClCompile Include="Src\Events\InGameCursorEvent.cpp" />
+    <ClCompile Include="Src\Events\UISettingEvent.cpp" />
     <ClCompile Include="Src\Game\AI\AIHandle.cpp" />
     <ClCompile Include="Src\Game\AI\AIProcessor.cpp" />
     <ClCompile Include="Src\Game\Components\Arena\HUDComponent.cpp" />
@@ -208,6 +209,7 @@
     <ClInclude Include="Src\Events.hpp" />
     <ClInclude Include="Src\Events\GameSettingEvent.hpp" />
     <ClInclude Include="Src\Events\InGameCursorEvent.hpp" />
+    <ClInclude Include="Src\Events\UISettingEvent.hpp" />
     <ClInclude Include="Src\Events\WindowResizedEvent.hpp" />
     <ClInclude Include="Src\Game\AI\AIHandle.hpp" />
     <ClInclude Include="Src\Game\AI\AIProcessData.hpp" />

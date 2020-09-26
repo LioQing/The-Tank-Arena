@@ -6,8 +6,8 @@
 
 struct SpriteRescaleEvent : lev::Event
 {
-	const Scale& previous_scale;
-	const Scale& current_scale;
+	Scale previous_scale;
+	Scale current_scale;
 
 	SpriteRescaleEvent(const Scale& previous_scale, const Scale& current_scale);
 };

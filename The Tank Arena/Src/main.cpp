@@ -1,6 +1,7 @@
 #include <ctime>
 
 #include "Program.hpp"
+#include "Events.hpp"
 
 int main(int argc, char** argv)
 {
@@ -9,6 +10,11 @@ int main(int argc, char** argv)
 	Program program;
 
 	program.Init();
+
+	//config
+	lev::Emit<UISettingEvent>(
+		sf::Color(0x00FF00FF) // crosshair col
+		);
 
 	while (program.GetState() != Program::CLOSED)
 	{

@@ -6,7 +6,7 @@ void UI::Init(ProgramInfo program_info)
 {
 	// listen events
 	Listen<WindowResizedEvent>();
-	Listen<GameSettingEvent>();
+	Listen<UISettingEvent>();
 
 	// store program var
 	m_program_info = program_info;
@@ -28,6 +28,9 @@ void UI::Init(ProgramInfo program_info)
 void UI::Update()
 {
 	m_program_info.window->setView(m_view);
+
+	auto& cursor = element_man.Get<CursorElement>("cursor");
+	cursor.SetPosition(m_program_info.window->mapPixelToCoords(sf::Mouse::getPosition(*m_program_info.window)));
 }
 
 void UI::Draw()
@@ -52,9 +55,9 @@ void UI::On(const lev::Event& event)
 	{
 		m_view.setSize(static_cast<sf::Vector2f>(m_program_info.window->getSize()));
 	}
-	else if (event.Is<GameSettingEvent>())
+	else if (event.Is<UISettingEvent>())
 	{
-		const auto& game_setting = static_cast<const GameSettingEvent&>(event);
-		element_man.Get<CursorElement>("cursor").SetColor(game_setting.crosshair_col);
+		const auto& ui_setting = static_cast<const UISettingEvent&>(event);
+		element_man.Get<CursorElement>("cursor").SetColor(ui_setting.crosshair_col);
 	}
 }

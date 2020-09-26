@@ -42,5 +42,5 @@ public:
 
 private:
 
-	State state = State::IN_GAME;
+	State state = State::IN_MAIN_MENU;
 };
