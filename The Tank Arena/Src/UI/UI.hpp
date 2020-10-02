@@ -18,6 +18,9 @@ private:
 	// managers
 	ElementManager element_man;
 
+	// info
+	const float window_ui_scale = 200.f; //config
+
 public:
 
 	void Init(ProgramInfo program_info);

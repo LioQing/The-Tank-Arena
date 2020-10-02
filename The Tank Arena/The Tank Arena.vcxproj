@@ -197,6 +197,8 @@
     <ClCompile Include="Src\ProgramUtils\Scale.cpp" />
     <ClCompile Include="Src\ProgramUtils\MinorUtils.cpp" />
     <ClCompile Include="Src\UI\Elements\CursorElement.cpp" />
+    <ClCompile Include="Src\UI\Elements\SpriteElement.cpp" />
+    <ClCompile Include="Src\UI\Events\UIRescaleEvent.cpp" />
     <ClCompile Include="Src\UI\Managers\ElementManager.cpp" />
     <ClCompile Include="Src\UI\UI.cpp" />
   </ItemGroup>
@@ -257,6 +259,9 @@
     <ClInclude Include="Src\UI\Elements.hpp" />
     <ClInclude Include="Src\UI\Elements\CursorElement.hpp" />
     <ClInclude Include="Src\UI\Elements\Element.hpp" />
+    <ClInclude Include="Src\UI\Elements\SpriteElement.hpp" />
+    <ClInclude Include="Src\UI\Events.hpp" />
+    <ClInclude Include="Src\UI\Events\UIRescaleEvent.hpp" />
     <ClInclude Include="Src\UI\Managers.hpp" />
     <ClInclude Include="Src\UI\Managers\ElementManager.hpp" />
     <ClInclude Include="Src\UI\UI.hpp" />

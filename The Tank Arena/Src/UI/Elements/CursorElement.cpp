@@ -1,10 +1,12 @@
 #include "CursorElement.hpp"
 
+#include "../Events.hpp"
 #include "../../Events.hpp"
 
 CursorElement::CursorElement()
 {
 	Listen<InGameCursorEvent>();
+	Listen<UIRescaleEvent>();
 }
 
 CursorElement& CursorElement::SetPosition(const sf::Vector2f& pos)
@@ -57,5 +59,10 @@ void CursorElement::On(const lev::Event& event)
 	{
 		const auto& pos = static_cast<const InGameCursorEvent&>(event).pos;
 		SetPosition(pos);
+	}
+	else if (event.Is<UIRescaleEvent>())
+	{
+		const auto& scale = static_cast<const UIRescaleEvent&>(event).scale;
+		SetScale(scale);
 	}
 }

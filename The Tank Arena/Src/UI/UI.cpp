@@ -1,5 +1,6 @@
 #include "UI.hpp"
 
+#include "Events.hpp"
 #include "../Events.hpp"
 
 void UI::Init(ProgramInfo program_info)
@@ -17,12 +18,19 @@ void UI::Init(ProgramInfo program_info)
 	// load textures
 	m_program_info.texture_manager->LoadTexture("cursor_color", R"(Data\Cursor\default-color.png)");
 	m_program_info.texture_manager->LoadTexture("cursor_outline", R"(Data\Cursor\default-outline.png)");
+	m_program_info.texture_manager->LoadTexture("title", R"(Data\UI\title.png)");
 
 	// add elements
 	element_man.Init(m_program_info);
+
 	element_man.Add<CursorElement>("cursor") // config
 		.SetTextures("cursor_color", "cursor_outline")
-		.SetScale(2.5f);
+		.SetScale(m_view.getSize().y / window_ui_scale);
+
+	auto& sprite = element_man.Add<SpriteElement>("title", 1.5f)
+		.SetTexture("title")
+		.SetScale(m_view.getSize().y / window_ui_scale);
+	sprite.SetPosition(sf::Vector2f(m_view.getCenter().x, m_view.getCenter().y - sprite.GetSprite().getGlobalBounds().height / 2));
 }
 
 void UI::Update()
@@ -37,8 +45,13 @@ void UI::Draw()
 {
 	m_program_info.window->setView(m_view);
 
-	{ // Cursor
-		auto& cursor = element_man.Get<CursorElement>("cursor");
+	{ // title
+		const auto& title = element_man.Get<SpriteElement>("title");
+		m_program_info.window->draw(title.GetSprite());
+		std::cout << title.GetSprite().getGlobalBounds().height << std::endl;
+	}
+	{ // cursor
+		const auto& cursor = element_man.Get<CursorElement>("cursor");
 		m_program_info.window->draw(cursor.GetColorSprite());
 		m_program_info.window->draw(cursor.GetOutlineSprite());
 	}
@@ -54,6 +67,7 @@ void UI::On(const lev::Event& event)
 	if (event.Is<WindowResizedEvent>())
 	{
 		m_view.setSize(static_cast<sf::Vector2f>(m_program_info.window->getSize()));
+		lev::Emit<UIRescaleEvent>(m_view.getSize().y / window_ui_scale, m_view);
 	}
 	else if (event.Is<UISettingEvent>())
 	{
