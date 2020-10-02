@@ -3,13 +3,14 @@
 #include "Events.hpp"
 #include "../Events.hpp"
 
-void UI::Init(ProgramInfo program_info)
+void UI::Init(ProgramInfo program_info, const uint32_t* program_state)
 {
 	// listen events
 	Listen<WindowResizedEvent>();
 	Listen<UISettingEvent>();
 
 	// store program var
+	m_program_state = program_state;
 	m_program_info = program_info;
 	m_program_info.scale = &m_scale;
 	m_scale = 4.f;
@@ -19,6 +20,7 @@ void UI::Init(ProgramInfo program_info)
 	m_program_info.texture_manager->LoadTexture("cursor_color", R"(Data\Cursor\default-color.png)");
 	m_program_info.texture_manager->LoadTexture("cursor_outline", R"(Data\Cursor\default-outline.png)");
 	m_program_info.texture_manager->LoadTexture("title", R"(Data\UI\title.png)");
+	m_program_info.texture_manager->LoadButtonTexture("play", R"(Data\UI\Buttons)");
 
 	// add elements
 	element_man.Init(m_program_info);
@@ -45,10 +47,12 @@ void UI::Draw()
 {
 	m_program_info.window->setView(m_view);
 
-	{ // title
-		const auto& title = element_man.Get<SpriteElement>("title");
-		m_program_info.window->draw(title.GetSprite());
-		std::cout << title.GetSprite().getGlobalBounds().height << std::endl;
+	if (*m_program_state == Program::State::IN_MAIN_MENU)
+	{
+		{ // title
+			const auto& title = element_man.Get<SpriteElement>("title");
+			m_program_info.window->draw(title.GetSprite());
+		}
 	}
 	{ // cursor
 		const auto& cursor = element_man.Get<CursorElement>("cursor");

@@ -8,6 +8,9 @@
 #include "ProgramUtils.hpp"
 #include "GeneralManagers/TextureManager.hpp"
 
+class Game;
+class UI;
+
 class Program
 {
 private:
@@ -42,5 +45,5 @@ public:
 
 private:
 
-	State state = State::IN_MAIN_MENU;
+	uint32_t state = State::IN_GAME;
 };

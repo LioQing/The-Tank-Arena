@@ -26,6 +26,9 @@ public:
 	std::pair<sf::Texture*, sf::Texture*> LoadTankTexture(const std::string& id, const std::string& path);
 	void UnloadTankTexture(const std::string& id);
 
+	std::pair<sf::Texture*, sf::Texture*> LoadButtonTexture(const std::string& id, const std::string& path);
+	void UnloadButtonTexture(const std::string& id);
+
 	sf::Texture* GetTexture(const std::string& id);
 	const std::string& GetTexturePath(const std::string& id) const;
 };

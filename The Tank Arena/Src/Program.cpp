@@ -13,7 +13,7 @@ void Program::Init()
 
 	// ui 
 	ui = std::shared_ptr<UI>(new UI());
-	ui->Init(ProgramInfo(window, texture_manager));
+	ui->Init(ProgramInfo(window, texture_manager), &state);
 }
 
 void Program::MainMenu()
@@ -110,5 +110,5 @@ sf::RenderWindow& Program::Window()
 
 Program::State Program::GetState() const
 {
-	return state;
+	return static_cast<State>(state);
 }
