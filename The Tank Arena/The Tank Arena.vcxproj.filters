@@ -150,6 +150,12 @@
     <ClCompile Include="Src\UI\Managers\InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Src\UI\Elements\ButtonElements\PlayButtonElement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UI\Events\InputEvent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\Game.hpp">
@@ -327,6 +333,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Src\UI\Managers\InputManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UI\Elements\ButtonElements\PlayButtonElement.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UI\Events\InputEvent.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

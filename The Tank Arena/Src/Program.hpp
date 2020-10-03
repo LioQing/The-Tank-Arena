@@ -45,5 +45,5 @@ public:
 
 private:
 
-	uint32_t state = State::IN_GAME;
+	uint32_t state = State::IN_MAIN_MENU;
 };

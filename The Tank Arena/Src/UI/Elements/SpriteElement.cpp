@@ -8,26 +8,20 @@ SpriteElement::SpriteElement(const Scale& xscale)
     Listen<UIRescaleEvent>();
 }
 
-SpriteElement& SpriteElement::SetPosition(const sf::Vector2f& pos)
+void SpriteElement::SetPosition(const sf::Vector2f& pos)
 {
     sprite.setPosition(pos);
-
-    return *this;
 }
 
-SpriteElement& SpriteElement::SetTexture(const std::string& id)
+void SpriteElement::SetTexture(const std::string& id)
 {
     sprite.setTexture(*program_info->texture_manager->GetTexture(id));
     sprite.setOrigin(sprite.getTextureRect().width / 2.f, sprite.getTextureRect().height / 2.f);
-
-    return *this;
 }
 
-SpriteElement& SpriteElement::SetScale(const Scale& scale)
+void SpriteElement::SetScale(const Scale& scale)
 {
     sprite.setScale(Scale(scale.Get() * xscale.Get()).sfVec2f());
-
-    return *this;
 }
 
 const sf::Sprite& SpriteElement::GetSprite() const

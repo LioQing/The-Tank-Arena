@@ -16,9 +16,9 @@ public:
 
 	SpriteElement(const Scale& xscale);
 
-	SpriteElement& SetPosition(const sf::Vector2f& pos);
-	SpriteElement& SetTexture(const std::string& id);
-	SpriteElement& SetScale(const Scale& scale);
+	void SetPosition(const sf::Vector2f& pos);
+	void SetTexture(const std::string& id);
+	void SetScale(const Scale& scale);
 
 	const sf::Sprite& GetSprite() const;
 	const Scale& GetExScale() const;

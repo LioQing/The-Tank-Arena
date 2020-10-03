@@ -1,19 +1,21 @@
 #pragma once
 
-#include <lev.hpp>
 #include <LioGraphics.hpp>
 #include <SFML/Graphics.hpp>
 
 #include "../../Managers/InputManager.hpp"
 #include "../Element.hpp"
 
-class ButtonElement : public Element, public lev::Listener
+class ButtonElement : public Element
 {
-protected:
+private:
 
 	friend class InputManager;
 
+protected:
+
 	lio::Rect<float> trigger_rect;
+	bool is_down = false;
 
 public:
 
@@ -21,8 +23,6 @@ public:
 
 	virtual void OnClick() {}
 	virtual void OnRelease() {}
-	virtual void OnPress() {}
-	virtual void OnHover() {}
 
 	void SetTrigger(const lio::Rect<float>& rect);
 	const lio::Rect<float>& GetTrigger() const;

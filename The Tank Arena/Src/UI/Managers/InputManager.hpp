@@ -1,16 +1,23 @@
 #pragma once
 
 #include <vector>
+#include <lev.hpp>
 
 #include "../Elements/ButtonElements/ButtonElement.hpp"
 
-class InputManager
+class ButtonElement;
+
+class InputManager : public lev::Listener
 {
 private:
 
-	std::vector<std::string> buttons;
+	std::vector<ButtonElement*> buttons;
 
 public:
 
-	void AddButton(const std::string& button_id);
+	InputManager();
+
+	void AddButton(ButtonElement* button);
+
+	void On(const lev::Event& event) override;
 };

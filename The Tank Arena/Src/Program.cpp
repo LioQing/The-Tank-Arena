@@ -3,6 +3,7 @@
 #include <lev.hpp>
 
 #include "Events.hpp"
+#include "UI/Events.hpp"
 
 void Program::Init()
 {
@@ -34,7 +35,17 @@ void Program::MainMenu()
 				window.close();
 			}
 			else if (event.type == sf::Event::Resized)
+			{
 				lev::Emit<WindowResizedEvent>();
+			}
+			else if (event.type == sf::Event::MouseButtonPressed)
+			{
+				lev::Emit<InputEvent>(lio::stolvec<float>(window.mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y })), event.mouseButton.button);
+			}
+			else if (event.type == sf::Event::MouseButtonReleased)
+			{
+				lev::Emit<InputEvent>(false);
+			}
 		}
 
 		// update
