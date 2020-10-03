@@ -21,6 +21,7 @@ void UI::Init(ProgramInfo program_info, uint32_t* program_state)
 	m_program_info.texture_manager->LoadTexture("cursor_outline", R"(Data\Cursor\default-outline.png)");
 	m_program_info.texture_manager->LoadTexture("title", R"(Data\UI\title.png)");
 	m_program_info.texture_manager->LoadButtonTexture("play", R"(Data\UI\Buttons)");
+	m_program_info.texture_manager->LoadButtonTexture("how_to_play", R"(Data\UI\Buttons)");
 
 	// add elements
 	element_man.Init(m_program_info, input_man);
@@ -29,7 +30,7 @@ void UI::Init(ProgramInfo program_info, uint32_t* program_state)
 	cursor.SetTextures("cursor_color", "cursor_outline");
 	cursor.SetScale(m_view.getSize().y / window_ui_scale);
 
-	auto& sprite = element_man.Add<SpriteElement>("title", 1.5f);
+	auto& sprite = element_man.Add<SpriteElement>("title", 2.f);
 	sprite.SetTexture("title");
 	sprite.SetScale(m_view.getSize().y / window_ui_scale);
 	sprite.SetPosition(sf::Vector2f(m_view.getCenter().x, m_view.getCenter().y - sprite.GetSprite().getGlobalBounds().height / 2));
@@ -38,6 +39,11 @@ void UI::Init(ProgramInfo program_info, uint32_t* program_state)
 	play_button.SetTexture("play");
 	play_button.SetScale(m_view.getSize().y / window_ui_scale);
 	play_button.SetPosition(m_view.getCenter());
+
+	auto& how_to_play_button = element_man.Add<HowToPlayButtonElement>("how_to_play_button", 1.5f);
+	how_to_play_button.SetTexture("how_to_play");
+	how_to_play_button.SetScale(m_view.getSize().y / window_ui_scale);
+	how_to_play_button.SetPosition(sf::Vector2f(m_view.getCenter().x, m_view.getCenter().y + sprite.GetSprite().getGlobalBounds().height / 4));
 }
 
 void UI::Update()
@@ -61,6 +67,10 @@ void UI::Draw()
 		{ // play button
 			const auto& play_button = element_man.Get<PlayButtonElement>("play_button");
 			m_program_info.window->draw(play_button.GetSprite());
+		}
+		{ // how to play button
+			const auto& how_to_play_button = element_man.Get<HowToPlayButtonElement>("how_to_play_button");
+			m_program_info.window->draw(how_to_play_button.GetSprite());
 		}
 	}
 	{ // cursor

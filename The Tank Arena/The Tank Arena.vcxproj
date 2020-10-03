@@ -197,6 +197,7 @@
     <ClCompile Include="Src\ProgramUtils\Scale.cpp" />
     <ClCompile Include="Src\ProgramUtils\MinorUtils.cpp" />
     <ClCompile Include="Src\UI\Elements\ButtonElements\ButtonElement.cpp" />
+    <ClCompile Include="Src\UI\Elements\ButtonElements\HowToPlayButtonElement.cpp" />
     <ClCompile Include="Src\UI\Elements\ButtonElements\PlayButtonElement.cpp" />
     <ClCompile Include="Src\UI\Elements\CursorElement.cpp" />
     <ClCompile Include="Src\UI\Elements\SpriteElement.cpp" />
@@ -262,6 +263,7 @@
     <ClInclude Include="Src\ProgramUtils\Scale.hpp" />
     <ClInclude Include="Src\UI\Elements.hpp" />
     <ClInclude Include="Src\UI\Elements\ButtonElements\ButtonElement.hpp" />
+    <ClInclude Include="Src\UI\Elements\ButtonElements\HowToPlayButtonElement.hpp" />
     <ClInclude Include="Src\UI\Elements\ButtonElements\PlayButtonElement.hpp" />
     <ClInclude Include="Src\UI\Elements\CursorElement.hpp" />
     <ClInclude Include="Src\UI\Elements\Element.hpp" />

@@ -39,7 +39,10 @@ void SpriteElement::On(const lev::Event& event)
     if (event.Is<UIRescaleEvent>())
     {
         const auto& rescale_event = static_cast<const UIRescaleEvent&>(event);
+        auto factor = rescale_event.scale / (lio::stolvec<float>(sprite.getScale()) / xscale.Get());
+        auto center = lio::stolvec<float>(rescale_event.view.getCenter());
+
         SetScale(rescale_event.scale);
-        SetPosition(sf::Vector2f(rescale_event.view.getCenter().x, rescale_event.view.getCenter().y - sprite.getGlobalBounds().height / 2));
+        SetPosition(lio::ltosvec<float>(center + (lio::stolvec<float>(sprite.getPosition()) - center) * factor));
     }
 }
