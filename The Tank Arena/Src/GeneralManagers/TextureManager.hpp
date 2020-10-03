@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <map>
+#include <tuple>
 
 class TextureManager
 {
@@ -26,7 +27,7 @@ public:
 	std::pair<sf::Texture*, sf::Texture*> LoadTankTexture(const std::string& id, const std::string& path);
 	void UnloadTankTexture(const std::string& id);
 
-	std::pair<sf::Texture*, sf::Texture*> LoadButtonTexture(const std::string& id, const std::string& path);
+	std::tuple<sf::Texture*, sf::Texture*, sf::Texture*> LoadButtonTexture(const std::string& id, const std::string& path);
 	void UnloadButtonTexture(const std::string& id);
 
 	sf::Texture* GetTexture(const std::string& id);

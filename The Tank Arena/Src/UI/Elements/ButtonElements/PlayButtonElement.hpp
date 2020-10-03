@@ -11,6 +11,7 @@ private:
 
 	sf::Sprite idle_sprite;
 	sf::Sprite clicked_sprite;
+	sf::Sprite hover_sprite;
 
 	Scale xscale;
 

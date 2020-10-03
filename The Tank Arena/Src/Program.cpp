@@ -44,7 +44,11 @@ void Program::MainMenu()
 			}
 			else if (event.type == sf::Event::MouseButtonReleased)
 			{
-				lev::Emit<InputEvent>(false);
+				lev::Emit<InputEvent>(false, lio::stolvec<float>(window.mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y })));
+			}
+			else if (event.type == sf::Event::MouseMoved)
+			{
+				lev::Emit<InputEvent>(lio::stolvec<float>(window.mapPixelToCoords({ event.mouseMove.x, event.mouseMove.y })), true, false);
 			}
 		}
 

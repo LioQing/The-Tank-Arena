@@ -39,17 +39,19 @@ void TextureManager::UnloadTankTexture(const std::string& id)
 	UnloadTexture(id + "_turret");
 }
 
-std::pair<sf::Texture*, sf::Texture*> TextureManager::LoadButtonTexture(const std::string& id, const std::string& path)
+std::tuple<sf::Texture*, sf::Texture*, sf::Texture*> TextureManager::LoadButtonTexture(const std::string& id, const std::string& path)
 {
 	auto idle = LoadTexture(id + "_button", path + "\\" + id + "\\idle.png");
 	auto clicked = LoadTexture(id + "_button_clicked", path + "\\" + id + "\\clicked.png");
-	return { idle, clicked };
+	auto hover = LoadTexture(id + "_button_hover", path + "\\" + id + "\\hover.png");
+	return { idle, clicked, hover };
 }
 
 void TextureManager::UnloadButtonTexture(const std::string& id)
 {
 	UnloadTexture(id + "_button");
 	UnloadTexture(id + "_button_clicked");
+	UnloadTexture(id + "_button_hover");
 }
 
 sf::Texture* TextureManager::GetTexture(const std::string& id)

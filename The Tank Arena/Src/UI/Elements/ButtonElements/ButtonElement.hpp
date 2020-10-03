@@ -16,6 +16,7 @@ protected:
 
 	lio::Rect<float> trigger_rect;
 	bool is_down = false;
+	bool is_hovering = false;
 
 public:
 
@@ -23,6 +24,7 @@ public:
 
 	virtual void OnClick() {}
 	virtual void OnRelease() {}
+	virtual void OnHover() {}
 
 	void SetTrigger(const lio::Rect<float>& rect);
 	const lio::Rect<float>& GetTrigger() const;
