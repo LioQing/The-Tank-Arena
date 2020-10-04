@@ -165,6 +165,9 @@
     <ClCompile Include="Src\Game\Components\Arena\EndGameComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Src\UI\Elements\ButtonElements\ExitButtonElement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\Game.hpp">
@@ -357,6 +360,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\Systems\EndGameSystem.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UI\Elements\ButtonElements\ExitButtonElement.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

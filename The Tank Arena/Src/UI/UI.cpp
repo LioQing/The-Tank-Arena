@@ -22,6 +22,7 @@ void UI::Init(ProgramInfo program_info, uint32_t* program_state)
 	m_program_info.texture_manager->LoadTexture("title", R"(Data\UI\title.png)");
 	m_program_info.texture_manager->LoadButtonTexture("play", R"(Data\UI\Buttons)");
 	m_program_info.texture_manager->LoadButtonTexture("how_to_play", R"(Data\UI\Buttons)");
+	m_program_info.texture_manager->LoadButtonTexture("exit", R"(Data\UI\Buttons)");
 
 	// add elements
 	element_man.Init(m_program_info, input_man);
@@ -44,6 +45,11 @@ void UI::Init(ProgramInfo program_info, uint32_t* program_state)
 	how_to_play_button.SetTexture("how_to_play");
 	how_to_play_button.SetScale(m_view.getSize().y / window_ui_scale);
 	how_to_play_button.SetPosition(sf::Vector2f(m_view.getCenter().x, m_view.getCenter().y + sprite.GetSprite().getGlobalBounds().height / 4));
+
+	auto& exit_button = element_man.Add<ExitButtonElement>("exit_button", program_state, 1.5f);
+	exit_button.SetTexture("exit");
+	exit_button.SetScale(m_view.getSize().y / window_ui_scale);
+	exit_button.SetPosition(sf::Vector2f(m_view.getCenter().x, m_view.getCenter().y + sprite.GetSprite().getGlobalBounds().height / 2));
 }
 
 void UI::Update()
@@ -71,6 +77,10 @@ void UI::Draw()
 		{ // how to play button
 			const auto& how_to_play_button = element_man.Get<HowToPlayButtonElement>("how_to_play_button");
 			m_program_info.window->draw(how_to_play_button.GetSprite());
+		}
+		{ // exit button
+			const auto& exit_button = element_man.Get<ExitButtonElement>("exit_button");
+			m_program_info.window->draw(exit_button.GetSprite());
 		}
 	}
 	{ // cursor
