@@ -14,3 +14,4 @@
 #include "Components/Control/AIControlComponent.hpp"
 #include "Components/Control/BaseControlComponent.hpp"
 #include "Components/Tank/HealthComponent.hpp"
+#include "Components/Arena/EndGameComponent.hpp"

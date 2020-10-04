@@ -7,7 +7,7 @@
 #include "Systems.hpp"
 #include "Components.hpp"
 
-void Game::Init(ProgramInfo program_info, const sf::View& ui_view)
+void Game::Init(ProgramInfo program_info, const sf::View& ui_view, uint32_t* program_state)
 {
 	auto tile_size = 32u;
 
@@ -21,6 +21,7 @@ void Game::Init(ProgramInfo program_info, const sf::View& ui_view)
 	Listen<WindowResizedEvent>();
 
 	// store program var
+	m_program_state = program_state;
 	m_program_info = program_info;
 	m_program_info.scale = &m_scale;
 
@@ -46,6 +47,7 @@ void Game::Init(ProgramInfo program_info, const sf::View& ui_view)
 	m_sys_man.Add<CollisionSystem>(arena_entity);
 	m_sys_man.Add<CrosshairSystem>(arena_entity, ui_view);
 	m_sys_man.Add<HUDSystem>(arena_entity);
+	m_sys_man.Add<EndGameSystem>(program_state);
 
 	// spawn
 	spawn::Init(m_program_info, m_ic_man);
@@ -89,6 +91,9 @@ void Game::Update(float dt)
 	// ui
 	m_sys_man.Get<CrosshairSystem>().Update();
 	m_sys_man.Get<HUDSystem>().Update();
+
+	// game
+	m_sys_man.Get<EndGameSystem>().Update();
 }
 
 void Game::Draw()

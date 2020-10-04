@@ -97,7 +97,7 @@ lic::Entity spawn::Projectile(
 
 	auto& sprite = AddComponent_Info<ProjectileSpriteComponent>(projectile, "bullet");
 
-	auto& transform = AddComponent<ProjectileTransformComponent>(projectile, speed, 2.f); // speed, radius
+	auto& transform = AddComponent<ProjectileTransformComponent>(projectile, speed, 3.f); // speed, radius
 	transform.position = pos;
 	transform.velocity = init_vel;
 

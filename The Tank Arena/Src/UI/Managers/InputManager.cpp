@@ -23,7 +23,7 @@ void InputManager::On(const lev::Event& event)
 			if (input.mouse_pos.x < button->GetTrigger().GetPosition().x ||
 				input.mouse_pos.y < button->GetTrigger().GetPosition().y ||
 				input.mouse_pos.x > button->GetTrigger().GetPosition().x + button->GetTrigger().GetSize().x ||
-				input.mouse_pos.y > button->GetTrigger().GetPosition().y + button->GetTrigger().GetSize().y) // not in trigger
+				input.mouse_pos.y > button->GetTrigger().GetPosition().y + button->GetTrigger().GetSize().y) // not in trigger box
 			{
 				if (input.is_hover)
 				{

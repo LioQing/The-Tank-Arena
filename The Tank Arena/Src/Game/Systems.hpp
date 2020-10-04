@@ -9,3 +9,4 @@
 #include "Systems/ProjectileSystem.hpp"
 #include "Systems/CrosshairSystem.hpp"
 #include "Systems/HUDSystem.hpp"
+#include "Systems/EndGameSystem.hpp"

@@ -21,9 +21,11 @@ private:
 	SystemManager m_sys_man;
 	CameraManager m_cam_man;
 
+	uint32_t* m_program_state;
+
 public:
 
-	void Init(ProgramInfo program_info, const sf::View& ui_view);
+	void Init(ProgramInfo program_info, const sf::View& ui_view, uint32_t* program_state);
 	void Update(float dt);
 	void Draw();
 	void CleanUp();

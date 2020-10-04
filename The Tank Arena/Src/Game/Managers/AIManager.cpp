@@ -42,12 +42,26 @@ void AIManager::ReadData(lic::Manager& manager)
 	process_data.player_pos = manager.GetEntity(player_id).GetComponent<TankTransformComponent>().position;
 
 	// ai data
+	bool is_all_dead = true;
 	for (auto [control, transform, health] : manager.Filter<AIControlComponent, TankTransformComponent, HealthComponent>().Each())
 	{
 		auto& ai_data = process_data.ai_data.at(transform.GetEntityID());
 		ai_data.position = transform.position;
 		ai_data.is_dead = health.is_dead;
 		ai_data.turret_rotation = transform.turret_rotation;
+
+		if (!ai_data.is_dead)
+			is_all_dead = false;
+	}
+
+	// if all dead end game
+	if (is_all_dead)
+	{
+		for (auto& end_game : manager.Filter<EndGameComponent>().Component())
+		{
+			end_game.is_ended = true;
+			break;
+		}
 	}
 }
 

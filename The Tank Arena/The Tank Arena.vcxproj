@@ -160,6 +160,7 @@
     <ClCompile Include="Src\Events\UISettingEvent.cpp" />
     <ClCompile Include="Src\Game\AI\AIHandle.cpp" />
     <ClCompile Include="Src\Game\AI\AIProcessor.cpp" />
+    <ClCompile Include="Src\Game\Components\Arena\EndGameComponent.cpp" />
     <ClCompile Include="Src\Game\Components\Arena\HUDComponent.cpp" />
     <ClCompile Include="Src\Game\Components\Arena\LevelComponent.cpp" />
     <ClCompile Include="Src\Game\Components\Collider\TankColliderComponent.cpp" />
@@ -181,6 +182,7 @@
     <ClCompile Include="Src\Game\SpawnEntity.cpp" />
     <ClCompile Include="Src\Game\Systems\CollisionSystem.cpp" />
     <ClCompile Include="Src\Game\Systems\CrosshairSystem.cpp" />
+    <ClCompile Include="Src\Game\Systems\EndGameSystem.cpp" />
     <ClCompile Include="Src\Game\Systems\HUDSystem.cpp" />
     <ClCompile Include="Src\Game\Systems\InputSystem.cpp" />
     <ClCompile Include="Src\Game\Systems\MovementSystem.cpp" />
@@ -222,6 +224,7 @@
     <ClInclude Include="Src\Game\AI\AIProcessData.hpp" />
     <ClInclude Include="Src\Game\AI\AIProcessor.hpp" />
     <ClInclude Include="Src\Game\Components.hpp" />
+    <ClInclude Include="Src\Game\Components\Arena\EndGameComponent.hpp" />
     <ClInclude Include="Src\Game\Components\Arena\HUDComponent.hpp" />
     <ClInclude Include="Src\Game\Components\Arena\LevelComponent.hpp" />
     <ClInclude Include="Src\Game\Components\Collider\TankColliderComponent.hpp" />
@@ -248,6 +251,7 @@
     <ClInclude Include="Src\Game\Systems.hpp" />
     <ClInclude Include="Src\Game\Systems\CollisionSystem.hpp" />
     <ClInclude Include="Src\Game\Systems\CrosshairSystem.hpp" />
+    <ClInclude Include="Src\Game\Systems\EndGameSystem.hpp" />
     <ClInclude Include="Src\Game\Systems\HUDSystem.hpp" />
     <ClInclude Include="Src\Game\Systems\InputSystem.hpp" />
     <ClInclude Include="Src\Game\Systems\MovementSystem.hpp" />

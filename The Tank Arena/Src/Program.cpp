@@ -68,7 +68,7 @@ void Program::Gameplay()
 {
 	// game init
 	game = std::shared_ptr<Game>(new Game());
-	game->Init(ProgramInfo(window, texture_manager), ui->GetView());
+	game->Init(ProgramInfo(window, texture_manager), ui->GetView(), &state);
 
 	// config
 	lev::Emit<GameSettingEvent>(

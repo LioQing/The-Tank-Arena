@@ -94,6 +94,7 @@ void ArenaManager::LoadMap(const std::string& path, size_t tile_size)
 
 	auto& sprite = m_arena_entity.AddComponent<LevelSpriteComponent>(*program_info, level.level, "tileset", tile_size);
 	auto& hud = m_arena_entity.AddComponent<HUDComponent>();
+	auto& end_game = m_arena_entity.AddComponent<EndGameComponent>(2000.f);
 }
 
 const lic::Entity& ArenaManager::GetEntity() const
