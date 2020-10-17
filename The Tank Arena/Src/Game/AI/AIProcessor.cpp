@@ -119,15 +119,16 @@ namespace ai
 			handle.control.turret_lock.store(false);
 
 			// fire
-			if (std::abs(std::atan2(target_dir.y, target_dir.x) - data.ai_data.at(handle.id).turret_rotation) - M_PI / 2 < .1f)
+			if (std::abs(std::abs(std::atan2(target_dir.y, target_dir.x) - data.ai_data.at(handle.id).turret_rotation) - M_PI / 2) 
+				< 10.f / displacement_line.Length()) // value to be config?
 				handle.control.fire.store(true);
 			else
 				handle.control.fire.store(false);
 		}
 		else
 		{
-			handle.control.turret_lock.store(true);
 			handle.control.fire.store(false);
+			handle.control.turret_lock.store(true);
 		}
 	}
 }

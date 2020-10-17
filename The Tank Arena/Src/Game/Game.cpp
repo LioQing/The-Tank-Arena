@@ -35,7 +35,7 @@ void Game::Init(ProgramInfo program_info, const sf::View& ui_view, uint32_t* pro
 	// level
 	m_arena_man.Init(m_program_info);
 	auto& arena_entity = m_arena_man.SetArena(m_ic_man.AddEntity());
-	m_arena_man.LoadMap(R"(Data\Levels\DebugLevel.csv)", tile_size);
+	m_arena_man.LoadMap(R"(Data\Levels\TestLevel.csv)", tile_size);
 
 	// add system
 	m_sys_man.Init(m_program_info, m_ic_man);

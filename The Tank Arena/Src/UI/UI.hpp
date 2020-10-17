@@ -34,15 +34,5 @@ public:
 
 	const sf::View& GetView() const;
 
-	// Main menu
-
-	// Option menu
-
-	// Start game menu
-
-	// Pause game menu
-
-	// End game menu
-
 	void On(const lev::Event& event) override;
 };
