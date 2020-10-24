@@ -54,7 +54,7 @@ void TextureManager::UnloadButtonTexture(const std::string& id)
 	UnloadTexture(id + "_button_hover");
 }
 
-sf::Texture* TextureManager::GetTexture(const std::string& id)
+const sf::Texture* TextureManager::GetTexture(const std::string& id) const
 {
 	if (m_textures.find(id) == m_textures.end())
 	{

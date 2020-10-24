@@ -22,6 +22,7 @@ private:
 	// managers
 	ElementManager element_man;
 	InputManager input_man;
+	FontManager font_man;
 
 	// info
 	const float window_ui_scale = 250.f; //config

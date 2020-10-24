@@ -1,12 +1,8 @@
 #include "EndGameSystem.hpp"
 
+#include "../../Events.hpp"
 #include "../../Program.hpp"
 #include "../Components.hpp"
-
-EndGameSystem::EndGameSystem(uint32_t* program_state)
-	: program_state(program_state)
-{
-}
 
 void EndGameSystem::Update()
 {
@@ -19,7 +15,7 @@ void EndGameSystem::Update()
 
 		if (end_game.timer >= end_game.countdown)
 		{
-			*program_state = Program::State::IN_MAIN_MENU;
+			lev::Emit<StateChangeEvent>(Program::State::IN_MAIN_MENU);
 		}
 	}
 }

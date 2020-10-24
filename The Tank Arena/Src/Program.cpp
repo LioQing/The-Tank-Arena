@@ -7,6 +7,9 @@
 
 void Program::Init()
 {
+	// listen
+	Listen<StateChangeEvent>();
+
 	// create window
 	window.create(sf::VideoMode(1280, 720), "The Tank Arena");
 	window.setFramerateLimit(60);
@@ -126,4 +129,13 @@ sf::RenderWindow& Program::Window()
 Program::State Program::GetState() const
 {
 	return static_cast<State>(state);
+}
+
+void Program::On(const lev::Event& event)
+{
+	if (event.Is<StateChangeEvent>())
+	{
+		const auto& state_change = static_cast<const StateChangeEvent&>(event);
+		state = state_change.state;
+	}
 }

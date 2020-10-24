@@ -30,6 +30,6 @@ public:
 	std::tuple<sf::Texture*, sf::Texture*, sf::Texture*> LoadButtonTexture(const std::string& id, const std::string& path);
 	void UnloadButtonTexture(const std::string& id);
 
-	sf::Texture* GetTexture(const std::string& id);
+	const sf::Texture* GetTexture(const std::string& id) const;
 	const std::string& GetTexturePath(const std::string& id) const;
 };

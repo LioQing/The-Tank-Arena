@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClCompile Include="Src\Events\GameSettingEvent.cpp" />
     <ClCompile Include="Src\Events\InGameCursorEvent.cpp" />
+    <ClCompile Include="Src\Events\StateChangeEvent.cpp" />
     <ClCompile Include="Src\Events\UISettingEvent.cpp" />
     <ClCompile Include="Src\Game\AI\AIHandle.cpp" />
     <ClCompile Include="Src\Game\AI\AIProcessor.cpp" />
@@ -204,9 +205,13 @@
     <ClCompile Include="Src\UI\Elements\ButtonElements\PlayButtonElement.cpp" />
     <ClCompile Include="Src\UI\Elements\CursorElement.cpp" />
     <ClCompile Include="Src\UI\Elements\SpriteElement.cpp" />
+    <ClCompile Include="Src\UI\Elements\TextElements\TextElement.cpp" />
+    <ClCompile Include="Src\UI\Elements\TextElements\TimerElement.cpp" />
     <ClCompile Include="Src\UI\Events\InputEvent.cpp" />
+    <ClCompile Include="Src\UI\Events\TimerEvent.cpp" />
     <ClCompile Include="Src\UI\Events\UIRescaleEvent.cpp" />
     <ClCompile Include="Src\UI\Managers\ElementManager.cpp" />
+    <ClCompile Include="Src\UI\Managers\FontManager.cpp" />
     <ClCompile Include="Src\UI\Managers\InputManager.cpp" />
     <ClCompile Include="Src\UI\UI.cpp" />
   </ItemGroup>
@@ -219,6 +224,7 @@
     <ClInclude Include="Src\Events.hpp" />
     <ClInclude Include="Src\Events\GameSettingEvent.hpp" />
     <ClInclude Include="Src\Events\InGameCursorEvent.hpp" />
+    <ClInclude Include="Src\Events\StateChangeEvent.hpp" />
     <ClInclude Include="Src\Events\UISettingEvent.hpp" />
     <ClInclude Include="Src\Events\WindowResizedEvent.hpp" />
     <ClInclude Include="Src\Game\AI\AIHandle.hpp" />
@@ -274,11 +280,15 @@
     <ClInclude Include="Src\UI\Elements\CursorElement.hpp" />
     <ClInclude Include="Src\UI\Elements\Element.hpp" />
     <ClInclude Include="Src\UI\Elements\SpriteElement.hpp" />
+    <ClInclude Include="Src\UI\Elements\TextElements\TextElement.hpp" />
+    <ClInclude Include="Src\UI\Elements\TextElements\TimerElement.hpp" />
     <ClInclude Include="Src\UI\Events.hpp" />
     <ClInclude Include="Src\UI\Events\InputEvent.hpp" />
+    <ClInclude Include="Src\UI\Events\TimerEvent.hpp" />
     <ClInclude Include="Src\UI\Events\UIRescaleEvent.hpp" />
     <ClInclude Include="Src\UI\Managers.hpp" />
     <ClInclude Include="Src\UI\Managers\ElementManager.hpp" />
+    <ClInclude Include="Src\UI\Managers\FontManager.hpp" />
     <ClInclude Include="Src\UI\Managers\InputManager.hpp" />
     <ClInclude Include="Src\UI\UI.hpp" />
   </ItemGroup>

@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+#include "../UI/Events.hpp"
 #include "../Events.hpp"
 #include "SpawnEntity.hpp"
 #include "Systems.hpp"
@@ -47,7 +48,7 @@ void Game::Init(ProgramInfo program_info, const sf::View& ui_view, uint32_t* pro
 	m_sys_man.Add<CollisionSystem>(arena_entity);
 	m_sys_man.Add<CrosshairSystem>(arena_entity, ui_view);
 	m_sys_man.Add<HUDSystem>(arena_entity);
-	m_sys_man.Add<EndGameSystem>(program_state);
+	m_sys_man.Add<EndGameSystem>();
 
 	// spawn
 	spawn::Init(m_program_info, m_ic_man);
@@ -91,6 +92,7 @@ void Game::Update(float dt)
 	// ui
 	m_sys_man.Get<CrosshairSystem>().Update();
 	m_sys_man.Get<HUDSystem>().Update();
+	lev::Emit<TimerEvent>(dt);
 
 	// game
 	m_sys_man.Get<EndGameSystem>().Update();

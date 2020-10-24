@@ -1,13 +1,14 @@
 #include "ExitButtonElement.hpp"
 
+#include "../../../Events.hpp"
 #include "../../../Program.hpp"
 
-ExitButtonElement::ExitButtonElement(uint32_t* program_state, const Scale& xscale)
-	: program_state(program_state), ButtonElement(xscale)
+ExitButtonElement::ExitButtonElement(const Scale& xscale)
+	: ButtonElement(xscale)
 {
 }
 
 void ExitButtonElement::OnRelease()
 {
-	*program_state = Program::State::CLOSED;
+	lev::Emit<StateChangeEvent>(Program::State::CLOSED);
 }

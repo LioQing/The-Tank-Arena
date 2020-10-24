@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <lev.hpp>
 #include <SFML/Graphics.hpp>
 
 #include "Game/Game.hpp"
@@ -11,7 +12,7 @@
 class Game;
 class UI;
 
-class Program
+class Program : public lev::Listener
 {
 private:
 
@@ -42,6 +43,8 @@ public:
 	sf::RenderWindow& Window();
 	
 	State GetState() const;
+
+	void On(const lev::Event& event) override;
 
 private:
 
