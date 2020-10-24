@@ -63,3 +63,8 @@ void CameraManager::UpdateView()
 	else
 		const_center_y = level->size.y * level->tile_size * program_info->scale->Get() / 2.f;
 }
+
+const sf::View& CameraManager::GetView() const
+{
+	return view;
+}

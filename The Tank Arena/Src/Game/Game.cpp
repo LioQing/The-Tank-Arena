@@ -52,7 +52,10 @@ void Game::Init(ProgramInfo program_info, const sf::View& ui_view, uint32_t* pro
 
 	// spawn
 	spawn::Init(m_program_info, m_ic_man);
-	auto player = spawn::Player({ 400, 300 }, "player_default", R"(Data\Player\player_default\info.json)");
+	auto player = spawn::Player(
+		lio::stolvec<float>(m_cam_man.GetView().getCenter()), 
+		"player_default", 
+		R"(Data\Player\player_default\info.json)");
 
 	// ai manager
 	m_ai_man.Init(m_program_info, player.GetID());

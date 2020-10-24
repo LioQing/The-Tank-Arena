@@ -26,4 +26,6 @@ public:
 	void Draw() const;
 
 	void UpdateView();
+
+	const sf::View& GetView() const;
 };
