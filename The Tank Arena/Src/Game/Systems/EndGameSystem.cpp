@@ -4,18 +4,26 @@
 #include "../../Program.hpp"
 #include "../Components.hpp"
 
+EndGameSystem::EndGameSystem(lic::Entity& arena_entity)
+	: arena_entity(arena_entity)
+{
+}
+
 void EndGameSystem::Update()
 {
-	for (auto& end_game : manager->Filter<EndGameComponent>().Component())
-	{
-		if (end_game.is_ended)
-		{
-			end_game.timer += dt;
-		}
+	auto& end_game = arena_entity.GetComponent<EndGameComponent>();
 
-		if (end_game.timer >= end_game.countdown)
-		{
-			lev::Emit<StateChangeEvent>(Program::State::IN_MAIN_MENU);
-		}
+	if (end_game.is_ended)
+	{
+		end_game.timer += dt;
 	}
+
+	if (end_game.timer >= end_game.countdown)
+	{
+		lev::Emit<StateChangeEvent>(Program::State::IN_MAIN_MENU);
+	}
+
+	// debug use
+	const auto& game_stats = arena_entity.GetComponent<GameStatsComponent>();
+	std::cout << game_stats.bullet_fired << " " << game_stats.tank_destroyed << std::endl;
 }

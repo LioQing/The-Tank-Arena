@@ -8,14 +8,14 @@
 #include "../Components.hpp"
 #include "../../ProgramUtils.hpp"
 
-CollisionSystem::CollisionSystem(const lic::Entity& arena_entity)
-	: m_arena_entity(arena_entity)
+CollisionSystem::CollisionSystem(lic::Entity& arena_entity)
+	: arena_entity(arena_entity)
 {
 }
 
 void CollisionSystem::Update()
 {
-	auto& level = m_arena_entity.GetComponent<LevelComponent>();
+	auto& level = arena_entity.GetComponent<LevelComponent>();
 	auto bound = level.size * level.tile_size * program_info->scale->Get();
 
 	// tank
@@ -194,6 +194,7 @@ void CollisionSystem::Update()
 						goto ContinueProjLoop;
 
 					health.is_dead = true;
+					++arena_entity.GetComponent<GameStatsComponent>().tank_destroyed;
 
 					goto ContinueProjLoop;
 				}
@@ -228,7 +229,7 @@ void CollisionSystem::Draw()
 
 	// wall collider
 	{
-		auto& level = m_arena_entity.GetComponent<LevelComponent>();
+		auto& level = arena_entity.GetComponent<LevelComponent>();
 		sf::RectangleShape box;
 
 		for (const auto& line : level.edge_pool)

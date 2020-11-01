@@ -232,6 +232,7 @@
     <ClInclude Include="Src\Game\AI\AIProcessor.hpp" />
     <ClInclude Include="Src\Game\Components.hpp" />
     <ClInclude Include="Src\Game\Components\Arena\EndGameComponent.hpp" />
+    <ClInclude Include="Src\Game\Components\Arena\GameStatsComponent.hpp" />
     <ClInclude Include="Src\Game\Components\Arena\HUDComponent.hpp" />
     <ClInclude Include="Src\Game\Components\Arena\LevelComponent.hpp" />
     <ClInclude Include="Src\Game\Components\Collider\TankColliderComponent.hpp" />

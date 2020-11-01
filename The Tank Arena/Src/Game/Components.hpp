@@ -15,3 +15,4 @@
 #include "Components/Control/BaseControlComponent.hpp"
 #include "Components/Tank/HealthComponent.hpp"
 #include "Components/Arena/EndGameComponent.hpp"
+#include "Components/Arena/GameStatsComponent.hpp"

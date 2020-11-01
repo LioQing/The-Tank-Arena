@@ -9,6 +9,11 @@
 #include "../SpawnEntity.hpp"
 #include "../../Events.hpp"
 
+TurretSystem::TurretSystem(lic::Entity& arena_entity)
+	: arena_entity(arena_entity)
+{
+}
+
 void TurretSystem::Update()
 {
 	// player turret action
@@ -30,6 +35,7 @@ void TurretSystem::Update()
 				turret.bounce_count,
 				turret);
 			++turret.bullet_counter;
+			++arena_entity.GetComponent<GameStatsComponent>().bullet_fired;
 		}
 	}
 

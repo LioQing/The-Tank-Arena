@@ -4,5 +4,11 @@
 
 struct EndGameSystem : System
 {
+	EndGameSystem(lic::Entity& arena_entity);
+
 	void Update() override;
+
+private:
+
+	lic::Entity& arena_entity;
 };

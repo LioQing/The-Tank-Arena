@@ -43,12 +43,12 @@ void Game::Init(ProgramInfo program_info, const sf::View& ui_view, uint32_t* pro
 	m_sys_man.Add<SpriteSystem>();
 	m_sys_man.Add<InputSystem>();
 	m_sys_man.Add<MovementSystem>();
-	m_sys_man.Add<TurretSystem>();
+	m_sys_man.Add<TurretSystem>(arena_entity);
 	m_sys_man.Add<ProjectileSystem>();
 	m_sys_man.Add<CollisionSystem>(arena_entity);
 	m_sys_man.Add<CrosshairSystem>(arena_entity, ui_view);
 	m_sys_man.Add<HUDSystem>(arena_entity);
-	m_sys_man.Add<EndGameSystem>();
+	m_sys_man.Add<EndGameSystem>(arena_entity);
 
 	// spawn
 	spawn::Init(m_program_info, m_ic_man);

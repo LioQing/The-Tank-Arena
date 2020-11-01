@@ -395,6 +395,9 @@
     <ClInclude Include="Src\Events\StateChangeEvent.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Game\Components\Arena\GameStatsComponent.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Enemies\normal\info.json" />
