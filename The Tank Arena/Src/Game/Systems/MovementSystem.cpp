@@ -73,8 +73,11 @@ void MovementSystem::Update()
 	}
 
 	// proj
-	for (auto& transform : manager->Filter<ProjectileTransformComponent>().Component())
+	for (auto [transform, projectile] : manager->Filter<ProjectileTransformComponent, ProjectileComponent>().Each())
 	{
+		if (projectile.hit)
+			continue;
+
 		transform.scaled_velocity = transform.velocity * transform.speed * space_time_scale;
 		transform.position += transform.scaled_velocity;
 	}

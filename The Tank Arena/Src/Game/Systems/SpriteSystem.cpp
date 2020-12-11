@@ -18,6 +18,15 @@ void SpriteSystem::Update()
 	// tank
 	for (auto [transform, sprite] : manager->Filter<TankTransformComponent, TankSpriteComponent>().Each())
 	{
+		// tex rect
+		if (transform.GetEntity().HasComponent<HealthComponent>())
+		{
+			const auto& health = transform.GetEntity().GetComponent<HealthComponent>();
+
+			sprite.hull_sprite.setTextureRect(sf::IntRect{ sprite.tex_rect_size * health.is_dead, 0, sprite.tex_rect_size, sprite.tex_rect_size });
+			sprite.turret_sprite.setTextureRect(sf::IntRect{ sprite.tex_rect_size * health.is_dead, 0, sprite.tex_rect_size, sprite.tex_rect_size });
+		}
+
 		// position
 		sprite.hull_sprite.setPosition(lio::ltosvec<float>(transform.position));
 		sprite.turret_sprite.setPosition(lio::ltosvec<float>(transform.position));
@@ -28,8 +37,11 @@ void SpriteSystem::Update()
 	}
 
 	// proj
-	for (auto [transform, sprite] : manager->Filter<ProjectileTransformComponent, ProjectileSpriteComponent>().Each())
+	for (auto [projectile, transform, sprite] : manager->Filter<ProjectileComponent, ProjectileTransformComponent, ProjectileSpriteComponent>().Each())
 	{
+		if (projectile.hit)
+			continue;
+
 		sprite.sprite.setPosition(lio::ltosvec<float>(transform.position));
 	}
 }

@@ -108,8 +108,11 @@ void CollisionSystem::Update()
 	}
 
 	// projectile
-	for (auto [projectile, transform] : manager->Filter<ProjectileComponent, ProjectileTransformComponent>().Each())
+	for (auto [projectile, transform, sprite] : manager->Filter<ProjectileComponent, ProjectileTransformComponent, ProjectileSpriteComponent>().Each())
 	{
+		if (projectile.hit)
+			continue;
+
 		auto proj_line = lio::LineSegf(projectile.start_pt, transform.position);
 		auto vel_line = lio::LineSegf(transform.position, transform.position - transform.scaled_velocity);
 
@@ -182,8 +185,7 @@ void CollisionSystem::Update()
 
 				if (vel_line.Intersect(hitbox_line))
 				{
-					--projectile.turret.bullet_counter;
-					projectile.GetEntity().Destroy();
+					projectile.bounce_counter = projectile.bounce_count;
 
 					if (!ttransform.GetEntity().HasComponent<HealthComponent>())
 						goto ContinueProjLoop;

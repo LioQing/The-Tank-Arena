@@ -22,8 +22,4 @@ void EndGameSystem::Update()
 	{
 		lev::Emit<StateChangeEvent>(Program::State::IN_MAIN_MENU);
 	}
-
-	// debug use
-	const auto& game_stats = arena_entity.GetComponent<GameStatsComponent>();
-	std::cout << game_stats.bullet_fired << " " << game_stats.tank_destroyed << std::endl;
 }

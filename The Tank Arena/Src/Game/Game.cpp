@@ -32,6 +32,7 @@ void Game::Init(ProgramInfo program_info, const sf::View& ui_view, uint32_t* pro
 
 	m_program_info.texture_manager->LoadTexture("tileset", R"(Data\TileMap\Chess.png)");
 	m_program_info.texture_manager->LoadTexture("bullet", R"(Data\Projectile\Default.png)");
+	m_program_info.texture_manager->LoadTexture("explode", R"(Data\Projectile\Explode.png)");
 
 	// level
 	m_arena_man.Init(m_program_info);

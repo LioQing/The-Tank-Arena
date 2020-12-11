@@ -9,6 +9,10 @@ struct ProjectileComponent : lic::Component
 {
 	TurretComponent& turret;
 
+	bool hit = false;
+	float anim_timer = 0.f;
+	float anim_time = 500.f;
+
 	uint32_t bounce_counter = 0u;
 	uint32_t bounce_count;
 

@@ -51,6 +51,8 @@ lic::Entity spawn::Player(const lio::Vec2f& pos, const std::string& texture_id, 
 		info["bullet_count"]
 	);
 
+	auto& health = AddComponent<HealthComponent>(player);
+
 	return lic::Entity(man, player);
 }
 
