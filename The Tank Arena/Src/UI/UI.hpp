@@ -32,6 +32,7 @@ public:
 	void Init(ProgramInfo program_info, uint32_t* program_state);
 	void Update();
 	void Draw();
+	void Input();
 
 	const sf::View& GetView() const;
 

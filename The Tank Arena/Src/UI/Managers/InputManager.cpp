@@ -20,6 +20,8 @@ void InputManager::On(const lev::Event& event)
 
 		for (const auto& button : buttons)
 		{
+			if (!button->is_active) continue;
+
 			if (input.mouse_pos.x < button->GetTrigger().GetPosition().x ||
 				input.mouse_pos.y < button->GetTrigger().GetPosition().y ||
 				input.mouse_pos.x > button->GetTrigger().GetPosition().x + button->GetTrigger().GetSize().x ||

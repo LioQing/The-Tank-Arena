@@ -27,6 +27,10 @@ int main(int argc, char** argv)
 			case Program::IN_GAME:
 				program.Gameplay();
 				break;
+
+			case Program::ENDGAME_MENU:
+				program.Endgame();
+				break;
 		}
 	}
 

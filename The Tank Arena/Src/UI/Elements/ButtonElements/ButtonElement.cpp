@@ -1,6 +1,7 @@
 #include "ButtonElement.hpp"
 
 #include "../../Events.hpp"
+#include "../../../Events.hpp"
 
 void ButtonElement::UpdateTriggerRect()
 {
@@ -11,9 +12,19 @@ void ButtonElement::UpdateTriggerRect()
 	};
 }
 
-ButtonElement::ButtonElement(const Scale& xscale)
-	: xscale(xscale)
+ButtonElement::ButtonElement(const Scale& xscale, uint32_t active_state)
+	: xscale(xscale), active_state(active_state)
 {
+	if (active_state == Program::State::IN_MAIN_MENU)
+	{
+		is_active = true;
+	}
+	else
+	{
+		is_active = false;
+	}
+
+	Listen<StateChangeEvent>();
 	Listen<UIRescaleEvent>();
 }
 
@@ -80,5 +91,17 @@ void ButtonElement::On(const lev::Event& event)
 
 		SetScale(rescale_event.scale);
 		SetPosition(lio::ltosvec<float>(center + (lio::stolvec<float>(idle_sprite.getPosition()) - center) * factor));
+	}
+	else if (event.Is<StateChangeEvent>())
+	{
+		const auto& state_change = static_cast<const StateChangeEvent&>(event);
+		if (state_change.state == active_state)
+		{
+			is_active = true;
+		}
+		else
+		{
+			is_active = false;
+		}
 	}
 }

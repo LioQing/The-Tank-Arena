@@ -1,5 +1,6 @@
 #include "EndGameSystem.hpp"
 
+#include "../../UI/Events.hpp"
 #include "../../Events.hpp"
 #include "../../Program.hpp"
 #include "../Components.hpp"
@@ -17,9 +18,13 @@ void EndGameSystem::Update()
 	{
 		end_game.timer += dt;
 	}
+	else
+	{
+		lev::Emit<TimerEvent>(dt);
+	}
 
 	if (end_game.timer >= end_game.countdown)
 	{
-		lev::Emit<StateChangeEvent>(Program::State::IN_MAIN_MENU);
+		lev::Emit<StateChangeEvent>(Program::State::ENDGAME_MENU);
 	}
 }

@@ -25,12 +25,15 @@ protected:
 
 	Scale xscale = 1.f;
 
+	uint32_t active_state;
+	bool is_active;
+
 	void UpdateTriggerRect();
 
 public:
 	
 	ButtonElement() = default;
-	ButtonElement(const Scale& xscale);
+	ButtonElement(const Scale& xscale, uint32_t active_state);
 
 	virtual ~ButtonElement() = default;
 

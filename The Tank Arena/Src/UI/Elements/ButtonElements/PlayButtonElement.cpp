@@ -3,8 +3,8 @@
 #include "../../../Events.hpp"
 #include "../../../Program.hpp"
 
-PlayButtonElement::PlayButtonElement(const Scale& xscale)
-	: ButtonElement(xscale)
+PlayButtonElement::PlayButtonElement(const Scale& xscale, uint32_t active_state)
+	: ButtonElement(xscale, active_state)
 {
 }
 

@@ -32,12 +32,14 @@ public:
 	{
 		CLOSED,
 		IN_GAME,
-		IN_MAIN_MENU
+		IN_MAIN_MENU,
+		ENDGAME_MENU
 	};
 
 	void Init();
 	void MainMenu();
 	void Gameplay();
+	void Endgame();
 
 	TextureManager& TextureManager();
 	sf::RenderWindow& Window();

@@ -96,7 +96,6 @@ void Game::Update(float dt)
 	// ui
 	m_sys_man.Get<CrosshairSystem>().Update();
 	m_sys_man.Get<HUDSystem>().Update();
-	lev::Emit<TimerEvent>(dt);
 
 	// game
 	m_sys_man.Get<EndGameSystem>().Update();

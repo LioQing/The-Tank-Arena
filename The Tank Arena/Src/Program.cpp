@@ -28,32 +28,8 @@ void Program::MainMenu()
 
 	while (state == State::IN_MAIN_MENU)
 	{
-		// sf event
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-			{
-				state = State::CLOSED;
-				window.close();
-			}
-			else if (event.type == sf::Event::Resized)
-			{
-				lev::Emit<WindowResizedEvent>();
-			}
-			else if (event.type == sf::Event::MouseButtonPressed)
-			{
-				lev::Emit<InputEvent>(lio::stolvec<float>(window.mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y })), event.mouseButton.button);
-			}
-			else if (event.type == sf::Event::MouseButtonReleased)
-			{
-				lev::Emit<InputEvent>(lio::stolvec<float>(window.mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y })), false, true);
-			}
-			else if (event.type == sf::Event::MouseMoved)
-			{
-				lev::Emit<InputEvent>(lio::stolvec<float>(window.mapPixelToCoords({ event.mouseMove.x, event.mouseMove.y })), true, false);
-			}
-		}
+		// sf events
+		ui->Input();
 
 		// update
 		ui->Update();
@@ -114,6 +90,29 @@ void Program::Gameplay()
 
 	game->CleanUp();
 	game.reset();
+}
+
+void Program::Endgame()
+{
+	// init delta time
+	delta_time = 0.f;
+	delta_clock.restart();
+
+	while (state == State::ENDGAME_MENU)
+	{
+		// sf events
+		ui->Input();
+
+		// update
+		ui->Update();
+
+		// draw
+		window.clear();
+		ui->Draw();
+		window.display();
+
+		delta_time = static_cast<float>(delta_clock.restart().asMicroseconds()) / 1000.0;
+	}
 }
 
 TextureManager& Program::TextureManager()

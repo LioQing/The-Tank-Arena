@@ -1,7 +1,7 @@
 #include "HowToPlayButtonElement.hpp"
 
-HowToPlayButtonElement::HowToPlayButtonElement(const Scale& xscale)
-	: ButtonElement(xscale)
+HowToPlayButtonElement::HowToPlayButtonElement(const Scale& xscale, uint32_t active_state)
+	: ButtonElement(xscale, active_state)
 {
 }
 

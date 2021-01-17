@@ -23,6 +23,7 @@ void UI::Init(ProgramInfo program_info, uint32_t* program_state)
 	m_program_info.texture_manager->LoadButtonTexture("play", R"(Data\UI\Buttons)");
 	m_program_info.texture_manager->LoadButtonTexture("how_to_play", R"(Data\UI\Buttons)");
 	m_program_info.texture_manager->LoadButtonTexture("exit", R"(Data\UI\Buttons)");
+	m_program_info.texture_manager->LoadButtonTexture("main_menu", R"(Data\UI\Buttons)");
 
 	// load font
 	font_man.LoadFont("arial", "Data/UI/Fonts/arial.ttf");
@@ -39,17 +40,17 @@ void UI::Init(ProgramInfo program_info, uint32_t* program_state)
 	sprite.SetScale(m_view.getSize().y / window_ui_scale);
 	sprite.SetPosition(sf::Vector2f(m_view.getCenter().x, m_view.getCenter().y - sprite.GetSprite().getGlobalBounds().height / 2));
 
-	auto& play_button = element_man.Add<PlayButtonElement>("play_button", 1.5f);
+	auto& play_button = element_man.Add<PlayButtonElement>("play_button", 1.5f, static_cast<uint32_t>(Program::State::IN_MAIN_MENU));
 	play_button.SetTexture("play");
 	play_button.SetScale(m_view.getSize().y / window_ui_scale);
 	play_button.SetPosition(m_view.getCenter());
 
-	auto& how_to_play_button = element_man.Add<HowToPlayButtonElement>("how_to_play_button", 1.5f);
+	auto& how_to_play_button = element_man.Add<HowToPlayButtonElement>("how_to_play_button", 1.5f, static_cast<uint32_t>(Program::State::IN_MAIN_MENU));
 	how_to_play_button.SetTexture("how_to_play");
 	how_to_play_button.SetScale(m_view.getSize().y / window_ui_scale);
 	how_to_play_button.SetPosition(sf::Vector2f(m_view.getCenter().x, m_view.getCenter().y + sprite.GetSprite().getGlobalBounds().height / 4));
 
-	auto& exit_button = element_man.Add<ExitButtonElement>("exit_button", 1.5f);
+	auto& exit_button = element_man.Add<ExitButtonElement>("exit_button", 1.5f, static_cast<uint32_t>(Program::State::IN_MAIN_MENU));
 	exit_button.SetTexture("exit");
 	exit_button.SetScale(m_view.getSize().y / window_ui_scale);
 	exit_button.SetPosition(sf::Vector2f(m_view.getCenter().x, m_view.getCenter().y + sprite.GetSprite().getGlobalBounds().height / 2));
@@ -58,6 +59,11 @@ void UI::Init(ProgramInfo program_info, uint32_t* program_state)
 	timer.SetPosition({ m_view.getCenter().x, m_view.getCenter().y - m_view.getSize().y / 2 });
 	timer.SetFont(*font_man.GetFont("arial"));
 	timer.SetSize(24);
+
+	auto& main_menu_button = element_man.Add<MainMenuButtonElement>("main_menu_button", 1.5f, static_cast<uint32_t>(Program::State::ENDGAME_MENU));
+	main_menu_button.SetTexture("main_menu");
+	main_menu_button.SetScale(m_view.getSize().y / window_ui_scale);
+	main_menu_button.SetPosition(sf::Vector2f(m_view.getCenter().x, m_view.getCenter().y + sprite.GetSprite().getGlobalBounds().height / 4));
 }
 
 void UI::Update()
@@ -100,10 +106,49 @@ void UI::Draw()
 			m_program_info.window->draw(timer.GetText());
 		}
 	}
+	else if (*m_program_state == Program::State::ENDGAME_MENU)
+	{
+		{ // main menu button
+			const auto& main_menu_button = element_man.Get<ButtonElement>("main_menu_button");
+			m_program_info.window->draw(main_menu_button.GetSprite());
+		}
+	}
 	{ // cursor
 		const auto& cursor = element_man.Get<CursorElement>("cursor");
 		m_program_info.window->draw(cursor.GetColorSprite());
 		m_program_info.window->draw(cursor.GetOutlineSprite());
+	}
+}
+
+void UI::Input()
+{
+	sf::Event event;
+	while (m_program_info.window->pollEvent(event))
+	{
+		if (event.type == sf::Event::Closed)
+		{
+			*m_program_state = Program::State::CLOSED;
+			m_program_info.window->close();
+		}
+		else if (event.type == sf::Event::Resized)
+		{
+			lev::Emit<WindowResizedEvent>();
+		}
+		else if (event.type == sf::Event::MouseButtonPressed)
+		{
+			lev::Emit<InputEvent>(lio::stolvec<float>(m_program_info.window->mapPixelToCoords(
+				{ event.mouseButton.x, event.mouseButton.y })), event.mouseButton.button);
+		}
+		else if (event.type == sf::Event::MouseButtonReleased)
+		{
+			lev::Emit<InputEvent>(lio::stolvec<float>(m_program_info.window->mapPixelToCoords(
+				{ event.mouseButton.x, event.mouseButton.y })), false, true);
+		}
+		else if (event.type == sf::Event::MouseMoved)
+		{
+			lev::Emit<InputEvent>(lio::stolvec<float>(m_program_info.window->mapPixelToCoords(
+				{ event.mouseMove.x, event.mouseMove.y })), true, false);
+		}
 	}
 }
 

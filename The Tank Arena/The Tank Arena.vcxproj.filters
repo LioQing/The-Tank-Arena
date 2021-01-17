@@ -183,6 +183,9 @@
     <ClCompile Include="Src\Events\StateChangeEvent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Src\UI\Elements\ButtonElements\MainMenuButtonElement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\Game.hpp">
@@ -396,6 +399,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\Components\Arena\GameStatsComponent.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UI\Elements\ButtonElements\MainMenuButtonElement.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
