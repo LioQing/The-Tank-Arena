@@ -26,7 +26,7 @@ void UI::Init(ProgramInfo program_info, uint32_t* program_state)
 	m_program_info.texture_manager->LoadButtonTexture("main_menu", R"(Data\UI\Buttons)");
 
 	// load font
-	font_man.LoadFont("arial", "Data/UI/Fonts/arial.ttf");
+	font_man.LoadFont("arial", "Data/UI/Fonts/JetBrainsMono-Regular.ttf");
 
 	// add elements
 	element_man.Init(m_program_info, input_man);

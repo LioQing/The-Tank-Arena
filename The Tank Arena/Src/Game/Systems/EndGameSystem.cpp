@@ -26,5 +26,8 @@ void EndGameSystem::Update()
 	if (end_game.timer >= end_game.countdown)
 	{
 		lev::Emit<StateChangeEvent>(Program::State::ENDGAME_MENU);
+
+		const auto& game_stat = arena_entity.GetComponent<GameStatsComponent>();
+		lev::Emit<StatDisplayEvent>(game_stat.tank_destroyed, game_stat.bullet_fired);
 	}
 }

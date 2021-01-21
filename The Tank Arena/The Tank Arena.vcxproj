@@ -206,9 +206,11 @@
     <ClCompile Include="Src\UI\Elements\ButtonElements\PlayButtonElement.cpp" />
     <ClCompile Include="Src\UI\Elements\CursorElement.cpp" />
     <ClCompile Include="Src\UI\Elements\SpriteElement.cpp" />
+    <ClCompile Include="Src\UI\Elements\TextElements\StatElement.cpp" />
     <ClCompile Include="Src\UI\Elements\TextElements\TextElement.cpp" />
     <ClCompile Include="Src\UI\Elements\TextElements\TimerElement.cpp" />
     <ClCompile Include="Src\UI\Events\InputEvent.cpp" />
+    <ClCompile Include="Src\UI\Events\StatDisplayEvent.cpp" />
     <ClCompile Include="Src\UI\Events\TimerEvent.cpp" />
     <ClCompile Include="Src\UI\Events\UIRescaleEvent.cpp" />
     <ClCompile Include="Src\UI\Managers\ElementManager.cpp" />
@@ -283,10 +285,12 @@
     <ClInclude Include="Src\UI\Elements\CursorElement.hpp" />
     <ClInclude Include="Src\UI\Elements\Element.hpp" />
     <ClInclude Include="Src\UI\Elements\SpriteElement.hpp" />
+    <ClInclude Include="Src\UI\Elements\TextElements\StatElement.hpp" />
     <ClInclude Include="Src\UI\Elements\TextElements\TextElement.hpp" />
     <ClInclude Include="Src\UI\Elements\TextElements\TimerElement.hpp" />
     <ClInclude Include="Src\UI\Events.hpp" />
     <ClInclude Include="Src\UI\Events\InputEvent.hpp" />
+    <ClInclude Include="Src\UI\Events\StatDisplayEvent.hpp" />
     <ClInclude Include="Src\UI\Events\TimerEvent.hpp" />
     <ClInclude Include="Src\UI\Events\UIRescaleEvent.hpp" />
     <ClInclude Include="Src\UI\Managers.hpp" />
