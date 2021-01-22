@@ -11,7 +11,7 @@ public:
 	enum Type : uint8_t
 	{
 		TANK_DESTROYED,
-		BULLET_FIRED
+		BULLET_SHOT
 	};
 
 private:

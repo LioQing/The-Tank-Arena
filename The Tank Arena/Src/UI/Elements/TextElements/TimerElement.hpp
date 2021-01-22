@@ -10,6 +10,7 @@ private:
 
 	uint32_t min = 0;
 	float sec = 0.f;
+	bool is_in_game = true;
 
 public:
 

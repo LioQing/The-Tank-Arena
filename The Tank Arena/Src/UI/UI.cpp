@@ -26,10 +26,10 @@ void UI::Init(ProgramInfo program_info, uint32_t* program_state)
 	m_program_info.texture_manager->LoadButtonTexture("main_menu", R"(Data\UI\Buttons)");
 
 	// load font
-	font_man.LoadFont("arial", "Data/UI/Fonts/JetBrainsMono-Regular.ttf");
+	font_man.LoadFont("jbm", "Data/UI/Fonts/JetBrainsMono-Regular.ttf");
 
 	// add elements
-	element_man.Init(m_program_info, input_man);
+	element_man.Init(m_program_info, input_man, m_view);
 
 	auto& cursor = element_man.Add<CursorElement>("cursor"); // config
 	cursor.SetTextures("cursor_color", "cursor_outline");
@@ -56,14 +56,22 @@ void UI::Init(ProgramInfo program_info, uint32_t* program_state)
 	exit_button.SetPosition(sf::Vector2f(m_view.getCenter().x, m_view.getCenter().y + sprite.GetSprite().getGlobalBounds().height / 2));
 
 	auto& timer = element_man.Add<TimerElement>("timer");
-	timer.SetPosition({ m_view.getCenter().x, m_view.getCenter().y - m_view.getSize().y / 2 });
-	timer.SetFont(*font_man.GetFont("arial"));
-	timer.SetSize(24);
+	timer.SetFont(*font_man.GetFont("jbm"));
 
 	auto& main_menu_button = element_man.Add<MainMenuButtonElement>("main_menu_button", 1.5f, static_cast<uint32_t>(Program::State::ENDGAME_MENU));
 	main_menu_button.SetTexture("main_menu");
 	main_menu_button.SetScale(m_view.getSize().y / window_ui_scale);
-	main_menu_button.SetPosition(sf::Vector2f(m_view.getCenter().x, m_view.getCenter().y + sprite.GetSprite().getGlobalBounds().height / 4));
+	main_menu_button.SetPosition(sf::Vector2f(m_view.getCenter().x, m_view.getCenter().y + sprite.GetSprite().getGlobalBounds().height * 5 / 6));
+
+	auto& stat_bullet_shot = element_man.Add<StatElement>("stat_bullet_shot", StatElement::Type::BULLET_SHOT);
+	stat_bullet_shot.SetPosition({ m_view.getCenter().x - 150, m_view.getCenter().y });
+	stat_bullet_shot.SetFont(*font_man.GetFont("jbm"));
+	stat_bullet_shot.SetSize(28);
+
+	auto& stat_tank_destroyed = element_man.Add<StatElement>("stat_tank_destroyed", StatElement::Type::TANK_DESTROYED);
+	stat_tank_destroyed.SetPosition({ m_view.getCenter().x - 150, m_view.getCenter().y + 36 });
+	stat_tank_destroyed.SetFont(*font_man.GetFont("jbm"));
+	stat_tank_destroyed.SetSize(26);
 }
 
 void UI::Update()
@@ -111,6 +119,18 @@ void UI::Draw()
 		{ // main menu button
 			const auto& main_menu_button = element_man.Get<ButtonElement>("main_menu_button");
 			m_program_info.window->draw(main_menu_button.GetSprite());
+		}
+		{ // stat bullet shot
+			const auto& stat_bullet_shot = element_man.Get<StatElement>("stat_bullet_shot");
+			m_program_info.window->draw(stat_bullet_shot.GetText());
+		}
+		{ // stat tank destroyed
+			const auto& stat_tank_destroyed = element_man.Get<StatElement>("stat_tank_destroyed");
+			m_program_info.window->draw(stat_tank_destroyed.GetText());
+		}
+		{ // timer
+			const auto& timer = element_man.Get<TextElement>("timer");
+			m_program_info.window->draw(timer.GetText());
 		}
 	}
 	{ // cursor

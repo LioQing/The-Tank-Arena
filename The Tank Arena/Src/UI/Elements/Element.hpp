@@ -13,6 +13,7 @@ private:
 protected:
 
 	ProgramInfo* program_info;
+	sf::View* ui_view;
 
 public:
 

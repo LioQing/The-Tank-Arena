@@ -26,13 +26,14 @@ private:
 
 public:
 
-	void Init(ProgramInfo& program_info, InputManager& input_man);
+	void Init(ProgramInfo& program_info, InputManager& input_man, sf::View& view);
 
 	template <IsElement T, typename ...TArgs>
 	T& Add(const std::string& id, TArgs ...args)
 	{
 		auto u_ptr = std::unique_ptr<Element>(new T(std::forward<TArgs>(args)...));
 		u_ptr->program_info = program_info;
+		u_ptr->ui_view = view;
 		auto& ref = *u_ptr;
 
 		if (std::is_base_of<ButtonElement, T>::value)
