@@ -107,3 +107,12 @@ lic::Entity spawn::Projectile(
 
 	return lic::Entity(man, projectile);
 }
+
+lic::Entity spawn::Gunfire(const lio::Vec2f& pos, float rot)
+{
+	lic::EntityID gunfire = man->AddEntity();
+
+	auto& sprite = AddComponent_Info<GunfireSpriteComponent>(gunfire, pos, rot);
+
+	return lic::Entity();
+}

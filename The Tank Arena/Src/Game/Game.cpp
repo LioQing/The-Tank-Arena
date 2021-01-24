@@ -30,14 +30,15 @@ void Game::Init(ProgramInfo program_info, const sf::View& ui_view, uint32_t* pro
 	m_program_info.texture_manager->LoadTankTexture("player_default", R"(Data\Player)");
 	m_program_info.texture_manager->LoadTankTexture("enemy_normal", R"(Data\Enemies)");
 
-	m_program_info.texture_manager->LoadTexture("tileset", R"(Data\TileMap\Chess.png)");
+	m_program_info.texture_manager->LoadTexture("tileset", R"(Data\TileMap\Metal.png)");
 	m_program_info.texture_manager->LoadTexture("bullet", R"(Data\Projectile\Default.png)");
 	m_program_info.texture_manager->LoadTexture("explode", R"(Data\Projectile\Explode.png)");
+	m_program_info.texture_manager->LoadTexture("gunfire", R"(Data\Projectile\Gunfire.png)");
 
 	// level
 	m_arena_man.Init(m_program_info);
 	auto& arena_entity = m_arena_man.SetArena(m_ic_man.AddEntity());
-	m_arena_man.LoadMap(R"(Data\Levels\TestLevel.csv)", tile_size);
+	m_arena_man.LoadMap(R"(Data\Levels\ShowCaseLevel.csv)", tile_size);
 
 	// add system
 	m_sys_man.Init(m_program_info, m_ic_man);
@@ -60,7 +61,7 @@ void Game::Init(ProgramInfo program_info, const sf::View& ui_view, uint32_t* pro
 
 	// ai manager
 	m_ai_man.Init(m_program_info, player.GetID());
-	m_ai_man.Spawn(R"(Data\Levels\DebugLevel.csv)", m_ic_man, tile_size);
+	m_ai_man.Spawn(R"(Data\Levels\ShowCaseLevel.csv)", m_ic_man, tile_size);
 
 	// camera manager
 	m_cam_man.Init(

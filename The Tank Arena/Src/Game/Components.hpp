@@ -16,3 +16,4 @@
 #include "Components/Tank/HealthComponent.hpp"
 #include "Components/Arena/EndGameComponent.hpp"
 #include "Components/Arena/GameStatsComponent.hpp"
+#include "Components/Sprite/GunfireSpriteComponent.hpp"

@@ -20,4 +20,6 @@ namespace spawn
 		float speed,
 		float decay,
 		TurretComponent& turret);
+
+	lic::Entity Gunfire(const lio::Vec2f& pos, float rot);
 }

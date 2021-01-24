@@ -44,6 +44,15 @@ void SpriteSystem::Update()
 
 		sprite.sprite.setPosition(lio::ltosvec<float>(transform.position));
 	}
+
+	// gunfire
+	for (auto& gunfire : manager->Filter<GunfireSpriteComponent>().Component())
+	{
+		gunfire.timer -= dt;
+
+		if (gunfire.timer <= 0.f)
+			gunfire.GetEntity().Destroy();
+	}
 }
 
 void SpriteSystem::Draw()
@@ -91,6 +100,15 @@ void SpriteSystem::Draw()
 
 		program_info->window->draw(sprite.sprite);
 	}
+
+	// gunfire sprite
+	for (auto& sprite : manager->Filter<GunfireSpriteComponent>().Component())
+	{
+		if (!lio::inview(sprite.sprite.getGlobalBounds(), view_bound))
+			continue;
+
+		program_info->window->draw(sprite.sprite);
+	}
 }
 
 void SpriteSystem::On(const lev::Event& event)
@@ -127,6 +145,13 @@ void SpriteSystem::On(const lev::Event& event)
 		{
 			sprite.sprite.setScale((ev.current_scale).sfVec2f());
 			transform.position *= rescale;
+		}
+
+		// gunfire sprite
+		for (auto& gunfire : manager->Filter<GunfireSpriteComponent>().Component())
+		{
+			gunfire.sprite.setScale(ev.current_scale.sfVec2f());
+			gunfire.sprite.setPosition(gunfire.sprite.getPosition().x * rescale, gunfire.sprite.getPosition().y * rescale);
 		}
 	}
 	else if (event.Is<GameSettingEvent>())

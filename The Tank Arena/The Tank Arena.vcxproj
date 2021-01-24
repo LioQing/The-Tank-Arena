@@ -167,6 +167,7 @@
     <ClCompile Include="Src\Game\Components\Collider\TankColliderComponent.cpp" />
     <ClCompile Include="Src\Game\Components\Control\AIControlComponent.cpp" />
     <ClCompile Include="Src\Game\Components\Control\PlayerControlComponent.cpp" />
+    <ClCompile Include="Src\Game\Components\Sprite\GunfireSpriteComponent.cpp" />
     <ClCompile Include="Src\Game\Components\Sprite\LevelSpriteComponent.cpp" />
     <ClCompile Include="Src\Game\Components\Sprite\ProjectileSpriteComponent.cpp" />
     <ClCompile Include="Src\Game\Components\Sprite\TankSpriteComponent.cpp" />
@@ -242,6 +243,7 @@
     <ClInclude Include="Src\Game\Components\Control\AIControlComponent.hpp" />
     <ClInclude Include="Src\Game\Components\Control\BaseControlComponent.hpp" />
     <ClInclude Include="Src\Game\Components\Control\PlayerControlComponent.hpp" />
+    <ClInclude Include="Src\Game\Components\Sprite\GunfireSpriteComponent.hpp" />
     <ClInclude Include="Src\Game\Components\Sprite\LevelSpriteComponent.hpp" />
     <ClInclude Include="Src\Game\Components\Sprite\ProjectileSpriteComponent.hpp" />
     <ClInclude Include="Src\Game\Components\Sprite\TankSpriteComponent.hpp" />

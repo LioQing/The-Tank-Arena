@@ -34,6 +34,10 @@ void TurretSystem::Update()
 				turret.speed,
 				turret.bounce_count,
 				turret);
+			spawn::Gunfire(
+				transform.position + adjusted_turret_dir * 15.f * program_info->scale->Get(),
+				transform.turret_rotation
+				);
 			++turret.bullet_counter;
 			++arena_entity.GetComponent<GameStatsComponent>().bullet_fired;
 		}
@@ -71,6 +75,10 @@ void TurretSystem::Update()
 					turret.speed,
 					turret.bounce_count,
 					turret);
+				spawn::Gunfire(
+					transform.position + adjusted_turret_dir * 15.f * program_info->scale->Get(),
+					transform.turret_rotation
+				);
 				++turret.bullet_counter;
 				turret.interval_timer = 0.f;
 			}
