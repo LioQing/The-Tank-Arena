@@ -24,6 +24,11 @@ void SpriteElement::SetScale(const Scale& scale)
     sprite.setScale(Scale(scale.Get() * xscale.Get()).sfVec2f());
 }
 
+void SpriteElement::SetColor(const sf::Color& col)
+{
+    sprite.setColor(col);
+}
+
 const sf::Sprite& SpriteElement::GetSprite() const
 {
     return sprite;

@@ -20,6 +20,8 @@ void UI::Init(ProgramInfo program_info, uint32_t* program_state)
 	m_program_info.texture_manager->LoadTexture("cursor_color", R"(Data\Cursor\default-color.png)");
 	m_program_info.texture_manager->LoadTexture("cursor_outline", R"(Data\Cursor\default-outline.png)");
 	m_program_info.texture_manager->LoadTexture("title", R"(Data\UI\title.png)");
+	m_program_info.texture_manager->LoadTexture("background", R"(Data\UI\background.png)");
+
 	m_program_info.texture_manager->LoadButtonTexture("play", R"(Data\UI\Buttons)");
 	m_program_info.texture_manager->LoadButtonTexture("how_to_play", R"(Data\UI\Buttons)");
 	m_program_info.texture_manager->LoadButtonTexture("exit", R"(Data\UI\Buttons)");
@@ -35,10 +37,16 @@ void UI::Init(ProgramInfo program_info, uint32_t* program_state)
 	cursor.SetTextures("cursor_color", "cursor_outline");
 	cursor.SetScale(m_view.getSize().y / window_ui_scale);
 
-	auto& sprite = element_man.Add<SpriteElement>("title", 2.f);
-	sprite.SetTexture("title");
-	sprite.SetScale(m_view.getSize().y / window_ui_scale);
-	sprite.SetPosition(sf::Vector2f(m_view.getCenter().x, m_view.getCenter().y - sprite.GetSprite().getGlobalBounds().height / 2));
+	auto& title = element_man.Add<SpriteElement>("title", 2.f);
+	title.SetTexture("title");
+	title.SetScale(m_view.getSize().y / window_ui_scale);
+	title.SetPosition(sf::Vector2f(m_view.getCenter().x, m_view.getCenter().y - title.GetSprite().getGlobalBounds().height / 2));
+
+	auto& background = element_man.Add<SpriteElement>("background", .25f);
+	background.SetTexture("background");
+	background.SetScale(m_view.getSize().y / window_ui_scale);
+	background.SetPosition(m_view.getCenter());
+	background.SetColor(sf::Color(255, 255, 255, 127));
 
 	auto& play_button = element_man.Add<PlayButtonElement>("play_button", 1.5f, static_cast<uint32_t>(Program::State::IN_MAIN_MENU));
 	play_button.SetTexture("play");
@@ -48,12 +56,12 @@ void UI::Init(ProgramInfo program_info, uint32_t* program_state)
 	auto& how_to_play_button = element_man.Add<HowToPlayButtonElement>("how_to_play_button", 1.5f, static_cast<uint32_t>(Program::State::IN_MAIN_MENU));
 	how_to_play_button.SetTexture("how_to_play");
 	how_to_play_button.SetScale(m_view.getSize().y / window_ui_scale);
-	how_to_play_button.SetPosition(sf::Vector2f(m_view.getCenter().x, m_view.getCenter().y + sprite.GetSprite().getGlobalBounds().height / 4));
+	how_to_play_button.SetPosition(sf::Vector2f(m_view.getCenter().x, m_view.getCenter().y + title.GetSprite().getGlobalBounds().height / 4));
 
 	auto& exit_button = element_man.Add<ExitButtonElement>("exit_button", 1.5f, static_cast<uint32_t>(Program::State::IN_MAIN_MENU));
 	exit_button.SetTexture("exit");
 	exit_button.SetScale(m_view.getSize().y / window_ui_scale);
-	exit_button.SetPosition(sf::Vector2f(m_view.getCenter().x, m_view.getCenter().y + sprite.GetSprite().getGlobalBounds().height / 2));
+	exit_button.SetPosition(sf::Vector2f(m_view.getCenter().x, m_view.getCenter().y + title.GetSprite().getGlobalBounds().height / 2));
 
 	auto& timer = element_man.Add<TimerElement>("timer");
 	timer.SetFont(*font_man.GetFont("jbm"));
@@ -61,7 +69,7 @@ void UI::Init(ProgramInfo program_info, uint32_t* program_state)
 	auto& main_menu_button = element_man.Add<MainMenuButtonElement>("main_menu_button", 1.5f, static_cast<uint32_t>(Program::State::ENDGAME_MENU));
 	main_menu_button.SetTexture("main_menu");
 	main_menu_button.SetScale(m_view.getSize().y / window_ui_scale);
-	main_menu_button.SetPosition(sf::Vector2f(m_view.getCenter().x, m_view.getCenter().y + sprite.GetSprite().getGlobalBounds().height * 5 / 6));
+	main_menu_button.SetPosition(sf::Vector2f(m_view.getCenter().x, m_view.getCenter().y + title.GetSprite().getGlobalBounds().height * 5 / 6));
 
 	auto& stat_bullet_shot = element_man.Add<StatElement>("stat_bullet_shot", StatElement::Type::BULLET_SHOT);
 	stat_bullet_shot.SetPosition({ m_view.getCenter().x - 150, m_view.getCenter().y });
@@ -90,6 +98,10 @@ void UI::Draw()
 
 	if (*m_program_state == Program::State::IN_MAIN_MENU)
 	{
+		{ // background
+			const auto& background = element_man.Get<SpriteElement>("background");
+			m_program_info.window->draw(background.GetSprite());
+		}
 		{ // title
 			const auto& title = element_man.Get<SpriteElement>("title");
 			m_program_info.window->draw(title.GetSprite());

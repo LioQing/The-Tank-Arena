@@ -19,6 +19,7 @@ public:
 	void SetPosition(const sf::Vector2f& pos);
 	void SetTexture(const std::string& id);
 	void SetScale(const Scale& scale);
+	void SetColor(const sf::Color& col);
 
 	const sf::Sprite& GetSprite() const;
 	const Scale& GetExScale() const;
