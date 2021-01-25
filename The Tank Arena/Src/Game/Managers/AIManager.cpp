@@ -22,7 +22,7 @@ void AIManager::Spawn(const std::string& path, lic::Manager& manager, size_t til
 	{
 		for (auto x = 0u; x < csvr.At(0).size(); ++x)
 		{
-			auto id = std::stoi(csvr.At(y, x));
+			auto id = std::stoi(csvr.At(y, x)) + 1;
 			if (id < 0)
 			{
 				auto ai = spawn::Enemy(lio::Vec2f(x + .5f, y + .5f) * tile_size * m_program_info->scale->Get(), "enemy_normal");

@@ -1,6 +1,7 @@
 #include "Game.hpp"
 
 #include <iostream>
+#include <CSVReader.hpp>
 
 #include "../UI/Events.hpp"
 #include "../Events.hpp"
@@ -10,6 +11,7 @@
 
 void Game::Init(ProgramInfo program_info, const sf::View& ui_view, uint32_t* program_state)
 {
+	const auto path = R"(Data\Levels\ShowCaseLevel.csv)";
 	auto tile_size = 32u;
 
 	// yo this a temp fix for multithread race condition
@@ -38,7 +40,7 @@ void Game::Init(ProgramInfo program_info, const sf::View& ui_view, uint32_t* pro
 	// level
 	m_arena_man.Init(m_program_info);
 	auto& arena_entity = m_arena_man.SetArena(m_ic_man.AddEntity());
-	m_arena_man.LoadMap(R"(Data\Levels\ShowCaseLevel.csv)", tile_size);
+	m_arena_man.LoadMap(path, tile_size);
 
 	// add system
 	m_sys_man.Init(m_program_info, m_ic_man);
@@ -54,14 +56,29 @@ void Game::Init(ProgramInfo program_info, const sf::View& ui_view, uint32_t* pro
 
 	// spawn
 	spawn::Init(m_program_info, m_ic_man);
-	auto player = spawn::Player(
-		lio::stolvec<float>(m_cam_man.GetView().getCenter()), 
-		"player_default", 
-		R"(Data\Player\player_default\info.json)");
+
+	// player
+	auto player = lic::Entity();
+	lio::CSVReader csvr(path, true);
+	for (auto y = 0u; y < csvr.Row(); ++y)
+	{
+		for (auto x = 0u; x < csvr.At(0).size(); ++x)
+		{
+			auto id = std::stoi(csvr.At(y, x));
+			if (id == -1)
+			{
+				player = spawn::Player(
+					lio::Vec2f(x + .5f, y + .5f) * tile_size * m_program_info.scale->Get(),
+					"player_default",
+					R"(Data\Player\player_default\info.json)");
+				break;
+			}
+		}
+	}
 
 	// ai manager
 	m_ai_man.Init(m_program_info, player.GetID());
-	m_ai_man.Spawn(R"(Data\Levels\ShowCaseLevel.csv)", m_ic_man, tile_size);
+	m_ai_man.Spawn(path, m_ic_man, tile_size);
 
 	// camera manager
 	m_cam_man.Init(
