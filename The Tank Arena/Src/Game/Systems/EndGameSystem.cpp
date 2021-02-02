@@ -14,6 +14,12 @@ void EndGameSystem::Update()
 {
 	auto& end_game = arena_entity.GetComponent<EndGameComponent>();
 
+	for (auto [player, health] : manager->Filter<PlayerControlComponent, HealthComponent>().Each())
+	{
+		if (health.is_dead)
+			end_game.is_ended = true;
+	}
+
 	if (end_game.is_ended)
 	{
 		end_game.timer += dt;

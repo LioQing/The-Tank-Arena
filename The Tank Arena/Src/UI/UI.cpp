@@ -27,6 +27,12 @@ void UI::Init(ProgramInfo program_info, uint32_t* program_state)
 	m_program_info.texture_manager->LoadButtonTexture("exit", R"(Data\UI\Buttons)");
 	m_program_info.texture_manager->LoadButtonTexture("main_menu", R"(Data\UI\Buttons)");
 
+	m_program_info.texture_manager->LoadTexture("square_button", R"(Data\UI\Buttons\square_button.png)");
+	m_program_info.texture_manager->LoadTexture("square_button_clicked", R"(Data\UI\Buttons\square_button_clicked.png)");
+	m_program_info.texture_manager->LoadTexture("numbers_hover", R"(Data\UI\Numbers\hover.png)");
+	m_program_info.texture_manager->LoadTexture("numbers_clicked", R"(Data\UI\Numbers\clicked.png)");
+	m_program_info.texture_manager->LoadTexture("numbers_idle", R"(Data\UI\Numbers\idle.png)");
+
 	// load font
 	font_man.LoadFont("jbm", "Data/UI/Fonts/JetBrainsMono-Regular.ttf");
 

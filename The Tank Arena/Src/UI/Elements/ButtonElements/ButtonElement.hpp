@@ -28,7 +28,7 @@ protected:
 	uint32_t active_state;
 	bool is_active;
 
-	void UpdateTriggerRect();
+	virtual void UpdateTriggerRect();
 
 public:
 	
@@ -41,9 +41,9 @@ public:
 	virtual void OnRelease() {}
 	virtual void OnHover() {}
 
-	void SetPosition(const sf::Vector2f& pos);
-	void SetTexture(const std::string& id);
-	void SetScale(const Scale& scale);
+	virtual void SetPosition(const sf::Vector2f& pos);
+	virtual void SetTexture(const std::string& id);
+	virtual void SetScale(const Scale& scale);
 
 	const sf::Sprite& GetSprite() const;
 

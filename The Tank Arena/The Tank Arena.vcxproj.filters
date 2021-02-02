@@ -195,6 +195,9 @@
     <ClCompile Include="Src\Game\Components\Sprite\GunfireSpriteComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Src\UI\Elements\ButtonElements\LevelButtonElement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\Game.hpp">
@@ -420,6 +423,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\Components\Sprite\GunfireSpriteComponent.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UI\Elements\ButtonElements\LevelButtonElement.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

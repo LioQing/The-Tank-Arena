@@ -33,7 +33,8 @@ public:
 		CLOSED,
 		IN_GAME,
 		IN_MAIN_MENU,
-		ENDGAME_MENU
+		ENDGAME_MENU,
+		LEVEL_SELECTION_MENU
 	};
 
 	void Init();
