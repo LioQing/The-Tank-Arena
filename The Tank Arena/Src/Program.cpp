@@ -20,13 +20,13 @@ void Program::Init()
 	ui->Init(ProgramInfo(window, texture_manager), &state);
 }
 
-void Program::MainMenu()
+void Program::Menu()
 {
 	// init delta time
 	delta_time = 0.f;
 	delta_clock.restart();
 
-	while (state == State::IN_MAIN_MENU)
+	while (state == State::IN_MAIN_MENU || state == State::ENDGAME_MENU || state == State::LEVEL_MENU)
 	{
 		// sf events
 		ui->Input();
@@ -90,29 +90,6 @@ void Program::Gameplay()
 
 	game->CleanUp();
 	game.reset();
-}
-
-void Program::Endgame()
-{
-	// init delta time
-	delta_time = 0.f;
-	delta_clock.restart();
-
-	while (state == State::ENDGAME_MENU)
-	{
-		// sf events
-		ui->Input();
-
-		// update
-		ui->Update();
-
-		// draw
-		window.clear();
-		ui->Draw();
-		window.display();
-
-		delta_time = static_cast<float>(delta_clock.restart().asMicroseconds()) / 1000.0;
-	}
 }
 
 TextureManager& Program::TextureManager()

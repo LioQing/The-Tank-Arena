@@ -8,14 +8,11 @@ private:
 
 	uint8_t number;
 
-	sf::Sprite idle_sprite[2];
-	sf::Sprite clicked_sprite[2];
-	sf::Sprite hover_sprite[2];
-	sf::Sprite button_sprite;
-	sf::Sprite button_clicked_sprite;
+	sf::Sprite number_idle_sprite[2];
+	sf::Sprite number_clicked_sprite[2];
+	sf::Sprite number_hover_sprite[2];
 
 	void UpdateOrigin();
-	void UpdateTriggerRect() override;
 
 public:
 
@@ -28,4 +25,7 @@ public:
 	void SetPosition(const sf::Vector2f& pos) override;
 	void SetTexture(const std::string& id = "numbers") override;
 	void SetScale(const Scale& scale) override;
+
+	const sf::Sprite& GetButtonSprite() const;
+	const sf::Sprite& GetNumberSprite(uint8_t digit) const;
 };

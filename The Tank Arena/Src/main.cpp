@@ -21,15 +21,17 @@ int main(int argc, char** argv)
 		switch (program.GetState())
 		{
 			case Program::IN_MAIN_MENU:
-				program.MainMenu();
+			case Program::ENDGAME_MENU:
+			case Program::LEVEL_MENU:
+				program.Menu();
 				break;
 
 			case Program::IN_GAME:
 				program.Gameplay();
 				break;
-
-			case Program::ENDGAME_MENU:
-				program.Endgame();
+			
+			default:
+				std::cerr << "Game State Lost" << std::endl;
 				break;
 		}
 	}

@@ -45,8 +45,11 @@ void InputManager::On(const lev::Event& event)
 			else if (input.is_release)
 			{
 				button->is_hovering = true;
-				button->is_down = false;
-				button->OnRelease();
+				if (button->is_down)
+				{
+					button->is_down = false;
+					button->OnRelease();
+				}
 			}
 			else if (input.is_click && input.button == sf::Mouse::Left)
 			{

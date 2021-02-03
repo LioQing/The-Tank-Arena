@@ -10,5 +10,5 @@ PlayButtonElement::PlayButtonElement(const Scale& xscale, uint32_t active_state)
 
 void PlayButtonElement::OnRelease()
 {
-	lev::Emit<StateChangeEvent>(Program::State::IN_GAME);
+	lev::Emit<StateChangeEvent>(Program::State::LEVEL_MENU);
 }

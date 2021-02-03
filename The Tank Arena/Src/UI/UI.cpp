@@ -86,6 +86,12 @@ void UI::Init(ProgramInfo program_info, uint32_t* program_state)
 	stat_tank_destroyed.SetPosition({ m_view.getCenter().x - 150, m_view.getCenter().y + 36 });
 	stat_tank_destroyed.SetFont(*font_man.GetFont("jbm"));
 	stat_tank_destroyed.SetSize(26);
+
+	auto& level_button = element_man.Add<LevelButtonElement>("level_1_button", 1.5f, static_cast<uint32_t>(Program::State::LEVEL_MENU));
+	level_button.SetTexture();
+	level_button.SetNumber(01);
+	level_button.SetScale(m_view.getSize().y / window_ui_scale);
+	level_button.SetPosition(m_view.getCenter());
 }
 
 void UI::Update()
@@ -149,6 +155,19 @@ void UI::Draw()
 		{ // timer
 			const auto& timer = element_man.Get<TextElement>("timer");
 			m_program_info.window->draw(timer.GetText());
+		}
+	}
+	else if (*m_program_state == Program::State::LEVEL_MENU)
+	{
+		{ // background
+			const auto& background = element_man.Get<SpriteElement>("background");
+			m_program_info.window->draw(background.GetSprite());
+		}
+		{ // level button
+			const auto& level_button = static_cast<const LevelButtonElement&>(element_man.Get<ButtonElement>("level_1_button"));
+			m_program_info.window->draw(level_button.GetButtonSprite());
+			for (auto i = 0; i < 2; ++i)
+				m_program_info.window->draw(level_button.GetNumberSprite(i));
 		}
 	}
 	{ // cursor

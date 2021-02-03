@@ -34,13 +34,12 @@ public:
 		IN_GAME,
 		IN_MAIN_MENU,
 		ENDGAME_MENU,
-		LEVEL_SELECTION_MENU
+		LEVEL_MENU
 	};
 
 	void Init();
-	void MainMenu();
+	void Menu();
 	void Gameplay();
-	void Endgame();
 
 	TextureManager& TextureManager();
 	sf::RenderWindow& Window();
