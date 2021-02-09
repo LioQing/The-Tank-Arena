@@ -162,10 +162,12 @@
     <ClInclude Include="Src\lic.hpp" />
     <ClInclude Include="Src\LioGraphics.hpp" />
     <ClInclude Include="Src\Matrix.hpp" />
+    <ClInclude Include="Src\mem_usage.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\CSVReader.cpp" />
     <ClCompile Include="Src\lic.cpp" />
+    <ClCompile Include="Src\mem_usage.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

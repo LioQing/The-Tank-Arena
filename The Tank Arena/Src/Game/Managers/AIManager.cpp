@@ -59,7 +59,7 @@ void AIManager::ReadData(lic::Manager& manager)
 	{
 		for (auto& end_game : manager.Filter<EndGameComponent>().Component())
 		{
-			end_game.is_ended = true;
+			//end_game.is_ended = true;
 			break;
 		}
 	}

@@ -1,9 +1,9 @@
 #include "Program.hpp"
 
 #include <lev.hpp>
+#include <mem_usage.hpp>
 
 #include "Events.hpp"
-#include "UI/Events.hpp"
 
 void Program::Init()
 {
@@ -62,6 +62,8 @@ void Program::Gameplay()
 
 	while (state == State::IN_GAME)
 	{
+		//lio::PrintMemUsage(lio::USAGE | lio::COUNT | lio::PEAK);
+		
 		// sf event
 		sf::Event event;
 		while (window.pollEvent(event))

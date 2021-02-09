@@ -48,12 +48,18 @@
     <ClInclude Include="Src\AStarPathfinder.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Src\mem_usage.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\CSVReader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Src\lic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\mem_usage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
