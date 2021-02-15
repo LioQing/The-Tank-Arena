@@ -4,7 +4,7 @@
 		"y": 19
 	},
 	"speed": 0.15,
-	"projectile_speed": 0.2,
+	"projectile_speed": 0.1,
 	"turret_interval": 200.0,
 	"projectile_bounce_count": 2.0,
 	"bullet_count": 5,

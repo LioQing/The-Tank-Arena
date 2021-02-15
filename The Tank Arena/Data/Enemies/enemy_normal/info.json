@@ -8,7 +8,7 @@
 	"turret_interval": 200.0,
 	"projectile_bounce_count": 2.0,
 	"bullet_count": 3,
-	"turret_speed": 0.0005,
+	"turret_speed": 0.001,
 	"tank_collide_radius": 20.0,
 	"tank_repulsion": 0.2
 }
