@@ -9,6 +9,7 @@ void Program::Init()
 {
 	// listen
 	Listen<StateChangeEvent>();
+	Listen<LevelChangeEvent>();
 
 	// create window
 	window.create(sf::VideoMode(1280, 720), "The Tank Arena");
@@ -47,7 +48,7 @@ void Program::Gameplay()
 {
 	// game init
 	game = std::shared_ptr<Game>(new Game());
-	game->Init(ProgramInfo(window, texture_manager), ui->GetView(), &state);
+	game->Init(ProgramInfo(window, texture_manager), ui->GetView(), &state, level);
 
 	// config
 	lev::Emit<GameSettingEvent>(
@@ -115,5 +116,10 @@ void Program::On(const lev::Event& event)
 	{
 		const auto& state_change = static_cast<const StateChangeEvent&>(event);
 		state = state_change.state;
+	}
+	else if (event.Is<LevelChangeEvent>())
+	{
+		const auto& level_change = static_cast<const LevelChangeEvent&>(event);
+		level = level_change.level;
 	}
 }

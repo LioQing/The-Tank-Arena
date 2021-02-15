@@ -51,4 +51,5 @@ public:
 private:
 
 	uint32_t state = State::IN_MAIN_MENU;
+	uint32_t level = 0;
 };

@@ -6,7 +6,7 @@ class LevelButtonElement : public ButtonElement
 {
 private:
 
-	uint8_t number;
+	uint8_t number = 0;
 
 	sf::Sprite number_idle_sprite[2];
 	sf::Sprite number_clicked_sprite[2];

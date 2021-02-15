@@ -46,7 +46,7 @@ void UI::Init(ProgramInfo program_info, uint32_t* program_state)
 	auto& title = element_man.Add<SpriteElement>("title", 2.f);
 	title.SetTexture("title");
 	title.SetScale(m_view.getSize().y / window_ui_scale);
-	title.SetPosition(sf::Vector2f(m_view.getCenter().x, m_view.getCenter().y - title.GetSprite().getGlobalBounds().height / 2));
+	title.SetPosition(sf::Vector2f(m_view.getCenter().x, m_view.getCenter().y - m_view.getSize().y * 3 / 12));
 
 	auto& background = element_man.Add<SpriteElement>("background", .25f);
 	background.SetTexture("background");
@@ -87,11 +87,16 @@ void UI::Init(ProgramInfo program_info, uint32_t* program_state)
 	stat_tank_destroyed.SetFont(*font_man.GetFont("jbm"));
 	stat_tank_destroyed.SetSize(26);
 
-	auto& level_button = element_man.Add<LevelButtonElement>("level_1_button", 1.5f, static_cast<uint32_t>(Program::State::LEVEL_MENU));
-	level_button.SetTexture();
-	level_button.SetNumber(01);
-	level_button.SetScale(m_view.getSize().y / window_ui_scale);
-	level_button.SetPosition(m_view.getCenter());
+	for (auto i = 0; i < number_of_level; ++i)
+	{
+		auto& level_button = element_man.Add<LevelButtonElement>("level_" + std::to_string(i + 1) + "_button", 1.5f, static_cast<uint32_t>(Program::State::LEVEL_MENU));
+		level_button.SetTexture();
+		level_button.SetNumber(i + 1);
+		level_button.SetScale(m_view.getSize().y / window_ui_scale);
+		level_button.SetPosition({ 
+			m_view.getCenter().x - m_view.getSize().x * 1 / 3 + m_view.getSize().x * (i % 10) / 15.f, 
+			m_view.getCenter().y - m_view.getSize().y * 1 / 5 + m_view.getSize().y * (i / 10) / 5.f });
+	}
 }
 
 void UI::Update()
@@ -164,10 +169,13 @@ void UI::Draw()
 			m_program_info.window->draw(background.GetSprite());
 		}
 		{ // level button
-			const auto& level_button = static_cast<const LevelButtonElement&>(element_man.Get<ButtonElement>("level_1_button"));
-			m_program_info.window->draw(level_button.GetButtonSprite());
-			for (auto i = 0; i < 2; ++i)
-				m_program_info.window->draw(level_button.GetNumberSprite(i));
+			for (auto i = 0; i < number_of_level; ++i)
+			{
+				const auto& level_button = static_cast<const LevelButtonElement&>(element_man.Get<ButtonElement>("level_" + std::to_string(i + 1) + "_button"));
+				m_program_info.window->draw(level_button.GetButtonSprite());
+				for (auto j = 0; j < 2; ++j)
+					m_program_info.window->draw(level_button.GetNumberSprite(j));
+			}
 		}
 	}
 	{ // cursor

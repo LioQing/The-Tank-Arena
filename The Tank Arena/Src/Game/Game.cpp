@@ -9,9 +9,20 @@
 #include "Systems.hpp"
 #include "Components.hpp"
 
-void Game::Init(ProgramInfo program_info, const sf::View& ui_view, uint32_t* program_state)
+Game::Game()
 {
-	const auto path = R"(Data\Levels\ShowCaseLevel.csv)";
+	// listen events
+	Listen<WindowResizedEvent>();
+}
+
+void Game::Init(ProgramInfo program_info, const sf::View& ui_view, uint32_t* program_state, uint32_t level)
+{
+	auto path = std::string(R"(Data\Levels\1.csv)");
+	if (level != 0)
+	{
+		path = std::string(R"(Data\Levels\)" + std::to_string(level) + ".csv");
+	}
+
 	auto tile_size = 32u;
 
 	// yo this a temp fix for multithread race condition
@@ -19,9 +30,6 @@ void Game::Init(ProgramInfo program_info, const sf::View& ui_view, uint32_t* pro
 	m_ic_man.GetComponentID<LevelSpriteComponent>();
 	m_ic_man.GetComponentID<ProjectileComponent>();
 	m_ic_man.GetComponentID<ProjectileSpriteComponent>();
-
-	// listen events
-	Listen<WindowResizedEvent>();
 
 	// store program var
 	m_program_state = program_state;

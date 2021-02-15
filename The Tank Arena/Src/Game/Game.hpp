@@ -25,7 +25,9 @@ private:
 
 public:
 
-	void Init(ProgramInfo program_info, const sf::View& ui_view, uint32_t* program_state);
+	Game();
+
+	void Init(ProgramInfo program_info, const sf::View& ui_view, uint32_t* program_state, uint32_t level);
 	void Update(float dt);
 	void Draw();
 	void CleanUp();

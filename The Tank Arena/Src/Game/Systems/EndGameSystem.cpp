@@ -16,8 +16,8 @@ void EndGameSystem::Update()
 
 	for (auto [player, health] : manager->Filter<PlayerControlComponent, HealthComponent>().Each())
 	{
-		//if (health.is_dead)
-			//end_game.is_ended = true;
+		if (health.is_dead)
+			end_game.is_ended = true;
 	}
 
 	if (end_game.is_ended)

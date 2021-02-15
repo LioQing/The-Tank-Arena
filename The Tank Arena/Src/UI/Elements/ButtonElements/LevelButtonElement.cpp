@@ -5,12 +5,12 @@
 
 void LevelButtonElement::UpdateOrigin()
 {
-	number_idle_sprite[1].setOrigin(4 + 8 * (number - 1), number_idle_sprite[1].getTextureRect().height / 2.f + 1);
-	number_clicked_sprite[1].setOrigin(4 + 8 * (number - 1), number_clicked_sprite[1].getTextureRect().height / 2.f - 1);
-	number_hover_sprite[1].setOrigin(4 + 8 * (number - 1), number_hover_sprite[1].getTextureRect().height / 2.f + 1);
-	number_idle_sprite[0].setOrigin(4 + 8 * (number - 1), number_idle_sprite[0].getTextureRect().height / 2.f + 1);
-	number_clicked_sprite[0].setOrigin(4 + 8 * (number - 1), number_clicked_sprite[0].getTextureRect().height / 2.f - 1);
-	number_hover_sprite[0].setOrigin(4 + 8 * (number - 1), number_hover_sprite[0].getTextureRect().height / 2.f + 1);
+	number_idle_sprite[1].setOrigin(4, number_idle_sprite[1].getTextureRect().height / 2.f + 1);
+	number_clicked_sprite[1].setOrigin(4, number_clicked_sprite[1].getTextureRect().height / 2.f - 1);
+	number_hover_sprite[1].setOrigin(4, number_hover_sprite[1].getTextureRect().height / 2.f + 1);
+	number_idle_sprite[0].setOrigin(4, number_idle_sprite[0].getTextureRect().height / 2.f + 1);
+	number_clicked_sprite[0].setOrigin(4, number_clicked_sprite[0].getTextureRect().height / 2.f - 1);
+	number_hover_sprite[0].setOrigin(4, number_hover_sprite[0].getTextureRect().height / 2.f + 1);
 	idle_sprite.setOrigin(idle_sprite.getTextureRect().width / 2.f, idle_sprite.getTextureRect().height / 2.f);
 	clicked_sprite.setOrigin(clicked_sprite.getTextureRect().width / 2.f, clicked_sprite.getTextureRect().height / 2.f);
 }
@@ -22,6 +22,10 @@ LevelButtonElement::LevelButtonElement(const Scale& xscale, uint32_t active_stat
 
 void LevelButtonElement::OnRelease()
 {
+	if (number == 1 || number == 2)
+		lev::Emit<LevelChangeEvent>(number);
+	else
+		lev::Emit<LevelChangeEvent>(0);
 	lev::Emit<StateChangeEvent>(Program::State::IN_GAME);
 }
 
@@ -33,15 +37,15 @@ void LevelButtonElement::SetNumber(uint8_t n)
 	{
 		if (i == 0)
 		{
-			number_idle_sprite[i].setTextureRect({ 8 * n / 10, 0, 8, 16 });
-			number_hover_sprite[i].setTextureRect({ 8 * n / 10, 0, 8, 16 });
-			number_clicked_sprite[i].setTextureRect({ 8 * n / 10, 0, 8, 16 });
+			number_idle_sprite[i].setTextureRect({ 8 * (n / 10), 0, 8, 16 });
+			number_hover_sprite[i].setTextureRect({ 8 * (n / 10), 0, 8, 16 });
+			number_clicked_sprite[i].setTextureRect({ 8 * (n / 10), 0, 8, 16 });
 		}
 		else
 		{
-			number_idle_sprite[i].setTextureRect({ 8 * n % 10, 0, 8, 16 });
-			number_hover_sprite[i].setTextureRect({ 8 * n % 10, 0, 8, 16 });
-			number_clicked_sprite[i].setTextureRect({ 8 * n % 10, 0, 8, 16 });
+			number_idle_sprite[i].setTextureRect({ 8 * (n % 10), 0, 8, 16 });
+			number_hover_sprite[i].setTextureRect({ 8 * (n % 10), 0, 8, 16 });
+			number_clicked_sprite[i].setTextureRect({ 8 * (n % 10), 0, 8, 16 });
 		}
 	}
 
@@ -50,12 +54,12 @@ void LevelButtonElement::SetNumber(uint8_t n)
 
 void LevelButtonElement::SetPosition(const sf::Vector2f& pos)
 {
-	number_idle_sprite[1].setPosition(pos.x + number_idle_sprite[1].getGlobalBounds().width * 1.f / 3, pos.y);
-	number_clicked_sprite[1].setPosition(pos.x + number_clicked_sprite[1].getGlobalBounds().width * 1.f / 3, pos.y);
-	number_hover_sprite[1].setPosition(pos.x + number_hover_sprite[1].getGlobalBounds().width * 1.f / 3, pos.y);
-	number_idle_sprite[0].setPosition(pos.x - number_idle_sprite[0].getGlobalBounds().width * 1.f / 3, pos.y);
-	number_clicked_sprite[0].setPosition(pos.x - number_clicked_sprite[0].getGlobalBounds().width * 1.f / 3, pos.y);
-	number_hover_sprite[0].setPosition(pos.x - number_hover_sprite[0].getGlobalBounds().width * 1.f / 3, pos.y);
+	number_idle_sprite[1].setPosition(pos.x + idle_sprite.getGlobalBounds().width * 1.f / 6, pos.y);
+	number_clicked_sprite[1].setPosition(pos.x + idle_sprite.getGlobalBounds().width * 1.f / 6, pos.y);
+	number_hover_sprite[1].setPosition(pos.x + idle_sprite.getGlobalBounds().width * 1.f / 6, pos.y);
+	number_idle_sprite[0].setPosition(pos.x - idle_sprite.getGlobalBounds().width * 1.f / 6, pos.y);
+	number_clicked_sprite[0].setPosition(pos.x - idle_sprite.getGlobalBounds().width * 1.f / 6, pos.y);
+	number_hover_sprite[0].setPosition(pos.x - idle_sprite.getGlobalBounds().width * 1.f / 6, pos.y);
 	idle_sprite.setPosition(pos);
 	clicked_sprite.setPosition(pos);
 

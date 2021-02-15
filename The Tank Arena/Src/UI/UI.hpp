@@ -26,6 +26,7 @@ private:
 
 	// info
 	const float window_ui_scale = 250.f; //config
+	const uint32_t number_of_level = 30;
 
 public:
 
