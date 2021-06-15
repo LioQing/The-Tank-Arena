@@ -201,6 +201,12 @@
     <ClCompile Include="Src\Events\LevelChangeEvent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Src\UI\Elements\ButtonElements\RetryButtonElement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UI\Elements\ButtonElements\NextLevelButtonElement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\Game.hpp">
@@ -434,10 +440,17 @@
     <ClInclude Include="Src\Events\LevelChangeEvent.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Src\UI\Elements\ButtonElements\RetryButtonElement.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UI\Elements\ButtonElements\NextLevelButtonElement.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Enemies\normal\info.json" />
     <None Include="Data\Player\player_default\info.json" />
     <None Include="Data\Enemies\enemy_normal\info.json" />
+    <None Include="Data\Enemies\enemy_speed\info.json" />
   </ItemGroup>
 </Project>

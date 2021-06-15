@@ -14,6 +14,16 @@ void AIManager::Init(const ProgramInfo& program_info, lic::EntityID player)
 	ais.clear();
 }
 
+std::string AIManager::GetEnemyNameFromID(int id) const
+{
+	switch (id)
+	{
+		case 1: return "enemy_normal";
+		case 2: return "enemy_speed";
+		default: return "enemy_normal";
+	}
+}
+
 void AIManager::Spawn(const std::string& path, lic::Manager& manager, size_t tile_size)
 {
 	lio::CSVReader csvr(path, true);
@@ -25,7 +35,7 @@ void AIManager::Spawn(const std::string& path, lic::Manager& manager, size_t til
 			auto id = std::stoi(csvr.At(y, x)) + 1;
 			if (id < 0)
 			{
-				auto ai = spawn::Enemy(lio::Vec2f(x + .5f, y + .5f) * tile_size * m_program_info->scale->Get(), "enemy_normal");
+				auto ai = spawn::Enemy(lio::Vec2f(x + .5f, y + .5f) * tile_size * m_program_info->scale->Get(), GetEnemyNameFromID(-id));
 				ais.emplace_back(AIHandle(ai.GetID(), ai.GetComponent<AIControlComponent>()), ai::IDToProcess(-id));
 				process_data.ai_data.emplace(ai.GetID(), AIProcessData::AISpecificData());
 			}

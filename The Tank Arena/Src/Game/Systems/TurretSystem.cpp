@@ -29,7 +29,7 @@ void TurretSystem::Update()
 			auto adjusted_turret_dir = control.turret_dir * (-1.f, 1.f);
 			spawn::Projectile(
 				transform.position,
-				transform.position + adjusted_turret_dir * 20.f * program_info->scale->Get(), // radius of turret gun barrel
+				transform.position + adjusted_turret_dir * turret.radius * program_info->scale->Get(), // radius of turret gun barrel
 				adjusted_turret_dir.Normalized(),
 				turret.speed,
 				turret.bounce_count,
@@ -70,7 +70,7 @@ void TurretSystem::Update()
 				auto adjusted_turret_dir = lio::Vec2f(std::sin(transform.turret_rotation), -std::cos(transform.turret_rotation));
 				spawn::Projectile(
 					transform.position,
-					transform.position + adjusted_turret_dir * 20.f * program_info->scale->Get(), // radius of turret gun barrel
+					transform.position + adjusted_turret_dir * turret.radius * program_info->scale->Get(), // radius of turret gun barrel
 					adjusted_turret_dir.Normalized(),
 					turret.speed,
 					turret.bounce_count,

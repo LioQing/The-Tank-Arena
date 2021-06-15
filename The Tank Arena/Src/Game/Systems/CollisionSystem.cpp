@@ -178,12 +178,13 @@ void CollisionSystem::Update()
 		for (auto [collider, ttransform] : manager->Filter<TankColliderComponent, TankTransformComponent>().Each())
 		{
 			auto pre_pt = ttransform.position + collider.pts.at(1) * -1 * program_info->scale->Vec2f();
+
 			for (auto i = 0u; i < 4; ++i)
 			{
 				auto pt = ttransform.position + collider.pts.at(i % 2) * ((i / 2 >= 1) ? -1 : 1) * program_info->scale->Vec2f();
 				auto hitbox_line = lio::LineSegf(pre_pt, pt);
 
-				if (vel_line.Intersect(hitbox_line))
+				if ((vel_line).Intersect(hitbox_line - ttransform.scaled_velocity))
 				{
 					projectile.bounce_counter = projectile.bounce_count;
 
@@ -201,7 +202,7 @@ void CollisionSystem::Update()
 					goto ContinueProjLoop;
 				}
 
-				pre_pt = std::move(pt);
+				pre_pt = pt;
 			}
 		}
 		ContinueProjLoop:;

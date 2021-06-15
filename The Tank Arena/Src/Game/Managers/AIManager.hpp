@@ -28,6 +28,7 @@ private:
 public:
 
 	void Init(const ProgramInfo& program_info, lic::EntityID player);
+	std::string GetEnemyNameFromID(int id) const;
 	void Spawn(const std::string& path, lic::Manager& manager, size_t tile_size);
 	void ReadData(lic::Manager& manager);
 	void StartProcess(lic::Manager& manager, const lic::Entity& arena_entity);

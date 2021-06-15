@@ -9,7 +9,9 @@ namespace ai
 	{
 		switch (id)
 		{
-			case 1: return Normal;
+			case 1: 
+			case 2:
+				return Normal;
 		}
 	}
 

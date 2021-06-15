@@ -48,7 +48,8 @@ lic::Entity spawn::Player(const lio::Vec2f& pos, const std::string& texture_id, 
 		info["projectile_speed"],
 		info["turret_interval"],
 		info["projectile_bounce_count"],
-		info["bullet_count"]
+		info["bullet_count"],
+		info["turret_radius"]
 	);
 
 	auto& health = AddComponent<HealthComponent>(player);
@@ -79,7 +80,8 @@ lic::Entity spawn::Enemy(const lio::Vec2f& pos, const std::string& id)
 		info["projectile_speed"],
 		info["turret_interval"],
 		info["projectile_bounce_count"],
-		info["bullet_count"]
+		info["bullet_count"],
+		info["turret_radius"]
 		);
 
 	auto& health = AddComponent<HealthComponent>(enemy);

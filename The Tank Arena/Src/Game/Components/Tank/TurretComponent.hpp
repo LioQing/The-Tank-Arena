@@ -4,6 +4,8 @@
 
 struct TurretComponent : lic::Component
 {
+	float radius;
+
 	float interval;
 	float interval_timer = 0.f;
 
@@ -13,5 +15,5 @@ struct TurretComponent : lic::Component
 	uint32_t bounce_count;
 	float speed;
 
-	TurretComponent(float speed, float interval, uint32_t bounce_count, uint32_t bullet_count);
+	TurretComponent(float speed, float interval, uint32_t bounce_count, uint32_t bullet_count, float turret_radius);
 };

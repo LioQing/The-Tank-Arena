@@ -26,6 +26,8 @@ void UI::Init(ProgramInfo program_info, uint32_t* program_state)
 	m_program_info.texture_manager->LoadButtonTexture("how_to_play", R"(Data\UI\Buttons)");
 	m_program_info.texture_manager->LoadButtonTexture("exit", R"(Data\UI\Buttons)");
 	m_program_info.texture_manager->LoadButtonTexture("main_menu", R"(Data\UI\Buttons)");
+	m_program_info.texture_manager->LoadButtonTexture("retry", R"(Data\UI\Buttons)");
+	m_program_info.texture_manager->LoadButtonTexture("next_level", R"(Data\UI\Buttons)");
 
 	m_program_info.texture_manager->LoadTexture("square_button", R"(Data\UI\Buttons\square_button.png)");
 	m_program_info.texture_manager->LoadTexture("square_button_clicked", R"(Data\UI\Buttons\square_button_clicked.png)");
@@ -75,7 +77,17 @@ void UI::Init(ProgramInfo program_info, uint32_t* program_state)
 	auto& main_menu_button = element_man.Add<MainMenuButtonElement>("main_menu_button", 1.5f, static_cast<uint32_t>(Program::State::ENDGAME_MENU));
 	main_menu_button.SetTexture("main_menu");
 	main_menu_button.SetScale(m_view.getSize().y / window_ui_scale);
-	main_menu_button.SetPosition(sf::Vector2f(m_view.getCenter().x, m_view.getCenter().y + title.GetSprite().getGlobalBounds().height * 5 / 6));
+	main_menu_button.SetPosition(sf::Vector2f(m_view.getCenter().x - title.GetSprite().getGlobalBounds().width * 0.5f, m_view.getCenter().y + title.GetSprite().getGlobalBounds().height * 5 / 6));
+
+	auto& retry_button = element_man.Add<RetryButtonElement>("retry_button", 1.5f, static_cast<uint32_t>(Program::State::ENDGAME_MENU));
+	retry_button.SetTexture("retry");
+	retry_button.SetScale(m_view.getSize().y / window_ui_scale);
+	retry_button.SetPosition(sf::Vector2f(m_view.getCenter().x, m_view.getCenter().y + title.GetSprite().getGlobalBounds().height * 5 / 6));
+
+	auto& next_level = element_man.Add<NextLevelButtonElement>("next_level_button", 1.5f, static_cast<uint32_t>(Program::State::ENDGAME_MENU));
+	next_level.SetTexture("next_level");
+	next_level.SetScale(m_view.getSize().y / window_ui_scale);
+	next_level.SetPosition(sf::Vector2f(m_view.getCenter().x + title.GetSprite().getGlobalBounds().width * 0.5f, m_view.getCenter().y + title.GetSprite().getGlobalBounds().height * 5 / 6));
 
 	auto& stat_bullet_shot = element_man.Add<StatElement>("stat_bullet_shot", StatElement::Type::BULLET_SHOT);
 	stat_bullet_shot.SetPosition({ m_view.getCenter().x - 150, m_view.getCenter().y });
@@ -148,6 +160,14 @@ void UI::Draw()
 		{ // main menu button
 			const auto& main_menu_button = element_man.Get<ButtonElement>("main_menu_button");
 			m_program_info.window->draw(main_menu_button.GetSprite());
+		}
+		{ // retry button
+			const auto& retry_button = element_man.Get<ButtonElement>("retry_button");
+			m_program_info.window->draw(retry_button.GetSprite());
+		}
+		{ // next level button
+			const auto& next_level_button = element_man.Get<ButtonElement>("next_level_button");
+			m_program_info.window->draw(next_level_button.GetSprite());
 		}
 		{ // stat bullet shot
 			const auto& stat_bullet_shot = element_man.Get<StatElement>("stat_bullet_shot");

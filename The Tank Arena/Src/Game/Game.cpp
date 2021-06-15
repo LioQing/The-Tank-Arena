@@ -39,6 +39,7 @@ void Game::Init(ProgramInfo program_info, const sf::View& ui_view, uint32_t* pro
 	// load textures
 	m_program_info.texture_manager->LoadTankTexture("player_default", R"(Data\Player)");
 	m_program_info.texture_manager->LoadTankTexture("enemy_normal", R"(Data\Enemies)");
+	m_program_info.texture_manager->LoadTankTexture("enemy_speed", R"(Data\Enemies)");
 
 	m_program_info.texture_manager->LoadTexture("tileset", R"(Data\TileMap\Metal.png)");
 	m_program_info.texture_manager->LoadTexture("bullet", R"(Data\Projectile\Default.png)");
@@ -134,7 +135,7 @@ void Game::Draw()
 	m_sys_man.Get<HUDSystem>().Draw();
 
 	// debug use
-	//m_sys_man.Get<CollisionSystem>().Draw();
+	m_sys_man.Get<CollisionSystem>().Draw();
 }
 
 void Game::CleanUp()
@@ -144,6 +145,7 @@ void Game::CleanUp()
 	// unload textures
 	m_program_info.texture_manager->UnloadTankTexture("player_default");
 	m_program_info.texture_manager->UnloadTankTexture("enemy_normal");
+	m_program_info.texture_manager->UnloadTankTexture("enemy_speed");
 
 	m_program_info.texture_manager->UnloadTexture("tileset");
 	m_program_info.texture_manager->UnloadTexture("bullet");

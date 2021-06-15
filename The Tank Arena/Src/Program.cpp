@@ -18,7 +18,7 @@ void Program::Init()
 
 	// ui 
 	ui = std::shared_ptr<UI>(new UI());
-	ui->Init(ProgramInfo(window, texture_manager), &state);
+	ui->Init(ProgramInfo(window, texture_manager, level), &state);
 }
 
 void Program::Menu()
@@ -48,7 +48,7 @@ void Program::Gameplay()
 {
 	// game init
 	game = std::shared_ptr<Game>(new Game());
-	game->Init(ProgramInfo(window, texture_manager), ui->GetView(), &state, level);
+	game->Init(ProgramInfo(window, texture_manager, level), ui->GetView(), &state, level);
 
 	// config
 	lev::Emit<GameSettingEvent>(
@@ -108,6 +108,11 @@ sf::RenderWindow& Program::Window()
 Program::State Program::GetState() const
 {
 	return static_cast<State>(state);
+}
+
+uint32_t Program::GetCurrentLevel() const
+{
+	return level;
 }
 
 void Program::On(const lev::Event& event)

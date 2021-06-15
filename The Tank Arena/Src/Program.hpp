@@ -45,6 +45,7 @@ public:
 	sf::RenderWindow& Window();
 	
 	State GetState() const;
+	uint32_t GetCurrentLevel() const;
 
 	void On(const lev::Event& event) override;
 
