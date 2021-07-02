@@ -22,7 +22,7 @@ LevelButtonElement::LevelButtonElement(const Scale& xscale, uint32_t active_stat
 
 void LevelButtonElement::OnRelease()
 {
-	if (number >= 1 && number <= 5) // level
+	if (number >= 1 && number <= 9) // level
 		lev::Emit<LevelChangeEvent>(number);
 	else
 		lev::Emit<LevelChangeEvent>(0);

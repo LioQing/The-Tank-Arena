@@ -10,7 +10,7 @@ NextLevelButtonElement::NextLevelButtonElement(const Scale& xscale, uint32_t act
 
 void NextLevelButtonElement::OnRelease()
 {
-    if (*program_info->current_level < 5)
+    if (*program_info->current_level < 9) //level
     {
         lev::Emit<LevelChangeEvent>(*program_info->current_level + 1);
         lev::Emit<StateChangeEvent>(Program::State::IN_GAME);
