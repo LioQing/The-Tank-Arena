@@ -135,7 +135,7 @@ void Game::Draw()
 	m_sys_man.Get<HUDSystem>().Draw();
 
 	// debug use
-	m_sys_man.Get<CollisionSystem>().Draw();
+	// m_sys_man.Get<CollisionSystem>().Draw();
 }
 
 void Game::CleanUp()

@@ -69,7 +69,7 @@ const std::string& TextureManager::GetTexturePath(const std::string& id) const
 	if (m_textures.find(id) == m_textures.end())
 	{
 		std::cerr << "Error: could not get texture - id: " << id << std::endl;
-		return nullptr;
+		exit(1);
 	}
 	return m_textures.at(id).path;
 }
