@@ -5,7 +5,7 @@ A tank game in C++
 
 ## Demo Gameplay - First 3 Levels
 
-![demo](C:\SuperEGG\Codes\C++\The-Tank-Arena\Demo\demo.gif)
+![demo](./Demo/demo.gif)
 
 ## External Libraries Used
 - nlohmann - JSON for Modern C++: https://github.com/nlohmann/json
